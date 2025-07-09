@@ -1,0 +1,97 @@
+---
+import { Button } from '../ui/button.tsx';
+import ScrollAnimator from '../interactive/ScrollAnimator.tsx';
+
+interface Props {
+  title: string;
+  subtitle: string;
+  ctaText?: string;
+  ctaLink?: string;
+}
+
+const { title, subtitle, ctaText, ctaLink } = Astro.props;
+---
+
+<section class="min-h-screen flex items-center justify-start relative overflow-hidden pt-48 pb-24">
+  <div class="max-w-7xl mx-auto px-8 lg:px-12">
+    <div class="grid lg:grid-cols-12 gap-16 items-center">
+      <div class="lg:col-span-8">
+        <ScrollAnimator client:load threshold={0.2} duration={1000}>
+          <div class="space-y-16">
+            <div class="space-y-12">
+              <h1 class="text-5xl md:text-6xl lg:text-7xl font-light leading-[0.9] tracking-tight text-foreground">
+                {title}
+              </h1>
+              <div class="max-w-3xl">
+                <p class="text-xl font-light text-foreground/70 leading-relaxed">
+                  {subtitle}
+                </p>
+              </div>
+            </div>
+
+            {ctaText && ctaLink && (
+              <div class="flex gap-6 pt-8">
+                <Button
+                  variant="outline"
+                  size="lg"
+                  className="font-light text-base px-8 py-3 border-2 border-foreground/30 hover:border-foreground/60 hover:bg-foreground/10 hover:scale-105 transition-all duration-300"
+                  asChild
+                >
+                  <a href={ctaLink}>
+                    {ctaText}
+                  </a>
+                </Button>
+              </div>
+            )}
+          </div>
+        </ScrollAnimator>
+      </div>
+
+      <!-- Statistical Overlay -->
+      <div class="lg:col-span-4">
+        <ScrollAnimator client:load threshold={0.2} duration={1000} delay={400}>
+          <div class="space-y-8">
+            <div class="text-xs font-normal text-foreground/40 tracking-widest uppercase">
+              The Evidence
+            </div>
+            
+            <div class="space-y-12">
+              <div class="group border-l-2 border-primary/20 pl-8">
+                <div class="text-4xl md:text-5xl font-light mb-3 text-primary group-hover:text-primary/80 transition-colors duration-300">
+                  S$930M
+                </div>
+                <div class="text-sm font-light text-foreground/60">
+                  Singapore families lost unrecovered in 2024
+                </div>
+              </div>
+
+              <div class="group border-l-2 border-primary/20 pl-8">
+                <div class="text-4xl md:text-5xl font-light mb-3 text-primary group-hover:text-primary/80 transition-colors duration-300">
+                  43%
+                </div>
+                <div class="text-sm font-light text-foreground/60">
+                  Of family offices experienced attacks
+                </div>
+              </div>
+
+              <div class="group border-l-2 border-primary/20 pl-8">
+                <div class="text-4xl md:text-5xl font-light mb-3 text-primary group-hover:text-primary/80 transition-colors duration-300">
+                  62%
+                </div>
+                <div class="text-sm font-light text-foreground/60">
+                  Attack rates for offices managing >$1B
+                </div>
+              </div>
+            </div>
+
+            <div class="pt-8 border-t border-foreground/10">
+              <div class="text-sm font-light text-foreground/50 italic">
+                Despite advanced security systems
+              </div>
+            </div>
+          </div>
+        </ScrollAnimator>
+      </div>
+    </div>
+  </div>
+</section>

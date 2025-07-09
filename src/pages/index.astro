@@ -1,0 +1,220 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import homePageContent from '../data/homePageContent';
+
+// Import sophisticated Swiss theme components per BUILD_INSTRUCTIONS
+import CompanyHero from '../components/layouts/CompanyHero.astro';
+import PerformanceMetrics from '../components/reports/PerformanceMetrics.astro';
+import ClientInsights from '../components/reports/ClientInsights.astro';
+import TechnologyStack from '../components/reports/TechnologyStack.astro';
+import DataVisualization from '../components/reports/DataVisualization.astro';
+import FoundedStory from '../components/layouts/FoundedStory.astro';
+import CTA from '../components/sections/CTA.astro';
+import SolutionSection from '../components/custom/SolutionSection.astro';
+import ScrollAnimator from '../components/interactive/ScrollAnimator.tsx';
+---
+
+<BaseLayout 
+  title="GenZen Solutions | Legacy Intelligence" 
+  description="Specializing in detecting and neutralizing trust architecture exploitation for high-net-worth families and their offices."
+>
+
+  <!-- 1. Legacy Intelligence (Hero) -->
+  <CompanyHero
+    title="The Threat Your Security Team Cannot See"
+    subtitle="Trust Architecture Exploitation: Sophisticated attacks weaponize your protective systems - wealth management structures, legal frameworks, advisory relationships - transforming them into attack vectors."
+    location="Legacy Intelligence"
+    ctaText="Schedule Confidential Assessment"
+    ctaLink="/qualification-form"
+  />
+
+  <!-- 2. The Evidence Statistics -->
+  <PerformanceMetrics 
+    title="The Evidence"
+    subtitle="Your security providers detect external threats. They cannot monitor systematic trust exploitation."
+    metrics={[
+      {
+        metric: "Unrecovered losses in Singapore (2024)",
+        value: "S$930M",
+        trend: "critical",
+        description: "Despite families having advanced security systems in place."
+      },
+      {
+        metric: "Family offices attacked globally",
+        value: "43%",
+        trend: "critical",
+        description: "A significant percentage facing sophisticated threats."
+      },
+      {
+        metric: "Attack rate for offices >$1B AUM",
+        value: "62%",
+        trend: "critical",
+        description: "Higher wealth concentration attracts more intense threats."
+      }
+    ]}
+  />
+
+  <!-- 3. What Trust Architecture Exploitation Looks Like -->
+  <ClientInsights 
+    title="What Trust Architecture Exploitation Looks Like"
+    subtitle="These patterns operate through legitimate channels using trusted relationships - invisible to traditional security frameworks."
+    insights={[
+      {
+        category: "Government Authority Impersonation",
+        feedback: "Singapore scammers achieved S$100,622 average losses per incident by exploiting cultural deference to regulatory authority.",
+        score: "S$100,622",
+        statistic: "average per incident"
+      },
+      {
+        category: "Succession Vulnerability Windows",
+        feedback: "67% of legacy undermining occurs within 18 months of leadership transitions when fragmented authority creates exploitation opportunities.",
+        score: "67%", 
+        statistic: "within 18 months"
+      },
+      {
+        category: "Long-Term Staff Cultivation",
+        feedback: "Criminal networks deliberately target family office employees with 10+ year tenure, exploiting institutional knowledge and authentication privileges.",
+        score: "10+ years",
+        statistic: "tenure targeted"
+      }
+    ]}
+  />
+
+  <!-- 4. Legacy Intelligence: The Missing Capability -->
+  <SolutionSection
+    title="Legacy Intelligence: The Missing Capability"
+    description="Legacy Intelligence detects trust system attack patterns before they manifest as losses. We focus on three core areas:"
+    features={[
+      {
+        title: "Pattern Recognition",
+        description: "Cultural vulnerability assessment and behavioral exploitation detection across family networks."
+      },
+      {
+        title: "Threat Architecture Analysis",
+        description: "Mapping how protective systems create systematic vulnerabilities during transitions and crises."
+      },
+      {
+        title: "Strategic Countermeasures",
+        description: "Converting identified threats into defensive advantages while preserving family autonomy."
+      }
+    ]}
+  />
+
+  <!-- 5. Legacy Threat Analysis -->
+  <div class="bg-secondary/20 py-20 sm:py-24">
+    <div class="mx-auto max-w-7xl px-6 lg:px-8">
+      <div class="mx-auto max-w-2xl lg:mx-0">
+        <h2 class="text-4xl md:text-5xl font-light leading-tight tracking-tight text-foreground">{homePageContent.legacyThreatAnalysis.title}</h2>
+        <p class="mt-6 text-lg leading-8 text-muted-foreground">
+          {homePageContent.legacyThreatAnalysis.description}
+        </p>
+        <ul class="mt-6 space-y-2 list-disc pl-5 text-lg font-light text-foreground/80 leading-relaxed">
+          {homePageContent.legacyThreatAnalysis.services.map(service => (
+            <li>{service.name}</li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- 6. GenZen Solutions -->
+  <section id="genzen-solutions" class="py-32 lg:py-48 bg-secondary/20">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8">
+      <div class="max-w-4xl mx-auto">
+        <div>
+          <ScrollAnimator client:load threshold={0.2} duration={1000}>
+            <div class="space-y-12">
+              <div class="space-y-8">
+                <h2 class="text-4xl md:text-5xl font-light leading-tight tracking-tight text-foreground">
+                  {homePageContent.foundedStory.companyName}
+                </h2>
+                <div class="w-16 h-px bg-foreground/20"></div>
+              </div>
+              
+              <div class="space-y-6">
+                <p class="text-lg font-light text-foreground/70 leading-relaxed">
+                  Since 2017, GenZen Solutions has specialized in helping value-centered leaders navigate critical issues that threaten their autonomy and legacy. Through global strategic partnerships, the firm serves those facing systematic erosion of their decision-making authority and generational control.
+                </p>
+                <p class="text-lg font-light text-foreground/70 leading-relaxed">
+                  This unique combination of strategic intelligence and cultural understanding enables solutions to complex challenges that others cannot provide. GenZen Solutions steps in when traditional sources of protection have compromised independence, when advisory systems have created dependencies, and when autonomous decision-making hangs in the balance.
+                </p>
+                <p class="text-lg font-light text-foreground/70 leading-relaxed">
+                  Every engagement maintains complete confidentiality, precision, and measurable autonomy restoration.
+                </p>
+              </div>
+
+              <div class="grid grid-cols-2 gap-8 pt-8 border-t border-foreground/10">
+                <div class="text-center">
+                  <div class="text-2xl font-light mb-2 text-foreground">250M+</div>
+                  <div class="text-sm font-light text-foreground/50">Assets Protected</div>
+                </div>
+                <div class="text-center">
+                  <div class="text-2xl font-light mb-2 text-foreground">15+</div>
+                  <div class="text-sm font-light text-foreground/50">Years Experience</div>
+                </div>
+              </div>
+            </div>
+          </ScrollAnimator>
+        </div>
+        
+      </div>
+    </div>
+  </section>
+
+  <!-- 7. The Founder -->
+  <section id="founder" class="py-32 lg:py-48">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8">
+      <div class="grid lg:grid-cols-2 gap-24 items-center">
+        <div>
+          <ScrollAnimator client:load threshold={0.2} duration={1000}>
+            <div class="flex items-center justify-center h-full">
+              <div class="relative">
+                <img
+                  src={homePageContent.foundedStory.founderImage}
+                  alt={homePageContent.foundedStory.founderName}
+                  class="w-80 h-96 object-cover rounded-lg shadow-xl"
+                />
+                <div class="absolute inset-0 rounded-lg bg-gradient-to-tr from-primary/10 to-transparent"></div>
+              </div>
+            </div>
+          </ScrollAnimator>
+        </div>
+        
+        <div>
+          <ScrollAnimator client:load threshold={0.2} duration={1000} delay={200}>
+            <div class="space-y-12">
+              <div class="space-y-8">
+                <h2 class="text-4xl md:text-5xl font-light leading-tight tracking-tight text-foreground">
+                  The Founder
+                </h2>
+                <div class="w-16 h-px bg-foreground/20"></div>
+              </div>
+              
+              <div class="space-y-6">
+                <h3 class="text-xl font-light text-foreground">{homePageContent.foundedStory.founderName}</h3>
+                <p class="text-lg font-light text-foreground/70 leading-relaxed">
+                  For fifteen years, I've operated at the convergence of strategic intelligence and crisis transformation. My work focuses on helping leaders recognize when their decision-making authority is being systematically undermined, restoring autonomous control before critical damage occurs.
+                </p>
+                <p class="text-lg font-light text-foreground/70 leading-relaxed">
+                  Through this approach, I've guided clients to close nine-figure deals, prevent sophisticated fraud schemes, and restore independent authority in situations where traditional methods have failed.
+                </p>
+                <p class="text-lg font-light text-foreground/70 leading-relaxed">
+                  Nothing is more meaningful than helping clients reclaim control over their most critical decisions and transform moments of crisis into catalysts for enhanced autonomy.
+                </p>
+              </div>
+            </div>
+          </ScrollAnimator>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7. Begin Trust System Assessment -->
+  <CTA
+    headline="Begin Trust System Assessment"
+    subtext="When sophisticated threats exploit trust rather than technology, when protective systems become attack vectors, and when traditional security approaches cannot detect systematic attacks - this is precisely when Legacy Intelligence provides the critical capability your family requires."
+    buttonText="Schedule Confidential Assessment"
+    buttonLink="/qualification-form"
+  />
+
+</BaseLayout>

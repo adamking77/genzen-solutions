@@ -1,0 +1,97 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* GenZen Brand Colors - Proper HSL Format */
+    --background: 240 5% 96%; /* #f4f4f5 */
+    --foreground: 0 0% 13%; /* #222222 */
+    --card: 240 5% 96%; /* #f4f4f5 */
+    --card-foreground: 0 0% 13%; /* #222222 */
+    --popover: 240 5% 96%; /* #f4f4f5 */
+    --popover-foreground: 0 0% 13%; /* #222222 */
+    --primary: 216 33% 17%; /* #1d2739 */
+    --primary-foreground: 240 5% 96%; /* #f4f4f5 */
+    --secondary: 0 0% 93%; /* #ededed */
+    --secondary-foreground: 0 0% 13%; /* #222222 */
+    --muted: 0 0% 93%; /* #ededed */
+    --muted-foreground: 0 0% 13%; /* #222222 */
+    --accent: 216 33% 17%; /* #1d2739 */
+    --accent-foreground: 240 5% 96%; /* #f4f4f5 */
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 240 5% 96%; /* #f4f4f5 */
+    --border: 0 0% 85%; /* Lighter border for sophistication */
+    --input: 0 0% 85%; /* Matching input styling */
+    --ring: 216 33% 17%; /* #1d2739 */
+    --radius: 0.5rem;
+  }
+
+  .dark {
+    /* GenZen Dark Mode Colors - Proper HSL Format */
+    --background: 216 33% 17%; /* #1d2739 */
+    --foreground: 240 5% 96%; /* #f4f4f5 */
+    --card: 216 33% 17%; /* #1d2739 */
+    --card-foreground: 240 5% 96%; /* #f4f4f5 */
+    --popover: 216 33% 17%; /* #1d2739 */
+    --popover-foreground: 240 5% 96%; /* #f4f4f5 */
+    --primary: 240 5% 96%; /* #f4f4f5 */
+    --primary-foreground: 216 33% 17%; /* #1d2739 */
+    --secondary: 0 0% 13%; /* #222222 */
+    --secondary-foreground: 240 5% 96%; /* #f4f4f5 */
+    --muted: 0 0% 13%; /* #222222 */
+    --muted-foreground: 0 0% 93%; /* #ededed */
+    --accent: 240 5% 96%; /* #f4f4f5 */
+    --accent-foreground: 216 33% 17%; /* #1d2739 */
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 240 5% 96%; /* #f4f4f5 */
+    --border: 0 0% 25%; /* Darker border for dark mode */
+    --input: 0 0% 25%; /* Matching input styling */
+    --ring: 240 5% 96%; /* #f4f4f5 */
+  }
+}
+
+@layer base {
+  * {
+    border-color: hsl(var(--border));
+  }
+
+  body {
+    background-color: hsl(var(--background));
+    color: hsl(var(--foreground));
+    font-family: sans-serif;
+    font-feature-settings: "rlig" 1, "calt" 1;
+    font-weight: 300;
+  }
+  
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+@layer utilities {
+  .text-gradient {
+    background-image: linear-gradient(to right, hsl(var(--foreground)), hsla(var(--foreground), 0.7));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+}
+
+/* Animation from App.css - general utility */
+@keyframes logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* 
+  The following styles from App.css were considered too specific 
+  to the original React app's structure or demo content and were not migrated:
+  #root, .logo, .logo:hover, .logo.react:hover, 
+  a:nth-of-type(2) .logo (animation applied directly if needed),
+  .card, .read-the-docs
+*/

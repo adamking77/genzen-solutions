@@ -1,0 +1,59 @@
+---
+interface Props {
+  title: string;
+  description: string;
+  index: number;
+}
+
+const { title, description, index } = Astro.props;
+
+const progressAngles = ['120deg', '240deg', '360deg'];
+const progressAngle = progressAngles[index] || '120deg';
+---
+
+<div class="relative group cursor-pointer hover:scale-105 transition-all duration-300">
+  <div class="grid grid-cols-12 gap-6 items-start p-6 rounded-lg hover:bg-foreground/5 transition-colors duration-300">
+    <div class="col-span-1 relative flex items-center justify-center h-full mr-4">
+      <div
+        class="progress-circle absolute"
+        style={`--end-angle: ${progressAngle};`}
+      ></div>
+      <div class="text-sm font-light text-foreground/80 relative z-10">
+        0{index + 1}
+      </div>
+    </div>
+    <div class="col-span-11">
+      <div class="space-y-4">
+        <h3 class="text-xl font-light text-foreground group-hover:text-foreground/90 transition-colors duration-300" set:html={title} />
+        <p class="text-base font-light text-foreground/70 leading-relaxed group-hover:text-foreground transition-colors duration-300" set:html={description} />
+      </div>
+    </div>
+  </div>
+  <div class="w-full h-px bg-foreground/10 mt-8 transition-all duration-300 group-hover:bg-foreground/20" />
+</div>
+<style>
+  @property --progress-angle {
+    syntax: '<angle>';
+    inherits: false;
+    initial-value: 0deg;
+  }
+
+  .progress-circle {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background-color: hsl(var(--muted-foreground) / 0.2);
+    background-image: conic-gradient(
+      hsl(var(--primary)) 0deg var(--progress-angle),
+      transparent var(--progress-angle) 360deg
+    );
+    transition: --progress-angle 0.5s ease-in-out;
+    opacity: 1;
+    -webkit-mask: radial-gradient(transparent 0 65%, white 65% 100%);
+    mask: radial-gradient(transparent 0 65%, white 65% 100%);
+  }
+
+  .group:hover .progress-circle {
+    --progress-angle: var(--end-angle);
+  }
+</style>

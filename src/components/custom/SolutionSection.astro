@@ -1,0 +1,48 @@
+---
+import LegacyFeatureCard from './LegacyFeatureCard.astro';
+
+interface Props {
+  title: string;
+  description: string;
+  features: Array<{
+    title: string;
+    description: string;
+  }>;
+}
+
+const { title, description, features } = Astro.props;
+---
+
+<section class="py-32 lg:py-40">
+  <div class="max-w-6xl mx-auto px-20 lg:px-24">
+    <div class="flex flex-col gap-16">
+      <div class="w-full space-y-8">
+        <div class="w-full md:w-2/3 space-y-8">
+          <div class="text-left space-y-8 animate-fade-in">
+            <h2 class="text-4xl md:text-5xl font-light leading-tight tracking-tight text-foreground">
+              {title}
+            </h2>
+          </div>
+          <div class="space-y-8 animate-fade-in" style="animation-delay: 200ms;">
+            <div class="prose prose-lg max-w-none">
+              <p class="text-lg font-light text-foreground leading-relaxed mb-6">
+                {description}
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="w-full md:w-3/4 md:mx-auto space-y-8">
+          {
+            features.map((feature, index) => (
+              <LegacyFeatureCard
+                title={feature.title}
+                description={feature.description}
+                index={index}
+              />
+            ))
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
