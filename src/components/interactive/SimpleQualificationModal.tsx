@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import QualificationForm from './QualificationForm';
+import GZSIntakeForm from './GZSIntakeForm';
 import { Button } from '../ui/button';
 
 interface SimpleQualificationModalProps {
@@ -20,8 +20,14 @@ const SimpleQualificationModal: React.FC<SimpleQualificationModalProps> = ({
 }) => {
   const [isOpen, setIsOpen] = useState(false);
 
-  const openModal = () => setIsOpen(true);
-  const closeModal = () => setIsOpen(false);
+  const openModal = () => {
+    console.log('Opening modal...');
+    setIsOpen(true);
+  };
+  const closeModal = () => {
+    console.log('Closing modal...');
+    setIsOpen(false);
+  };
 
   const handleBackdropClick = (e: React.MouseEvent) => {
     if (e.target === e.currentTarget) {
@@ -89,7 +95,7 @@ const SimpleQualificationModal: React.FC<SimpleQualificationModalProps> = ({
               {/* Scrollable Content */}
               <div className="max-h-[90vh] overflow-y-auto">
                 <div className="p-0">
-                  <QualificationForm onComplete={closeModal} isModal={true} />
+                  <GZSIntakeForm onComplete={closeModal} isModal={true} />
                 </div>
               </div>
             </motion.div>

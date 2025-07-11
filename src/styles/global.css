@@ -28,26 +28,26 @@
   }
 
   .dark {
-    /* GenZen Dark Mode Colors - Consistent #1d283a backgrounds */
-    --background: 217 33% 17%; /* #1d283a */
-    --foreground: 240 5% 96%; /* #f4f4f5 */
-    --card: 217 33% 17%; /* #1d283a */
-    --card-foreground: 240 5% 96%; /* #f4f4f5 */
-    --popover: 217 33% 17%; /* #1d283a */
-    --popover-foreground: 240 5% 96%; /* #f4f4f5 */
-    --primary: 240 5% 96%; /* #f4f4f5 */
-    --primary-foreground: 217 33% 17%; /* #1d283a */
-    --secondary: 217 33% 17%; /* #1d283a - changed from #222222 */
-    --secondary-foreground: 240 5% 96%; /* #f4f4f5 */
-    --muted: 217 33% 17%; /* #1d283a - changed from #222222 */
-    --muted-foreground: 0 0% 93%; /* #ededed */
-    --accent: 240 5% 96%; /* #f4f4f5 */
-    --accent-foreground: 217 33% 17%; /* #1d283a */
+    /* Original Swiss Astro Theme Dark Mode Colors */
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
+    --primary: 210 40% 98%;
+    --primary-foreground: 222.2 47.4% 11.2%;
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
     --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 240 5% 96%; /* #f4f4f5 */
-    --border: 0 0% 25%; /* Darker border for dark mode */
-    --input: 0 0% 25%; /* Matching input styling */
-    --ring: 240 5% 96%; /* #f4f4f5 */
+    --destructive-foreground: 210 40% 98%;
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 212.7 26.8% 83.9%;
   }
 }
 
@@ -59,13 +59,21 @@
   body {
     background-color: hsl(var(--background));
     color: hsl(var(--foreground));
-    font-family: sans-serif;
+    font-family: 'Inter', sans-serif;
     font-feature-settings: "rlig" 1, "calt" 1;
     font-weight: 300;
   }
   
   html {
     scroll-behavior: smooth;
+  }
+
+  h1 {
+    line-height: 1.2 !important;
+  }
+
+  h2 {
+    line-height: 1.3 !important;
   }
 }
 
@@ -75,6 +83,14 @@
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
+  }
+
+  .leading-relaxed-h1 {
+    line-height: 1.2 !important;
+  }
+
+  .leading-relaxed-h2 {
+    line-height: 1.3 !important;
   }
 }
 

@@ -1,50 +1,59 @@
 ---
-import { Button } from '@/components/ui/button.tsx'; // Assuming .tsx, adjust if .astro
+import SimpleQualificationModal from '../interactive/SimpleQualificationModal.tsx';
 
 export interface Props {
   headline?: string;
-  subtext?: string;
+  leftText?: string;
+  rightText?: string[];
   buttonText?: string;
-  buttonLink?: string;
+  buttonLink?: string; // Made optional since we're using modal
+  sectionId?: string;
 }
 
 const {
   headline = "Ready to get started?",
-  subtext = "Let's discuss how we can help transform your business with strategic insights and innovative solutions.",
+  leftText = "Let's discuss how we can help transform your business.",
+  rightText = ["We provide strategic insights and innovative solutions tailored to your specific needs."],
   buttonText = "Start a Conversation",
   buttonLink = "#contact", // Default link, can be overridden
+  sectionId,
 }: Props = Astro.props;
 ---
 
-<section class="py-32 lg:py-40">
+<section class="py-32 lg:py-40" id={sectionId}>
   <div class="max-w-7xl mx-auto px-8 lg:px-12">
     <div class="grid grid-cols-12 gap-16">
       <div class="col-span-12 lg:col-span-5">
-        {headline && (
-          <h2 class="text-4xl md:text-5xl font-light leading-tight tracking-tight text-foreground">
-            {headline}
-          </h2>
-        )}
+        <div class="space-y-8">
+          {headline && (
+            <h2 class="text-4xl md:text-5xl font-light leading-tight tracking-tight text-foreground">
+              {headline}
+            </h2>
+          )}
+          {leftText && (
+            <p class="text-lg font-light text-foreground/70 leading-relaxed">
+              {leftText}
+            </p>
+          )}
+        </div>
       </div>
       
       <div class="col-span-12 lg:col-span-6 lg:col-start-7">
         <div class="space-y-8">
-          {subtext && (
+          {rightText && rightText.map((paragraph) => (
             <p class="text-lg font-light text-foreground/70 leading-relaxed">
-              {subtext}
+              {paragraph}
             </p>
-          )}
-          {buttonText && buttonLink && (
+          ))}
+          {buttonText && (
             <div>
-              <a href={buttonLink}>
-                <Button
-                  variant="outline"
-                  size="lg"
-                  className="font-light border-foreground/20 hover:border-foreground/40"
-                >
-                  {buttonText}
-                </Button>
-              </a>
+              <SimpleQualificationModal 
+                client:load
+                triggerText={buttonText}
+                className="font-light text-base px-12 py-3 h-auto border-2 border-foreground/20 hover:border-primary hover:bg-primary hover:text-primary-foreground hover:scale-105 transition-all duration-300 rounded-full"
+                variant="outline"
+                size="lg"
+              />
             </div>
           )}
         </div>

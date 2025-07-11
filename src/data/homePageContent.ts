@@ -68,10 +68,9 @@ const homePageContent = {
     ],
   },
   legacyEcosystemAnalysis: {
-    title: "Begin With Legacy Ecosystem Analysis",
-    description: "Your family's protective systems require immediate assessment to identify where Trust Architecture Exploitation may already be occurring. Our comprehensive Legacy Ecosystem Analysis provides the intelligence foundation needed to restore authentic control.",
+    title: "Legacy Ecosystem Analysis",
+    description: "Understanding your complete protective ecosystem reveals how various relationships and systems either strengthen or compromise your legacy. The comprehensive Legacy Ecosystem Analysis provides the intelligence foundation needed to restore authentic control.",
     subtitle: "This strategic diagnostic delivers:",
-    description2: "Comprehensive intelligence assessment revealing Trust Architecture Exploitation vulnerabilities within your current systems:",
     services: [
       {
         name: "Trust dependency mapping across advisory relationships",

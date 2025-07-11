@@ -81,24 +81,26 @@ import ScrollAnimator from '../components/interactive/ScrollAnimator.tsx';
   />
 
   <!-- 4. Legacy Intelligence: Our Specialized Intelligence Methodology -->
-  <SolutionSection
-    title="Legacy Intelligence: Our Specialized Intelligence Methodology"
-    description="Legacy Intelligence is our approach to detecting Legacy Hijacking before it manifests by analyzing three critical domains:"
-    features={[
-      {
-        title: "Cultural Intelligence",
-        description: "Understanding how trust networks and cultural authority structures affect principal decision-making."
-      },
-      {
-        title: "Behavioral Intelligence",
-        description: "Analyzing how decision-making processes and protective relationships can be influenced through sophisticated methods."
-      },
-      {
-        title: "Human Intelligence",
-        description: "Mapping how advisory and operational systems impact principal control and authority."
-      }
-    ]}
-  />
+  <section id="intelligence">
+    <TechnologyStack
+      title="Legacy Intelligence: Our Specialized Intelligence Methodology"
+      description="Legacy Intelligence is our approach to detecting Legacy Hijacking before it manifests by analyzing three critical domains that traditional security approaches cannot monitor."
+      technologies={[
+        {
+          category: "Cultural Intelligence",
+          description: "Understanding how trust networks and cultural authority structures affect principal decision-making."
+        },
+        {
+          category: "Behavioral Intelligence", 
+          description: "Analyzing how decision-making processes and protective relationships can be influenced through sophisticated methods."
+        },
+        {
+          category: "Human Intelligence",
+          description: "Mapping how advisory and operational systems impact principal control and authority."
+        }
+      ]}
+    />
+  </section>
 
   <!-- 5. How Legacy Intelligence Restores Authentic Control -->
   <SolutionSection
@@ -121,16 +123,16 @@ import ScrollAnimator from '../components/interactive/ScrollAnimator.tsx';
   />
 
   <!-- 6. Begin With Legacy Ecosystem Analysis -->
-  <div class="bg-secondary/20 py-20 sm:py-24">
+  <section id="services" class="bg-secondary/20 py-20 sm:py-24">
     <div class="mx-auto max-w-7xl px-6 lg:px-8">
       <div class="mx-auto max-w-2xl lg:mx-0">
         <h2 class="text-4xl md:text-5xl font-light leading-tight tracking-tight text-foreground">{homePageContent.legacyEcosystemAnalysis.title}</h2>
         <p class="mt-6 text-lg leading-8 text-muted-foreground">
           {homePageContent.legacyEcosystemAnalysis.description}
         </p>
-        <p class="mt-4 text-lg leading-8 text-muted-foreground">
+        <h3 class="mt-8 text-xl font-light text-foreground">
           {homePageContent.legacyEcosystemAnalysis.subtitle}
-        </p>
+        </h3>
         <p class="mt-4 text-lg leading-8 text-muted-foreground">
           {homePageContent.legacyEcosystemAnalysis.description2}
         </p>
@@ -141,17 +143,17 @@ import ScrollAnimator from '../components/interactive/ScrollAnimator.tsx';
         </ul>
       </div>
     </div>
-  </div>
+  </section>
 
   <!-- 6. GenZen Solutions -->
-  <section id="genzen-solutions" class="py-32 lg:py-48 bg-secondary/20" aria-labelledby="genzen-solutions-heading">
+  <section id="about" class="py-32 lg:py-48 bg-secondary/20" aria-labelledby="about-heading">
     <div class="max-w-7xl mx-auto px-6 lg:px-8">
       <div class="max-w-4xl mx-auto">
         <div>
           <ScrollAnimator client:visible threshold={0.2} duration={1000}>
             <div class="space-y-12">
               <div class="space-y-8">
-                <h2 id="genzen-solutions-heading" class="text-4xl md:text-5xl font-light leading-tight tracking-tight text-foreground">
+                <h2 id="about-heading" class="text-4xl md:text-5xl font-light leading-tight tracking-tight text-foreground">
                   {homePageContent.foundedStory.companyName}
                 </h2>
                 <div class="w-16 h-px bg-foreground/20"></div>
@@ -235,8 +237,13 @@ import ScrollAnimator from '../components/interactive/ScrollAnimator.tsx';
 
   <!-- 7. Apply For Your Legacy Ecosystem Analysis -->
   <CTA
+    sectionId="contact"
     headline="Apply For Your Legacy Ecosystem Analysis"
-    subtext="This confidential analysis reveals exactly how relationships and systems affect your legacy - and how to optimize authentic control. During this discreet evaluation, we map how your ecosystem actually functions, identify which relationships strengthen or compromise your position, and provide clear recommendations that enhance rather than disrupt your current operations. The analysis is conducted with complete confidentiality. Most clients discover important dynamics about their ecosystem they never knew existed."
+    leftText="This confidential analysis reveals exactly how relationships and systems affect your legacy - and how to optimize authentic control."
+    rightText={[
+      "During this discreet evaluation, we map how your ecosystem actually functions, identify which relationships strengthen or compromise your position, and provide clear recommendations that enhance rather than disrupt your current operations.",
+      "Most clients discover important dynamics about their ecosystem they never knew existed."
+    ]}
     buttonText="Apply for Analysis"
     buttonLink="/qualification-form"
   />

@@ -1,13 +1,13 @@
 ---
-import { Button } from '../ui/button.tsx';
 import ScrollAnimator from '../interactive/ScrollAnimator.tsx';
+import SimpleQualificationModal from '../interactive/SimpleQualificationModal.tsx';
 
 interface Props {
   title: string;
   subtitle?: string;
   location: string;
   ctaText: string;
-  ctaLink: string;
+  ctaLink?: string; // Made optional since we're using modal
 }
 
 const { 
@@ -33,7 +33,7 @@ const {
       {subtitle && (
         <div>
           <ScrollAnimator client:load threshold={0.2} duration={1000} delay={200}>
-            <p class="text-lg font-light text-foreground/70 leading-relaxed max-w-2xl">
+            <p class="text-xl md:text-2xl font-light text-foreground/70 leading-relaxed max-w-2xl">
               {subtitle}
             </p>
           </ScrollAnimator>
@@ -42,15 +42,13 @@ const {
       
       <div>
         <ScrollAnimator client:load threshold={0.2} duration={1000} delay={400}>
-          <a href={ctaLink}>
-            <Button 
-              variant="outline" 
-              size="lg"
-              className="font-light text-base px-8 py-3 border-2 border-foreground/30 hover:border-foreground/60 hover:bg-foreground/10 hover:scale-105 transition-all duration-300 rounded-full"
-            >
-              {ctaText}
-            </Button>
-          </a>
+          <SimpleQualificationModal 
+            client:load
+            triggerText={ctaText}
+            className="font-light text-base px-12 py-3 h-auto border-2 border-foreground/20 hover:border-primary hover:bg-primary hover:text-primary-foreground hover:scale-105 transition-all duration-300 rounded-full"
+            variant="outline"
+            size="lg"
+          />
         </ScrollAnimator>
       </div>
     </div>
