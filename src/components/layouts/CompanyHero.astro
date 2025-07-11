@@ -1,6 +1,7 @@
 ---
 import ScrollAnimator from '../interactive/ScrollAnimator.tsx';
-import SimpleQualificationModal from '../interactive/SimpleQualificationModal.tsx';
+import IntakeFormModal from '../modals/IntakeFormModal.tsx';
+import { Button } from '../ui/button.tsx';
 
 interface Props {
   title: string;
@@ -24,7 +25,7 @@ const {
     <div class="space-y-12">
       <div>
         <ScrollAnimator client:load threshold={0.2} duration={1000}>
-          <h1 class="text-4xl md:text-5xl lg:text-6xl font-light leading-[1.1] tracking-tight max-w-5xl text-foreground">
+          <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-light leading-[1.1] tracking-tight max-w-5xl text-foreground">
             {title} <span class="text-foreground/50">{location}</span>
           </h1>
         </ScrollAnimator>
@@ -33,7 +34,7 @@ const {
       {subtitle && (
         <div>
           <ScrollAnimator client:load threshold={0.2} duration={1000} delay={200}>
-            <p class="text-xl md:text-2xl font-light text-foreground/70 leading-relaxed max-w-2xl">
+            <p class="text-lg sm:text-xl md:text-2xl font-light text-foreground/70 leading-relaxed max-w-2xl">
               {subtitle}
             </p>
           </ScrollAnimator>
@@ -42,13 +43,9 @@ const {
       
       <div>
         <ScrollAnimator client:load threshold={0.2} duration={1000} delay={400}>
-          <SimpleQualificationModal 
-            client:load
-            triggerText={ctaText}
-            className="font-light text-base px-12 py-3 h-auto border-2 border-foreground/20 hover:border-primary hover:bg-primary hover:text-primary-foreground hover:scale-105 transition-all duration-300 rounded-full"
-            variant="outline"
-            size="lg"
-          />
+          <IntakeFormModal client:load>
+            <Button size="lg" className="font-light text-base px-12 py-3 h-auto border-2 border-foreground/20 bg-transparent text-foreground hover:border-primary hover:bg-primary hover:text-primary-foreground hover:scale-105 transition-[border-color,background-color,color,transform] duration-300 ease-in-out rounded-full">{ctaText}</Button>
+          </IntakeFormModal>
         </ScrollAnimator>
       </div>
     </div>

@@ -169,19 +169,14 @@ const GZSIntakeForm: React.FC<GZSIntakeFormProps> = ({ onComplete, isModal = fal
       return answer && Array.isArray(answer) && answer.length > 0;
     }
     
-    return answer && answer.trim !== '' && answer.length > 0;
+    return answer && answer.trim() !== '' && answer.length > 0;
   };
 
   const handleSubmit = () => {
     console.log('GZS Intake Form Answers:', answers);
     setSubmitted(true);
     
-    // Auto-close modal after 3 seconds if in modal mode
-    if (onComplete) {
-      setTimeout(() => {
-        onComplete();
-      }, 3000);
-    }
+    // Modal will only close when user clicks X - no auto-close
   };
 
   const progress = currentQuestion > -1 ? ((currentQuestion + 1) / (questions.length + 1)) * 100 : 0;
@@ -201,7 +196,7 @@ const GZSIntakeForm: React.FC<GZSIntakeFormProps> = ({ onComplete, isModal = fal
               Application Submitted
             </h1>
             <p className="text-base sm:text-lg font-light leading-relaxed text-foreground/80 max-w-xl mx-auto">
-              Your Legacy Ecosystem Analysis application has been received. We will contact qualified candidates within 48 hours to discuss next steps.
+              Your application is being reviewed. Our evaluation process ensures optimal engagement alignment. You will be contacted within 48-72 hours regarding your qualification status.
             </p>
           </div>
           <div className="pt-8">
@@ -256,7 +251,7 @@ const GZSIntakeForm: React.FC<GZSIntakeFormProps> = ({ onComplete, isModal = fal
                     onClick={() => setCurrentQuestion(0)}
                     variant="outline"
                     size="lg"
-                    className="font-light text-base px-12 py-3 h-auto border-2 border-foreground/20 hover:border-primary hover:bg-primary hover:text-primary-foreground hover:scale-105 transition-all duration-300 rounded-full"
+                    className="font-light text-base px-12 py-3 h-auto border-2 border-foreground/20 bg-transparent text-foreground hover:border-primary hover:bg-primary hover:text-primary-foreground hover:scale-105 transition-[border-color,background-color,color,transform] duration-300 ease-in-out rounded-full"
                   >
                     Begin Application
                   </Button>
@@ -287,7 +282,7 @@ const GZSIntakeForm: React.FC<GZSIntakeFormProps> = ({ onComplete, isModal = fal
                         <Input
                           id={questions[currentQuestion].name}
                           type="text"
-                          className="w-full p-4 text-lg font-light text-center bg-background border-2 border-foreground/20 rounded-lg focus:border-primary focus:ring-0 transition-all duration-300"
+                          className="w-full p-4 text-lg font-light text-left bg-background border-2 border-foreground/20 rounded-lg focus:border-primary focus:ring-0 transition-all duration-300"
                           onChange={(e) => handleChange(questions[currentQuestion].name, e.target.value)}
                           value={answers[questions[currentQuestion].name] || ''}
                           autoFocus
@@ -297,7 +292,7 @@ const GZSIntakeForm: React.FC<GZSIntakeFormProps> = ({ onComplete, isModal = fal
                         <Input
                           id={questions[currentQuestion].name}
                           type="email"
-                          className="w-full p-4 text-lg font-light text-center bg-background border-2 border-foreground/20 rounded-lg focus:border-primary focus:ring-0 transition-all duration-300"
+                          className="w-full p-4 text-lg font-light text-left bg-background border-2 border-foreground/20 rounded-lg focus:border-primary focus:ring-0 transition-all duration-300"
                           onChange={(e) => handleChange(questions[currentQuestion].name, e.target.value)}
                           value={answers[questions[currentQuestion].name] || ''}
                           autoFocus

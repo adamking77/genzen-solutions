@@ -18,10 +18,10 @@ const { title, subtitle, insights = [] } = Astro.props;
     <div class="grid lg:grid-cols-12 gap-20">
       <div class="lg:col-span-4 lg:col-start-2">
         <div class="space-y-8"> {/* Removed animate-fade-in */}
-          <h2 class="text-4xl md:text-5xl font-light leading-tight tracking-tight text-foreground hover:scale-105 transition-transform duration-300">
+          <h2 class="text-4xl md:text-5xl font-light leading-tight tracking-tight text-foreground">
             {title}
           </h2>
-          <div class="w-12 h-px bg-foreground/20 transition-all duration-1000 hover:w-24"></div>
+          <div class="w-12 h-px bg-foreground/20"></div>
           <p class="text-base font-light text-foreground/70 leading-relaxed">
             {subtitle}
           </p>

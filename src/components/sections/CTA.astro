@@ -1,5 +1,7 @@
 ---
-import SimpleQualificationModal from '../interactive/SimpleQualificationModal.tsx';
+import IntakeFormModal from '../modals/IntakeFormModal.tsx';
+import { Button } from '../ui/button.tsx';
+import ScrollAnimator from '../interactive/ScrollAnimator.tsx';
 
 export interface Props {
   headline?: string;
@@ -24,39 +26,39 @@ const {
   <div class="max-w-7xl mx-auto px-8 lg:px-12">
     <div class="grid grid-cols-12 gap-16">
       <div class="col-span-12 lg:col-span-5">
-        <div class="space-y-8">
-          {headline && (
-            <h2 class="text-4xl md:text-5xl font-light leading-tight tracking-tight text-foreground">
-              {headline}
-            </h2>
-          )}
-          {leftText && (
-            <p class="text-lg font-light text-foreground/70 leading-relaxed">
-              {leftText}
-            </p>
-          )}
-        </div>
+        <ScrollAnimator client:load threshold={0.2} duration={1000}>
+          <div class="space-y-8">
+            {headline && (
+              <h2 class="text-4xl md:text-5xl font-light leading-tight tracking-tight text-foreground">
+                {headline}
+              </h2>
+            )}
+            {leftText && (
+              <p class="text-lg font-light text-foreground/70 leading-relaxed">
+                {leftText}
+              </p>
+            )}
+          </div>
+        </ScrollAnimator>
       </div>
       
       <div class="col-span-12 lg:col-span-6 lg:col-start-7">
-        <div class="space-y-8">
-          {rightText && rightText.map((paragraph) => (
-            <p class="text-lg font-light text-foreground/70 leading-relaxed">
-              {paragraph}
-            </p>
-          ))}
-          {buttonText && (
-            <div>
-              <SimpleQualificationModal 
-                client:load
-                triggerText={buttonText}
-                className="font-light text-base px-12 py-3 h-auto border-2 border-foreground/20 hover:border-primary hover:bg-primary hover:text-primary-foreground hover:scale-105 transition-all duration-300 rounded-full"
-                variant="outline"
-                size="lg"
-              />
-            </div>
-          )}
-        </div>
+        <ScrollAnimator client:load threshold={0.2} duration={1000} delay={200}>
+          <div class="space-y-8">
+            {rightText && rightText.map((paragraph) => (
+              <p class="text-lg font-light text-foreground/70 leading-relaxed">
+                {paragraph}
+              </p>
+            ))}
+            {buttonText && (
+              <div>
+                <IntakeFormModal client:load>
+                  <Button size="lg" className="font-light text-base px-12 py-3 h-auto border-2 border-foreground/20 bg-transparent text-foreground hover:border-primary hover:bg-primary hover:text-primary-foreground hover:scale-105 transition-[border-color,background-color,color,transform] duration-300 ease-in-out rounded-full">{buttonText}</Button>
+                </IntakeFormModal>
+              </div>
+            )}
+          </div>
+        </ScrollAnimator>
       </div>
     </div>
   </div>

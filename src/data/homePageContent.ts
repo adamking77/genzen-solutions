@@ -103,7 +103,7 @@ const homePageContent = {
     companyStory: "Since 2017, GenZen Solutions has specialized in helping value-centered leaders navigate critical issues that threaten their autonomy and legacy. Through global strategic partnerships, the firm serves those facing systematic erosion of their decision-making authority and generational control.\n\nThis unique combination of strategic intelligence and cultural understanding enables solutions to complex challenges that others cannot provide. GenZen Solutions steps in when traditional sources of protection have compromised independence, when advisory systems have created dependencies, and when autonomous decision-making hangs in the balance.\n\nEvery engagement maintains complete confidentiality, precision, and measurable autonomy restoration.",
     founderName: "Adam King: Founder & Chief Strategist",
     founderStory: "For fifteen years, I've operated at the convergence of strategic intelligence and crisis transformation. My work focuses on helping leaders recognize when their decision-making authority is being systematically undermined, restoring autonomous control before critical damage occurs.\n\nThrough this approach, I've guided clients to close nine-figure deals, prevent sophisticated fraud schemes, and restore independent authority in situations where traditional methods have failed. Nothing is more meaningful than helping clients reclaim control over their most critical decisions and transform moments of crisis into catalysts for enhanced autonomy.",
-    founderImage: "/images/founder-profile.jpg",
+    founderImage: "/images/adam_king_2.jpeg",
   },
   cta: {
     headline: "Apply For Your Legacy Ecosystem Analysis",

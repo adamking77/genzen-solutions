@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Button } from '../ui/button';
-import { Dialog, DialogContent, DialogTrigger } from '../ui/dialog';
+import { Dialog, DialogContent } from '../ui/dialog';
 import GZSIntakeForm from '../interactive/GZSIntakeForm';
 
 interface IntakeFormButtonProps {
@@ -28,25 +28,27 @@ const IntakeFormButton: React.FC<IntakeFormButtonProps> = ({
   };
 
   return (
-    <Dialog open={isOpen} onOpenChange={setIsOpen}>
-      <DialogTrigger asChild>
-        <Button 
-          variant={variant}
-          size={size}
-          className={className}
-          onClick={handleClick}
-        >
-          {buttonText}
-        </Button>
-      </DialogTrigger>
-      <DialogContent 
-        className="max-w-4xl w-[95vw] max-h-[90vh] overflow-hidden p-0 border-0 bg-background"
+    <>
+      <Button
+        variant={variant}
+        size={size}
+        className={className}
+        onClick={handleClick}
       >
-        <div className="max-h-[90vh] overflow-y-auto">
-          <GZSIntakeForm onComplete={handleComplete} isModal={true} />
-        </div>
-      </DialogContent>
-    </Dialog>
+        {buttonText}
+      </Button>
+      {isOpen && (
+        <Dialog open={isOpen} onOpenChange={setIsOpen}>
+          <DialogContent
+            className="max-w-4xl w-[95vw] max-h-[90vh] overflow-hidden p-0 border-0 bg-background"
+          >
+            <div className="max-h-[90vh] overflow-y-auto">
+              <GZSIntakeForm onComplete={handleComplete} isModal={true} />
+            </div>
+          </DialogContent>
+        </Dialog>
+      )}
+    </>
   );
 };
 

@@ -7,8 +7,8 @@ interface ScrollAnimatorProps extends PropsWithChildren {
   initialState?: 'fadeUp' | 'fadeDown' | 'fade';
   duration?: number;
   delay?: number;
-  staggerChildren?: boolean;
-  staggerDelay?: number;
+  staggerChildren?: number | boolean; // Now accepts number for stagger delay
+  easing?: 'ease-in' | 'ease-out' | 'ease-in-out' | 'linear';
 }
 
 export function ScrollAnimator({
@@ -19,13 +19,25 @@ export function ScrollAnimator({
   duration = 1000,
   delay = 0,
   staggerChildren = false,
-  staggerDelay = 100
+  easing = 'ease-in-out'
 }: ScrollAnimatorProps) {
   const { ref, isVisible } = useScrollTrigger({ threshold, rootMargin });
 
   const getAnimationClasses = () => {
-    const durationClass = duration === 800 ? 'duration-800' : 'duration-1000';
-    const base = `transition-all ${durationClass}`;
+    // Support flexible duration values
+    const getDurationClass = (dur: number) => {
+      if (dur <= 200) return 'duration-200';
+      if (dur <= 300) return 'duration-300';
+      if (dur <= 500) return 'duration-500';
+      if (dur <= 700) return 'duration-700';
+      if (dur <= 800) return 'duration-800';
+      if (dur <= 1000) return 'duration-1000';
+      return 'duration-1000'; // fallback
+    };
+
+    const durationClass = getDurationClass(duration);
+    const easingClass = `ease-${easing}`;
+    const base = `transition-[opacity,transform] ${durationClass} ${easingClass}`;
     
     if (isVisible) {
       return `${base} opacity-100 translate-y-0`;
@@ -49,6 +61,7 @@ export function ScrollAnimator({
 
   // Handle staggered children
   if (staggerChildren && React.Children.count(children) > 1) {
+    const staggerDelay = typeof staggerChildren === 'number' ? staggerChildren : 100;
     return (
       <div ref={ref}>
         {React.Children.map(children, (child, index) => (
@@ -56,7 +69,7 @@ export function ScrollAnimator({
             key={index}
             className={getAnimationClasses()}
             style={{
-              transitionDelay: isVisible ? `${index * staggerDelay}ms` : '0ms'
+              transitionDelay: isVisible ? `${(delay || 0) + (index * staggerDelay)}ms` : '0ms'
             }}
           >
             {child}

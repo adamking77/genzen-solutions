@@ -23,7 +23,7 @@ import ScrollAnimator from '../components/interactive/ScrollAnimator.tsx';
   <CompanyHero
     title="Specialized Intelligence Preserving Generational Legacy"
     subtitle="This age of increased opacity enables systematic exploitation of your legacies - we deliver the clarity that restores authentic control."
-    location="Legacy Intelligence"
+    location=""
     ctaText="Apply for Analysis"
     ctaLink="/qualification-form"
   />
@@ -125,23 +125,25 @@ import ScrollAnimator from '../components/interactive/ScrollAnimator.tsx';
   <!-- 6. Begin With Legacy Ecosystem Analysis -->
   <section id="services" class="bg-secondary/20 py-20 sm:py-24">
     <div class="mx-auto max-w-7xl px-6 lg:px-8">
-      <div class="mx-auto max-w-2xl lg:mx-0">
-        <h2 class="text-4xl md:text-5xl font-light leading-tight tracking-tight text-foreground">{homePageContent.legacyEcosystemAnalysis.title}</h2>
-        <p class="mt-6 text-lg leading-8 text-muted-foreground">
-          {homePageContent.legacyEcosystemAnalysis.description}
-        </p>
-        <h3 class="mt-8 text-xl font-light text-foreground">
-          {homePageContent.legacyEcosystemAnalysis.subtitle}
-        </h3>
-        <p class="mt-4 text-lg leading-8 text-muted-foreground">
-          {homePageContent.legacyEcosystemAnalysis.description2}
-        </p>
-        <ul class="mt-6 space-y-2 list-disc pl-5 text-lg font-light text-foreground/80 leading-relaxed">
-          {homePageContent.legacyEcosystemAnalysis.services.map(service => (
-            <li>{service.name}</li>
-          ))}
-        </ul>
-      </div>
+      <ScrollAnimator client:visible threshold={0.2} duration={1000}>
+        <div class="mx-auto max-w-2xl lg:mx-0">
+          <h2 class="text-3xl sm:text-4xl md:text-5xl font-light leading-tight tracking-tight text-foreground">{homePageContent.legacyEcosystemAnalysis.title}</h2>
+          <p class="mt-6 text-lg leading-8 text-muted-foreground">
+            {homePageContent.legacyEcosystemAnalysis.description}
+          </p>
+          <h3 class="mt-8 text-xl font-light text-foreground">
+            {homePageContent.legacyEcosystemAnalysis.subtitle}
+          </h3>
+          <p class="mt-4 text-lg leading-8 text-muted-foreground">
+            {homePageContent.legacyEcosystemAnalysis.description2}
+          </p>
+          <ul class="mt-6 space-y-2 list-disc pl-5 text-lg font-light text-foreground/80 leading-relaxed">
+            {homePageContent.legacyEcosystemAnalysis.services.map(service => (
+              <li>{service.name}</li>
+            ))}
+          </ul>
+        </div>
+      </ScrollAnimator>
     </div>
   </section>
 
@@ -153,7 +155,7 @@ import ScrollAnimator from '../components/interactive/ScrollAnimator.tsx';
           <ScrollAnimator client:visible threshold={0.2} duration={1000}>
             <div class="space-y-12">
               <div class="space-y-8">
-                <h2 id="about-heading" class="text-4xl md:text-5xl font-light leading-tight tracking-tight text-foreground">
+                <h2 id="about-heading" class="text-3xl sm:text-4xl md:text-5xl font-light leading-tight tracking-tight text-foreground">
                   {homePageContent.foundedStory.companyName}
                 </h2>
                 <div class="w-16 h-px bg-foreground/20"></div>
@@ -213,7 +215,7 @@ import ScrollAnimator from '../components/interactive/ScrollAnimator.tsx';
           <ScrollAnimator client:visible threshold={0.2} duration={1000} delay={200}>
             <div class="space-y-12">
               <div class="space-y-8">
-                <h2 id="founder-heading" class="text-4xl md:text-5xl font-light leading-tight tracking-tight text-foreground">
+                <h2 id="founder-heading" class="text-3xl sm:text-4xl md:text-5xl font-light leading-tight tracking-tight text-foreground">
                   The Founder
                 </h2>
                 <div class="w-16 h-px bg-foreground/20"></div>
