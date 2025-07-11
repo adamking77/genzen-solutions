@@ -26,7 +26,7 @@ const { report, sequenceNumber, featured = false } = Astro.props;
               {report.category}
             </span>
             {report.featured && (
-              <span class="px-3 py-1 bg-blue-500/10 text-blue-500 text-xs font-light rounded-full">
+              <span class="px-3 py-1 bg-primary/10 text-primary text-xs font-light rounded-full">
                 Featured
               </span>
             )}
@@ -61,7 +61,7 @@ const { report, sequenceNumber, featured = false } = Astro.props;
           </div>
         </div>
         
-        <div class="text-xs font-light text-foreground group-hover:text-blue-500 transition-colors duration-300">
+        <div class="text-xs font-light text-foreground group-hover:text-primary transition-colors duration-300">
           Read Report →
         </div>
       </div>

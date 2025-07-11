@@ -130,6 +130,7 @@ const GZSIntakeForm: React.FC<GZSIntakeFormProps> = ({ onComplete, isModal = fal
   const [currentQuestion, setCurrentQuestion] = useState(-1);
   const [answers, setAnswers] = useState<Record<string, any>>({});
   const [submitted, setSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleNext = () => {
     if (currentQuestion < questions.length) {
@@ -172,9 +173,15 @@ const GZSIntakeForm: React.FC<GZSIntakeFormProps> = ({ onComplete, isModal = fal
     return answer && answer.trim() !== '' && answer.length > 0;
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
+    setIsSubmitting(true);
+    
+    // Simulate API call
+    await new Promise(resolve => setTimeout(resolve, 1500));
+    
     console.log('GZS Intake Form Answers:', answers);
     setSubmitted(true);
+    setIsSubmitting(false);
     
     // Modal will only close when user clicks X - no auto-close
   };
@@ -201,7 +208,7 @@ const GZSIntakeForm: React.FC<GZSIntakeFormProps> = ({ onComplete, isModal = fal
           </div>
           <div className="pt-8">
             <div className="inline-flex items-center space-x-3 text-sm font-light tracking-widest uppercase text-foreground/60">
-              <div className="w-3 h-3 bg-green-500 rounded-full animate-pulse"></div>
+              <div className="w-3 h-3 bg-primary rounded-full animate-pulse"></div>
               <span>Application Under Review</span>
             </div>
           </div>
@@ -421,9 +428,17 @@ const GZSIntakeForm: React.FC<GZSIntakeFormProps> = ({ onComplete, isModal = fal
                   onClick={handleSubmit}
                   variant="outline"
                   size="lg"
-                  className="font-light text-base px-8 py-3 border-2 border-foreground/30 rounded-full"
+                  disabled={isSubmitting}
+                  className="font-light text-base px-8 py-3 border-2 border-foreground/30 rounded-full disabled:opacity-70 disabled:cursor-not-allowed"
                 >
-                  Submit Application
+                  {isSubmitting ? (
+                    <div className="flex items-center space-x-2">
+                      <div className="w-4 h-4 border-2 border-primary border-t-transparent rounded-full animate-spin" />
+                      <span>Processing...</span>
+                    </div>
+                  ) : (
+                    'Submit Application'
+                  )}
                 </Button>
               )}
             </div>

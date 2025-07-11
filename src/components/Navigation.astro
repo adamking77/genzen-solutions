@@ -128,7 +128,7 @@ const mobileNavLinks = isHome ? navLinksConfig.home : navLinksConfig.other;
       const isScrolled = window.scrollY > 50;
       if (nav && navContentContainer && navLogo && themeToggleDesktopContainer && menuIcon && xIcon) {
         if (isScrolled) {
-          nav.classList.add('bg-background/95', 'backdrop-blur-sm', 'border-b', 'border-foreground/10');
+          nav.classList.add('bg-background/95', 'backdrop-blur-sm', 'border-b', 'border-primary/20', 'shadow-lg', 'shadow-primary/5');
           nav.classList.remove('bg-transparent');
           
           navContentContainer.classList.remove('h-20', 'lg:h-24');
@@ -151,7 +151,7 @@ const mobileNavLinks = isHome ? navLinksConfig.home : navLinksConfig.other;
           xIcon.classList.replace('w-5', 'w-4');
 
         } else {
-          nav.classList.remove('bg-background/95', 'backdrop-blur-sm', 'border-b', 'border-foreground/10');
+          nav.classList.remove('bg-background/95', 'backdrop-blur-sm', 'border-b', 'border-primary/20', 'shadow-lg', 'shadow-primary/5');
           nav.classList.add('bg-transparent');
           
           navContentContainer.classList.remove('h-14', 'lg:h-16');
