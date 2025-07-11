@@ -1,24 +1,42 @@
 ---
-const projections = [
-  { year: "2025", revenue: "$32M", growth: "+29%", confidence: 92 },
-  { year: "2026", revenue: "$41M", growth: "+28%", confidence: 87 },
-  { year: "2027", revenue: "$53M", growth: "+29%", confidence: 82 },
-];
+export interface Props {
+  title: string;
+  description: string;
+  projections: Array<{
+    year: string;
+    revenue: string;
+    growth: string;
+    confidence: number;
+  }>;
+  initiatives: Array<{
+    title: string;
+    timeline: string;
+    impact: string;
+    description: string;
+  }>;
+}
 
-const initiatives = [
-  { title: "AI Integration", timeline: "Q2 2025", impact: "High", description: "Implement advanced AI solutions across service delivery" },
-  { title: "Global Expansion", timeline: "Q3 2025", impact: "Medium", description: "Enter 5 new international markets" },
-  { title: "Platform Modernization", timeline: "Q4 2025", impact: "High", description: "Complete digital transformation initiative" },
-];
-// Note: animation-delay styles and complex progress bar animations
-// have been simplified or removed for this structural conversion.
+const { 
+  title = "Strategic Roadmap & Future Outlook",
+  description = "Our strategic vision for the next three years is anchored in sustainable growth, technological innovation, and market expansion.",
+  projections = [
+    { year: "2025", revenue: "$32M", growth: "+29%", confidence: 92 },
+    { year: "2026", revenue: "$41M", growth: "+28%", confidence: 87 },
+    { year: "2027", revenue: "$53M", growth: "+29%", confidence: 82 },
+  ],
+  initiatives = [
+    { title: "AI Integration", timeline: "Q2 2025", impact: "High", description: "Implement advanced AI solutions across service delivery" },
+    { title: "Global Expansion", timeline: "Q3 2025", impact: "Medium", description: "Enter 5 new international markets" },
+    { title: "Platform Modernization", timeline: "Q4 2025", impact: "High", description: "Complete digital transformation initiative" },
+  ]
+} = Astro.props;
 ---
 <section class="py-32 lg:py-40">
   <div class="max-w-6xl mx-auto px-20 lg:px-24">
     <div class="space-y-20">
       <div class="text-center space-y-8"> {/* Removed animate-fade-in */}
         <h2 class="text-4xl md:text-5xl font-light leading-tight tracking-tight text-foreground hover:scale-105 transition-transform duration-300">
-          Strategic Roadmap & Future Outlook
+          {title}
         </h2>
         <div class="w-12 h-px bg-foreground/20 mx-auto transition-all duration-1000 hover:w-24"></div>
       </div>
@@ -27,7 +45,7 @@ const initiatives = [
         <div> {/* Removed animate-fade-in and style */}
           <div class="prose prose-lg max-w-none">
             <p class="text-lg font-light text-foreground leading-relaxed mb-6">
-              Our strategic vision for the next three years is anchored in sustainable growth, technological innovation, and market expansion. The comprehensive roadmap outlined below reflects our commitment to maintaining industry leadership while adapting to evolving client needs and market dynamics.
+              {description}
             </p>
             
             <p class="text-base font-light text-foreground/80 leading-relaxed mb-8">
@@ -48,7 +66,7 @@ const initiatives = [
               </div>
               
               <div class="space-y-6">
-                {projections.map((projection) => (
+                {projections && Array.isArray(projections) && projections.map((projection) => (
                   // Removed animate-fade-in class and style attribute for animationDelay
                   <div class="group relative cursor-pointer hover:scale-102 transition-all duration-300 border border-foreground/10 rounded-lg p-6 hover:border-foreground/20 hover:shadow-lg">
                     <div class="grid grid-cols-12 gap-4 items-center">
@@ -98,7 +116,7 @@ const initiatives = [
               </div>
               
               <div class="space-y-6">
-                {initiatives.map((initiative) => (
+                {initiatives && Array.isArray(initiatives) && initiatives.map((initiative) => (
                   // Removed animate-fade-in class and style attribute for animationDelay
                   <div class="group cursor-pointer hover:scale-105 transition-all duration-300">
                     <div class="border-l-2 border-foreground/10 pl-6 hover:border-foreground/30 transition-colors duration-300 py-4">

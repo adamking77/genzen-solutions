@@ -22,7 +22,6 @@ const THEME_CHANGE_REQUEST_EVENT = 'theme-change-request';
 const THEME_ACTUALLY_CHANGED_EVENT = 'theme-actually-changed';
 
 export function ThemeProvider({ children, defaultTheme = 'system', storageKey = 'astro-ui-theme' }: ThemeProviderProps) {
-  // console.log('[ThemeProvider] Initializing. Default:', defaultTheme, 'Key:', storageKey);
 
   const [themePreference, setThemePreference] = useState<Theme>(() => {
     if (typeof localStorage !== 'undefined') {
@@ -32,7 +31,6 @@ export function ThemeProvider({ children, defaultTheme = 'system', storageKey = 
   });
 
   useEffect(() => {
-    // console.log('[ThemeProvider] useEffect for themePreference:', themePreference);
     if (typeof window === 'undefined') return;
 
     const root = window.document.documentElement;
@@ -47,7 +45,6 @@ export function ThemeProvider({ children, defaultTheme = 'system', storageKey = 
     root.classList.remove('light', 'dark');
     root.classList.add(actualThemeToApply);
     localStorage.setItem(storageKey, themePreference);
-    // console.log(`[ThemeProvider] Applied theme: ${actualThemeToApply}, Stored preference: ${themePreference}`);
     
     document.dispatchEvent(new CustomEvent(THEME_ACTUALLY_CHANGED_EVENT, { detail: { actualTheme: actualThemeToApply, preference: themePreference } }));
 
@@ -56,7 +53,6 @@ export function ThemeProvider({ children, defaultTheme = 'system', storageKey = 
   useEffect(() => {
     const handleThemeChangeRequest = (event: Event) => {
       const newPreference = (event as CustomEvent).detail.theme as Theme;
-      // console.log('[ThemeProvider] Received theme change request via event:', newPreference);
       setThemePreference(newPreference);
     };
     document.addEventListener(THEME_CHANGE_REQUEST_EVENT, handleThemeChangeRequest);
@@ -70,7 +66,6 @@ export function ThemeProvider({ children, defaultTheme = 'system', storageKey = 
     const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
     const handleSystemChange = (e: MediaQueryListEvent) => {
       if (themePreference === 'system') {
-        // console.log('[ThemeProvider] System theme changed, re-evaluating.');
         setThemePreference('system'); 
       }
     };

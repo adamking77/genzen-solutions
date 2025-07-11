@@ -8,7 +8,7 @@ export interface Props {
   }>;
 }
 
-const { title, description, services } = Astro.props;
+const { title, description, services = [] } = Astro.props;
 ---
 <section class="py-32 lg:py-40 bg-background">
   <div class="max-w-7xl mx-auto px-6 lg:px-8">
@@ -24,7 +24,7 @@ const { title, description, services } = Astro.props;
       </div>
       
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {services.map((service, index) => (
+        {services && Array.isArray(services) && services.map((service, index) => (
           <div class="group space-y-4 p-6 border border-foreground/10 rounded-lg hover:border-foreground/30 hover:shadow-lg transition-all duration-300 cursor-pointer">
             <div class="flex items-start space-x-3">
               <div 

@@ -8,8 +8,7 @@
   ],
   "exclude": [
     "dist",
-    "node_modules",
-    "src/components/layouts/HybridShowcase.astro"
+    "node_modules"
   ],
   "compilerOptions": {
     "jsx": "react-jsx",

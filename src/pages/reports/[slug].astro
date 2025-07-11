@@ -3,7 +3,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import CTA from '../../components/sections/CTA.astro';
 import { getCollection } from 'astro:content';
 import ExecutiveSummary from '../../components/reports/ExecutiveSummary.astro';
-import DataVisualization from '../../components/reports/DataVisualization.tsx';
+import DataVisualization from '../../components/reports/DataVisualization.astro';
 import FinancialHighlights from '../../components/reports/FinancialHighlights.astro';
 import ClientInsights from '../../components/reports/ClientInsights.astro';
 import MarketAnalysis from '../../components/reports/MarketAnalysis.astro';
@@ -61,15 +61,14 @@ const getReportSections = (slug: string) => {
       ];
     default:
       return [
-        { component: 'ExecutiveSummary', key: 'executive' },
-        { component: 'DataVisualization', key: 'data-viz' }
+        { component: 'ExecutiveSummary', key: 'executive' }
       ];
   }
 };
 
-const reportSections = getReportSections(report.slug);
+const reportSections = getReportSections(report.slug) || [];
 const allReports = await getCollection('reports');
-const relatedReports = allReports.filter(r => r.data.id !== report.id).slice(0, 2).map(r => r.data);
+const relatedReports = allReports ? allReports.filter(r => r.data.id !== report.id).slice(0, 2).map(r => r.data) : [];
 ---
 
 <BaseLayout 
@@ -153,7 +152,7 @@ const relatedReports = allReports.filter(r => r.data.id !== report.id).slice(0, 
                   <span class="text-sm font-light text-foreground">Tags</span>
                 </div>
                 <div class="flex flex-wrap gap-2">
-                  {report.tags.map((tag) => (
+                  {report.tags && Array.isArray(report.tags) && report.tags.map((tag) => (
                     <span key={tag} class="px-2 py-1 bg-foreground/10 text-foreground text-xs font-light rounded">
                       {tag}
                     </span>
@@ -168,15 +167,57 @@ const relatedReports = allReports.filter(r => r.data.id !== report.id).slice(0, 
   </section>
 
   <!-- Report Sections -->
-  {reportSections.map((section) => (
+  {reportSections && Array.isArray(reportSections) && reportSections.map((section) => (
     <div key={section.key}>
-      {section.component === 'ExecutiveSummary' && <ExecutiveSummary />}
-      {section.component === 'DataVisualization' && <DataVisualization client:visible />}
-      {section.component === 'FinancialHighlights' && <FinancialHighlights />}
-      {section.component === 'ClientInsights' && <ClientInsights />}
+      {section.component === 'ExecutiveSummary' && (
+        report.executiveSummary ? (
+          <ExecutiveSummary 
+            keyPoints={report.executiveSummary.keyPoints || []}
+            recommendations={report.executiveSummary.recommendations || []}
+            nextReview={report.executiveSummary.nextReview}
+            projectTimeline={report.executiveSummary.projectTimeline}
+          />
+        ) : <ExecutiveSummary />
+      )}
+      {section.component === 'DataVisualization' && (
+        report.dataVisualization ? (
+          <DataVisualization 
+            title={report.dataVisualization.title}
+            description={report.dataVisualization.description}
+            services={report.dataVisualization.services || []}
+          />
+        ) : <DataVisualization />
+      )}
+      {section.component === 'FinancialHighlights' && (
+        report.financialHighlights ? (
+          <FinancialHighlights 
+            title={report.financialHighlights.title}
+            description={report.financialHighlights.description}
+            highlights={report.financialHighlights.highlights || []}
+          />
+        ) : <FinancialHighlights />
+      )}
+      {section.component === 'ClientInsights' && (
+        report.clientInsights ? (
+          <ClientInsights 
+            title={report.clientInsights.title}
+            subtitle={report.clientInsights.subtitle}
+            insights={report.clientInsights.insights || []}
+          />
+        ) : <ClientInsights />
+      )}
       {section.component === 'MarketAnalysis' && <MarketAnalysis />}
       {section.component === 'IndustryTrends' && <IndustryTrends />}
-      {section.component === 'FutureOutlook' && <FutureOutlook />}
+      {section.component === 'FutureOutlook' && (
+        report.futureOutlook ? (
+          <FutureOutlook 
+            title={report.futureOutlook.title}
+            description={report.futureOutlook.description}
+            projections={report.futureOutlook.projections || []}
+            initiatives={report.futureOutlook.initiatives || []}
+          />
+        ) : <FutureOutlook />
+      )}
     </div>
   ))}
 
@@ -190,7 +231,7 @@ const relatedReports = allReports.filter(r => r.data.id !== report.id).slice(0, 
           </h2>
           
           <div class="grid md:grid-cols-2 gap-8">
-            {relatedReports.map((relatedReport) => (
+            {relatedReports && Array.isArray(relatedReports) && relatedReports.map((relatedReport) => (
               <a
                 key={relatedReport.id}
                 href={`/reports/${relatedReport.slug}`}
@@ -226,5 +267,10 @@ const relatedReports = allReports.filter(r => r.data.id !== report.id).slice(0, 
     </section>
   )}
 
-  <CTA />
+  <CTA
+    headline="Apply For Your Legacy Ecosystem Analysis"
+    subtext="This confidential analysis reveals exactly how relationships and systems affect your legacy - and how to optimize authentic control. During this discreet evaluation, we map how your ecosystem actually functions, identify which relationships strengthen or compromise your position, and provide clear recommendations that enhance rather than disrupt your current operations. The analysis is conducted with complete confidentiality. Most clients discover important dynamics about their ecosystem they never knew existed."
+    buttonText="Apply for Analysis"
+    buttonLink="/qualification-form"
+  />
 </BaseLayout>

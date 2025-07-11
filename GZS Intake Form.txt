@@ -1,0 +1,72 @@
+# GenZen Solutions - Legacy Ecosystem Analysis Application
+
+## Contact Information
+
+**1. Name**
+[Text field]
+
+**2. Email**
+[Email field]
+
+**3. Organization/Family Office**
+[Text field]
+
+**4. Your Role**
+[Text field]
+
+**5. Application submitted by:**
+[Select dropdown]
+- Family principal/decision-maker
+- Family office representative
+- External advisor (legal, financial, etc.)
+- Other
+
+**6. What's prompting this analysis?**
+[multi-select]
+- Standard advisors are missing something critical
+- Protective systems may have become vulnerabilities  
+- Patterns are sensed but can't be identified
+- Previous solutions have made the situation worse
+- Other
+
+**7. Which areas are you most concerned about?**
+[Multi-select]
+- Advisory relationships and governance
+- Family dynamics and communication
+- Cross-border operations and complexity
+- Succession planning and transitions
+- Other
+
+**8. What's the potential impact if current patterns continue**
+[multi-select]
+- €10-50M in systematic exposure
+- €50M+ in legacy-threatening impact
+- Multi-generational control implications
+- Reputation damage beyond financial calculation
+- Other
+
+**9. How did you first realize you might need a different approach?**
+[multi-select]
+- Recognized something wasn't quite right through observation
+- Trusted advisor suggested we get a fresh perspective
+- Previous incident made us realize we needed different expertise
+- Research into similar situations revealed gaps in our approach
+- Other
+
+**10. What's driving the timing on this?**
+[Select dropdown]
+- Immediate situation requiring urgent attention
+- Strategic priority we want to address soon
+- Important but not time-sensitive
+- Just beginning to explore options
+
+**11. What's been your experience with traditional solutions on this type of issue?**
+[multi-select]
+- They can't identify the sophisticated patterns we're seeing
+- Multiple providers giving conflicting analysis
+- They treat symptoms but miss the underlying system
+- We haven't tried traditional approaches for this issue yet
+
+---
+
+*All applications are reviewed confidentially. We will contact qualified candidates within 48 hours to discuss next steps.*

@@ -11,38 +11,38 @@
     --card-foreground: 0 0% 13%; /* #222222 */
     --popover: 240 5% 96%; /* #f4f4f5 */
     --popover-foreground: 0 0% 13%; /* #222222 */
-    --primary: 216 33% 17%; /* #1d2739 */
+    --primary: 217 33% 17%; /* #1d283a */
     --primary-foreground: 240 5% 96%; /* #f4f4f5 */
     --secondary: 0 0% 93%; /* #ededed */
     --secondary-foreground: 0 0% 13%; /* #222222 */
     --muted: 0 0% 93%; /* #ededed */
     --muted-foreground: 0 0% 13%; /* #222222 */
-    --accent: 216 33% 17%; /* #1d2739 */
+    --accent: 217 33% 17%; /* #1d283a */
     --accent-foreground: 240 5% 96%; /* #f4f4f5 */
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 240 5% 96%; /* #f4f4f5 */
     --border: 0 0% 85%; /* Lighter border for sophistication */
     --input: 0 0% 85%; /* Matching input styling */
-    --ring: 216 33% 17%; /* #1d2739 */
+    --ring: 217 33% 17%; /* #1d283a */
     --radius: 0.5rem;
   }
 
   .dark {
-    /* GenZen Dark Mode Colors - Proper HSL Format */
-    --background: 216 33% 17%; /* #1d2739 */
+    /* GenZen Dark Mode Colors - Consistent #1d283a backgrounds */
+    --background: 217 33% 17%; /* #1d283a */
     --foreground: 240 5% 96%; /* #f4f4f5 */
-    --card: 216 33% 17%; /* #1d2739 */
+    --card: 217 33% 17%; /* #1d283a */
     --card-foreground: 240 5% 96%; /* #f4f4f5 */
-    --popover: 216 33% 17%; /* #1d2739 */
+    --popover: 217 33% 17%; /* #1d283a */
     --popover-foreground: 240 5% 96%; /* #f4f4f5 */
     --primary: 240 5% 96%; /* #f4f4f5 */
-    --primary-foreground: 216 33% 17%; /* #1d2739 */
-    --secondary: 0 0% 13%; /* #222222 */
+    --primary-foreground: 217 33% 17%; /* #1d283a */
+    --secondary: 217 33% 17%; /* #1d283a - changed from #222222 */
     --secondary-foreground: 240 5% 96%; /* #f4f4f5 */
-    --muted: 0 0% 13%; /* #222222 */
+    --muted: 217 33% 17%; /* #1d283a - changed from #222222 */
     --muted-foreground: 0 0% 93%; /* #ededed */
     --accent: 240 5% 96%; /* #f4f4f5 */
-    --accent-foreground: 216 33% 17%; /* #1d2739 */
+    --accent-foreground: 217 33% 17%; /* #1d283a */
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 240 5% 96%; /* #f4f4f5 */
     --border: 0 0% 25%; /* Darker border for dark mode */

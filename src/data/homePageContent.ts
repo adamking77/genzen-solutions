@@ -1,12 +1,12 @@
 const homePageContent = {
   meta: {
-    title: "GenZen Solutions | Legacy Intelligence",
-    description: "Specializing in detecting and neutralizing trust architecture exploitation for high-net-worth families and their offices.",
+    title: "GenZen Solutions | Specialized Intelligence Preserving Generational Legacy",
+    description: "Legacy Intelligence - This age of increased opacity enables systematic exploitation of your legacies - we deliver the clarity that restores authentic control.",
   },
   dataStory: {
-    title: "Legacy Intelligence",
-    subtitle: "The Threat Your Security Team Cannot See",
-    description: "Sophisticated attacks weaponize your protective systems - wealth management structures, legal frameworks, advisory relationships - transforming them into attack vectors.",
+    title: "Specialized Intelligence Preserving Generational Legacy",
+    subtitle: "This age of increased opacity enables systematic exploitation of your legacies - we deliver the clarity that restores authentic control.",
+    description: "Legacy Hijacking - systematic attacks that weaponize your protective systems against you. Wealth management structures, legal frameworks, and advisory relationships become attack vectors rather than safeguards.",
     dataPoints: [
       {
         value: "S$930M",
@@ -15,7 +15,7 @@ const homePageContent = {
       },
       {
         value: "43%",
-        label: "Family offices attacked",
+        label: "Family offices attacked globally",
         description: "A significant percentage facing sophisticated threats.",
       },
       {
@@ -24,93 +24,92 @@ const homePageContent = {
         description: "Higher wealth concentration attracts more intense threats.",
       },
     ],
-    closingStatement: "Your security providers detect external threats. They cannot monitor systematic trust exploitation.",
+    closingStatement: "Current protection systems detect external threats effectively, but Legacy Hijacking exploits trusted relationships in ways that conventional security approaches cannot monitor.",
   },
   timeline: {
-    title: "What Trust Architecture Exploitation Looks Like",
+    title: "Legacy Hijacking Patterns",
     events: [
       {
         title: "Government Authority Impersonation",
-        description: "Singapore scammers achieved S$100,622 average losses per incident by exploiting cultural deference to regulatory authority.",
+        description: "Singapore scammers achieved S$100,622 average losses per incident by exploiting cultural deference to regulatory authority through sophisticated impersonation that traditional security cannot detect.",
       },
       {
         title: "Succession Vulnerability Windows",
-        description: "67% of legacy undermining occurs within 18 months of leadership transitions when fragmented authority creates exploitation opportunities.",
+        description: "67% of legacy undermining occurs within 18 months of leadership transitions when fragmented authority creates systematic exploitation opportunities invisible to conventional protection.",
       },
       {
         title: "Long-Term Staff Cultivation",
-        description: "Criminal networks deliberately target family office employees with 10+ year tenure, exploiting institutional knowledge and authentication privileges.",
+        description: "Criminal networks deliberately target family office employees with 10+ year tenure, exploiting institutional knowledge and authentication privileges through relationships that appear completely legitimate.",
       },
     ],
-    closingText: "These patterns operate through legitimate channels using trusted relationships - invisible to traditional security frameworks.",
+    closingText: "These patterns operate through legitimate channels using trusted relationships - invisible to traditional security frameworks that cannot distinguish authentic protection from systematic exploitation.",
   },
   brandPlatform: {
-    title: "Our Approach to Legacy Intelligence",
+    title: "Legacy Intelligence: Our Specialized Intelligence Methodology",
     platforms: [
       {
-        name: "Legacy Intelligence: The Missing Capability",
-        description: "Legacy Intelligence detects trust system attack patterns before they manifest as losses. We focus on three core areas:",
+        name: "Legacy Intelligence: Our Specialized Intelligence Methodology",
+        description: "Legacy Intelligence is our approach to detecting Legacy Hijacking before it manifests by analyzing three critical domains:",
         features: [
-          "Pattern Recognition: Cultural vulnerability assessment and behavioral exploitation detection across family networks.",
-          "Threat Architecture Analysis: Mapping how protective systems create systematic vulnerabilities during transitions and crises.",
-          "Strategic Countermeasures: Converting identified threats into defensive advantages while preserving family autonomy."
+          "Cultural Intelligence: Understanding how trust networks and cultural authority structures affect principal decision-making.",
+          "Behavioral Intelligence: Analyzing how decision-making processes and protective relationships can be influenced through sophisticated methods.",
+          "Human Intelligence: Mapping how advisory and operational systems impact principal control and authority."
         ],
       },
       {
-        name: "Legacy Threat Analysis",
-        description: "A comprehensive diagnostic revealing Trust System Attack vulnerabilities within your current systems. Our analysis includes:",
+        name: "How Legacy Intelligence Restores Authentic Control",
+        description: "Legacy Intelligence provides the specialized capability that traditional approaches cannot deliver:",
         features: [
-          "Trust dependency mapping across advisory relationships",
-          "Cultural vulnerability assessment in family communication patterns",
-          "Cross-border exploitation pathway analysis and criminal network identification",
-          "Succession transition exploitation pathway documentation",
-          "Specific countermeasure recommendations for identified threats",
-          "Implementation roadmap integrating with existing security measures"
+          "Pattern Recognition: Identifying Legacy Hijacking across cultural, behavioral, and systematic domains before traditional security systems detect symptoms.",
+          "Clarity Architecture: Revealing where protective systems have become vulnerability channels and designing transparent alternatives that preserve authentic control.",
+          "Strategic Transformation: Converting identified exploitation patterns into strengthened control while maintaining essential protective relationships."
         ],
       },
     ],
   },
-  legacyThreatAnalysis: {
-    title: "Legacy Threat Analysis",
-    description: "Comprehensive diagnostic revealing Trust System Attack vulnerabilities within your current systems:",
+  legacyEcosystemAnalysis: {
+    title: "Begin With Legacy Ecosystem Analysis",
+    description: "Your family's protective systems require immediate assessment to identify where Trust Architecture Exploitation may already be occurring. Our comprehensive Legacy Ecosystem Analysis provides the intelligence foundation needed to restore authentic control.",
+    subtitle: "This strategic diagnostic delivers:",
+    description2: "Comprehensive intelligence assessment revealing Trust Architecture Exploitation vulnerabilities within your current systems:",
     services: [
       {
         name: "Trust dependency mapping across advisory relationships",
         description: ""
       },
       {
-        name: "Cultural vulnerability assessment in family communication patterns",
+        name: "Cultural dynamics assessment in communication patterns",
         description: ""
       },
       {
-        name: "Cross-border exploitation pathway analysis and criminal network identification",
+        name: "Cross-border relationship mapping and network analysis",
         description: ""
       },
       {
-        name: "Succession transition exploitation pathway documentation",
+        name: "Succession transition vulnerability documentation",
         description: ""
       },
       {
-        name: "Specific countermeasure recommendations for identified threats",
+        name: "Ecosystem strengthening recommendations",
         description: ""
       },
       {
-        name: "Implementation roadmap integrating with existing security measures",
+        name: "Implementation roadmap enhancing existing protective systems",
         description: ""
       }
     ]
   },
   foundedStory: {
-    companyName: "GenZen Solutions",
-    companyStory: "Since 2017, GenZen Solutions has specialized in helping value-centered leaders navigate critical issues that threaten their autonomy and legacy. Through global strategic partnerships, the firm serves those facing systematic erosion of their decision-making authority and generational control. This unique combination of strategic intelligence and cultural understanding enables solutions to complex challenges that others cannot provide. GenZen Solutions steps in when traditional sources of protection have compromised independence, when advisory systems have created dependencies, and when autonomous decision-making hangs in the balance. Every engagement maintains complete confidentiality, precision, and measurable autonomy restoration.",
+    companyName: "About GenZen Solutions",
+    companyStory: "Since 2017, GenZen Solutions has specialized in helping value-centered leaders navigate critical issues that threaten their autonomy and legacy. Through global strategic partnerships, the firm serves those facing systematic erosion of their decision-making authority and generational control.\n\nThis unique combination of strategic intelligence and cultural understanding enables solutions to complex challenges that others cannot provide. GenZen Solutions steps in when traditional sources of protection have compromised independence, when advisory systems have created dependencies, and when autonomous decision-making hangs in the balance.\n\nEvery engagement maintains complete confidentiality, precision, and measurable autonomy restoration.",
     founderName: "Adam King: Founder & Chief Strategist",
-    founderStory: "For fifteen years, I've operated at the convergence of strategic intelligence and crisis transformation. My work focuses on helping leaders recognize when their decision-making authority is being systematically undermined, restoring autonomous control before critical damage occurs. Through this approach, I've guided clients to close nine-figure deals, prevent sophisticated fraud schemes, and restore independent authority in situations where traditional methods have failed. Nothing is more meaningful than helping clients reclaim control over their most critical decisions and transform moments of crisis into catalysts for enhanced autonomy.",
-    founderImage: "/placeholder.svg",
+    founderStory: "For fifteen years, I've operated at the convergence of strategic intelligence and crisis transformation. My work focuses on helping leaders recognize when their decision-making authority is being systematically undermined, restoring autonomous control before critical damage occurs.\n\nThrough this approach, I've guided clients to close nine-figure deals, prevent sophisticated fraud schemes, and restore independent authority in situations where traditional methods have failed. Nothing is more meaningful than helping clients reclaim control over their most critical decisions and transform moments of crisis into catalysts for enhanced autonomy.",
+    founderImage: "/images/founder-profile.jpg",
   },
   cta: {
-    headline: "Begin Trust System Assessment",
-    subtext: "When sophisticated threats exploit trust rather than technology, when protective systems become attack vectors, and when traditional security approaches cannot detect systematic attacks - this is precisely when Legacy Intelligence provides the critical capability your family requires.",
-    buttonText: "Schedule Confidential Assessment",
+    headline: "Apply For Your Legacy Ecosystem Analysis",
+    subtext: "This confidential analysis reveals exactly how relationships and systems affect your legacy - and how to optimize authentic control.\n\nDuring this discreet evaluation, we map how your ecosystem actually functions, identify which relationships strengthen or compromise your position, and provide clear recommendations that enhance rather than disrupt your current operations.\n\nThe analysis is conducted with complete confidentiality. Most clients discover important dynamics about their ecosystem they never knew existed.",
+    buttonText: "Apply for Analysis",
     buttonLink: "/qualification-form",
   },
 };

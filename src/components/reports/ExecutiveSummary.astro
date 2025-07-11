@@ -1,10 +1,39 @@
 ---
-const keyPoints = [
-  "Market expansion opportunities identified in emerging sectors",
-  "Operational efficiency improvements yielding 24% cost reduction",
-  "Strategic partnerships driving 142% revenue growth",
-  "Digital transformation initiatives ahead of industry benchmarks"
-];
+export interface Props {
+  keyPoints: string[];
+  recommendations: Array<{
+    category: string;
+    description: string;
+    timeline?: string;
+  }>;
+  nextReview?: string;
+  projectTimeline?: string;
+}
+
+const { 
+  keyPoints = [
+    "Market expansion opportunities identified in emerging sectors",
+    "Operational efficiency improvements yielding 24% cost reduction",
+    "Strategic partnerships driving 142% revenue growth",
+    "Digital transformation initiatives ahead of industry benchmarks"
+  ],
+  recommendations = [
+    {
+      category: "IMMEDIATE",
+      description: "Accelerate digital transformation initiatives to maintain competitive positioning"
+    },
+    {
+      category: "SHORT-TERM", 
+      description: "Expand market presence in high-growth sectors identified in analysis"
+    },
+    {
+      category: "LONG-TERM",
+      description: "Develop strategic partnerships to leverage emerging technology trends"
+    }
+  ],
+  nextReview = "Q1 2025",
+  projectTimeline = "12 mo"
+} = Astro.props;
 ---
 <section class="py-32 lg:py-40">
   <div class="max-w-4xl mx-auto px-20 lg:px-24">
@@ -25,7 +54,7 @@ const keyPoints = [
             </p>
             
             <div class="space-y-6">
-              {keyPoints.map((point) => (
+              {keyPoints && Array.isArray(keyPoints) && keyPoints.map((point) => (
                 <div class="flex items-start space-x-4">
                   <div class="w-1 h-1 rounded-full bg-foreground mt-2 flex-shrink-0" />
                   <p class="text-sm font-light text-foreground leading-relaxed">
@@ -43,42 +72,31 @@ const keyPoints = [
           <div class="space-y-8">
             <h3 class="text-xl font-light text-foreground">Key Recommendations</h3>
             <div class="space-y-6">
-              <div class="border-l-2 border-foreground/10 pl-6">
-                <div class="text-sm font-light text-foreground tracking-wider mb-2">
-                  IMMEDIATE
+              {recommendations && Array.isArray(recommendations) && recommendations.map((rec) => (
+                <div class="border-l-2 border-foreground/10 pl-6">
+                  <div class="text-sm font-light text-foreground tracking-wider mb-2">
+                    {rec.category}
+                  </div>
+                  <p class="text-sm font-light text-foreground leading-relaxed">
+                    {rec.description}
+                  </p>
+                  {rec.timeline && (
+                    <div class="text-xs font-light text-foreground/50 mt-1">
+                      Timeline: {rec.timeline}
+                    </div>
+                  )}
                 </div>
-                <p class="text-sm font-light text-foreground leading-relaxed">
-                  Accelerate digital transformation initiatives to maintain competitive positioning
-                </p>
-              </div>
-              
-              <div class="border-l-2 border-foreground/10 pl-6">
-                <div class="text-sm font-light text-foreground tracking-wider mb-2">
-                  SHORT-TERM
-                </div>
-                <p class="text-sm font-light text-foreground leading-relaxed">
-                  Expand market presence in high-growth sectors identified in analysis
-                </p>
-              </div>
-              
-              <div class="border-l-2 border-foreground/10 pl-6">
-                <div class="text-sm font-light text-foreground tracking-wider mb-2">
-                  LONG-TERM
-                </div>
-                <p class="text-sm font-light text-foreground leading-relaxed">
-                  Develop strategic partnerships to leverage emerging technology trends
-                </p>
-              </div>
+              ))}
             </div>
           </div>
           
           <div class="grid grid-cols-2 gap-6">
             <div>
-              <div class="text-xl font-light mb-1 text-foreground">Q1 2025</div>
+              <div class="text-xl font-light mb-1 text-foreground">{nextReview}</div>
               <div class="text-xs font-light text-foreground tracking-wider">NEXT REVIEW</div>
             </div>
             <div>
-              <div class="text-xl font-light mb-1 text-foreground">12 mo</div>
+              <div class="text-xl font-light mb-1 text-foreground">{projectTimeline}</div>
               <div class="text-xs font-light text-foreground tracking-wider">TIMELINE</div>
             </div>
           </div>

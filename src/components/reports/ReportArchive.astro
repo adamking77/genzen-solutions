@@ -1,11 +1,13 @@
 ---
 import { Search, Filter } from 'lucide-react';
-import { reportsData, type Report } from '../../data/reports.ts';
+import { getCollection } from 'astro:content';
+import type { Report } from '../../types/report';
 import ReportCard from './ReportCard.astro';
 
-const categories = ['All', ...Array.from(new Set(reportsData.map(report => report.category)))];
-const allReports: Report[] = reportsData;
+const reports = await getCollection('reports');
+const allReports: Report[] = reports.map(entry => entry.data);
 
+const categories = ['All', ...Array.from(new Set(allReports.map(report => report.category)))];
 const featuredReports = allReports.filter(report => report.featured);
 const regularReports = allReports.filter(report => !report.featured);
 ---
@@ -99,7 +101,7 @@ const regularReports = allReports.filter(report => !report.featured);
     {/* Stats */}
     <div class="grid grid-cols-3 gap-8 pt-20 mt-20 border-t border-foreground/10">
       <div class="text-center space-y-2">
-        <div class="text-3xl font-light text-foreground">{reportsData.length}</div>
+        <div class="text-3xl font-light text-foreground">{allReports.length}</div>
         <div class="text-sm font-light text-foreground/60 tracking-wider">TOTAL REPORTS</div>
       </div>
       <div class="text-center space-y-2">

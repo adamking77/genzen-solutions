@@ -35,7 +35,7 @@ const { title, description, highlights = [] } = Astro.props;
 
         <div class="lg:col-span-5">
           <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 gap-6">
-            {highlights.map((item) => (
+            {highlights && Array.isArray(highlights) && highlights.map((item) => (
               // Removed animate-fade-in class and style attribute for animationDelay
               <div class="group relative cursor-pointer hover:scale-105 transition-all duration-300">
                 <div class="bg-background/80 backdrop-blur-sm border border-foreground/10 rounded-lg p-6 space-y-4 hover:border-foreground/30 hover:shadow-xl transition-all duration-300">

@@ -1,7 +1,7 @@
 {
-  "name": "gzs-astro-midcentury-theme",
+  "name": "genzen-solutions-site",
   "version": "0.1.0",
-  "description": "A reusable Astro theme based on the Midcentury Static Design.",
+  "description": "GenZen Solutions corporate website built with Astro and Swiss theme components.",
   "type": "module",
   "keywords": [
     "astro",
@@ -92,6 +92,7 @@
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4.1.10",
+    "astro-compress": "^2.3.8",
     "tailwindcss": "^3.4.17",
     "tailwindcss-animate": "^1.0.7"
   }

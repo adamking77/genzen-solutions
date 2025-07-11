@@ -1,7 +1,6 @@
 import { useState, useMemo } from 'react';
 import { Search, Filter } from 'lucide-react';
-import type { Report } from '../../data/reports';
-import ReportCard from '../reports/ReportCard.astro';
+import type { Report } from '../../types/report';
 
 interface ReportsFilterProps {
   reports: Report[];
