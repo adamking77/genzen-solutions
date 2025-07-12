@@ -9,17 +9,64 @@ const { title, description, index } = Astro.props;
 
 const progressAngles = ['120deg', '240deg', '360deg'];
 const progressAngle = progressAngles[index] || '120deg';
+const progressPercent = ((parseInt(progressAngle) / 360) * 100);
 ---
 
 <div class="relative group cursor-pointer hover:scale-105 transition-all duration-300">
   <div class="grid grid-cols-[auto_1fr] sm:grid-cols-12 gap-4 sm:gap-6 items-start p-4 sm:p-6 rounded-lg hover:bg-foreground/5 transition-colors duration-300">
     <!-- Mobile & Desktop: Left-aligned circle -->
     <div class="relative flex items-center justify-center sm:col-span-1 sm:h-full sm:mr-4 sm:pt-1">
-      <div
-        class="progress-circle-mobile sm:progress-circle"
-        style={`--end-angle: ${progressAngle};`}
-        data-number={`0${index + 1}`}
-      ></div>
+      <div class="progress-circle-container" data-progress={index}>
+        <!-- Mobile SVG -->
+        <svg class="progress-svg-mobile sm:hidden" viewBox="0 0 40 40" width="40" height="40">
+          <circle
+            class="progress-background"
+            cx="20"
+            cy="20"
+            r="18"
+            fill="none"
+            stroke="hsl(var(--muted-foreground) / 0.2)"
+            stroke-width="1.5"
+          />
+          <circle
+            class="progress-foreground"
+            cx="20"
+            cy="20"
+            r="18"
+            fill="none"
+            stroke="hsl(var(--primary))"
+            stroke-width="1.5"
+            stroke-linecap="round"
+            transform="rotate(-90 20 20)"
+            style="stroke-dasharray: 113.097; stroke-dashoffset: 113.097;"
+          />
+        </svg>
+        <!-- Desktop SVG -->
+        <svg class="hidden sm:block progress-svg" viewBox="0 0 56 56" width="56" height="56">
+          <circle
+            class="progress-background"
+            cx="28"
+            cy="28"
+            r="26"
+            fill="none"
+            stroke="hsl(var(--muted-foreground) / 0.2)"
+            stroke-width="2"
+          />
+          <circle
+            class="progress-foreground"
+            cx="28"
+            cy="28"
+            r="26"
+            fill="none"
+            stroke="hsl(var(--primary))"
+            stroke-width="2"
+            stroke-linecap="round"
+            transform="rotate(-90 28 28)"
+            style="stroke-dasharray: 163.363; stroke-dashoffset: 163.363;"
+          />
+        </svg>
+        <div class="progress-number">0{index + 1}</div>
+      </div>
     </div>
     
     <div class="sm:col-span-11">
@@ -32,73 +79,61 @@ const progressAngle = progressAngles[index] || '120deg';
   <div class="w-full h-px bg-foreground/10 mt-6 sm:mt-8 transition-all duration-300 group-hover:bg-foreground/20" />
 </div>
 <style>
-  @property --progress-angle {
-    syntax: '<angle>';
-    inherits: false;
-    initial-value: 0deg;
-  }
-
-  .progress-circle-mobile {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    border: 3px solid hsl(var(--muted-foreground) / 0.2);
+  .progress-circle-container {
     position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
+  }
+
+  .progress-foreground {
+    transition: stroke-dashoffset 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .progress-number {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     font-size: 0.75rem;
     font-weight: 300;
     color: hsl(var(--foreground));
-    transition: all 0.5s ease-in-out;
-    background: conic-gradient(
-      hsl(var(--primary)) 0deg var(--progress-angle),
-      transparent var(--progress-angle) 360deg
-    );
-    background-clip: border-box;
-    -webkit-background-clip: border-box;
+    line-height: 1;
   }
 
-  .progress-circle {
-    width: 56px;
-    height: 56px;
-    border-radius: 50%;
-    border: 4px solid hsl(var(--muted-foreground) / 0.2);
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 0.875rem;
-    font-weight: 300;
-    color: hsl(var(--foreground));
-    transition: all 0.5s ease-in-out;
-    background: conic-gradient(
-      hsl(var(--primary)) 0deg var(--progress-angle),
-      transparent var(--progress-angle) 360deg
-    );
-    background-clip: border-box;
-    -webkit-background-clip: border-box;
+  @media (min-width: 640px) {
+    .progress-number {
+      font-size: 0.875rem;
+    }
   }
 
-  .progress-circle-mobile::before,
-  .progress-circle::before {
-    content: attr(data-number);
-    position: absolute;
-    inset: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: hsl(var(--background));
-    border-radius: 50%;
-    margin: 3px;
+  /* Card 1 (index 0): 33% progress */
+  .group:hover [data-progress="0"] .progress-foreground {
+    stroke-dashoffset: 75.398 !important; /* Mobile: 113.097 * 0.667 */
   }
 
-  .progress-circle::before {
-    margin: 4px;
+  /* Card 2 (index 1): 67% progress */
+  .group:hover [data-progress="1"] .progress-foreground {
+    stroke-dashoffset: 37.699 !important; /* Mobile: 113.097 * 0.333 */
   }
 
-  .group:hover .progress-circle-mobile,
-  .group:hover .progress-circle {
-    --progress-angle: var(--end-angle);
+  /* Card 3 (index 2): 100% progress */
+  .group:hover [data-progress="2"] .progress-foreground {
+    stroke-dashoffset: 0 !important; /* Full circle */
+  }
+
+  /* Desktop adjustments */
+  @media (min-width: 640px) {
+    .group:hover [data-progress="0"] .progress-foreground {
+      stroke-dashoffset: 108.909 !important; /* Desktop: 163.363 * 0.667 */
+    }
+
+    .group:hover [data-progress="1"] .progress-foreground {
+      stroke-dashoffset: 54.454 !important; /* Desktop: 163.363 * 0.333 */
+    }
+
+    .group:hover [data-progress="2"] .progress-foreground {
+      stroke-dashoffset: 0 !important; /* Full circle */
+    }
   }
 </style>
