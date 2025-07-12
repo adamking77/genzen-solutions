@@ -3,9 +3,10 @@ interface Props {
   title: string;
   description: string;
   index: number;
+  isVisible?: boolean;
 }
 
-const { title, description, index } = Astro.props;
+const { title, description, index, isVisible = false } = Astro.props;
 
 const progressAngles = ['120deg', '240deg', '360deg'];
 const progressAngle = progressAngles[index] || '120deg';
@@ -16,7 +17,7 @@ const progressPercent = ((parseInt(progressAngle) / 360) * 100);
   <div class="grid grid-cols-[auto_1fr] sm:grid-cols-12 gap-4 sm:gap-6 items-start p-4 sm:p-6 rounded-lg hover:bg-foreground/5 transition-colors duration-300">
     <!-- Mobile & Desktop: Left-aligned circle -->
     <div class="relative flex items-center justify-center sm:col-span-1 sm:h-full sm:mr-4 sm:pt-1">
-      <div class="progress-circle-container" data-progress={index}>
+      <div class="progress-circle-container" data-progress={index} data-animate={isVisible}>
         <!-- Mobile SVG -->
         <svg class="progress-svg-mobile sm:hidden" viewBox="0 0 40 40" width="40" height="40">
           <circle
@@ -78,7 +79,7 @@ const progressPercent = ((parseInt(progressAngle) / 360) * 100);
   </div>
   <div class="w-full h-px bg-foreground/10 mt-6 sm:mt-8 transition-all duration-300 group-hover:bg-foreground/20" />
 </div>
-<style>
+<style is:global>
   .progress-circle-container {
     position: relative;
     display: flex;
@@ -107,33 +108,58 @@ const progressPercent = ((parseInt(progressAngle) / 360) * 100);
     }
   }
 
-  /* Card 1 (index 0): 33% progress */
-  .group:hover [data-progress="0"] .progress-foreground {
-    stroke-dashoffset: 75.398 !important; /* Mobile: 113.097 * 0.667 */
+  /* Scroll-triggered animations - Updated selectors */
+  .progress-circle-container[data-animate="true"][data-progress="0"] .progress-foreground {
+    stroke-dashoffset: 75.398; /* Mobile: 113.097 * 0.667 - 33% progress */
   }
 
-  /* Card 2 (index 1): 67% progress */
-  .group:hover [data-progress="1"] .progress-foreground {
-    stroke-dashoffset: 37.699 !important; /* Mobile: 113.097 * 0.333 */
+  .progress-circle-container[data-animate="true"][data-progress="1"] .progress-foreground {
+    stroke-dashoffset: 37.699; /* Mobile: 113.097 * 0.333 - 67% progress */
   }
 
-  /* Card 3 (index 2): 100% progress */
-  .group:hover [data-progress="2"] .progress-foreground {
-    stroke-dashoffset: 0 !important; /* Full circle */
+  .progress-circle-container[data-animate="true"][data-progress="2"] .progress-foreground {
+    stroke-dashoffset: 0; /* Full circle - 100% progress */
   }
 
   /* Desktop adjustments */
   @media (min-width: 640px) {
+    .progress-circle-container[data-animate="true"][data-progress="0"] .progress-foreground {
+      stroke-dashoffset: 108.909; /* Desktop: 163.363 * 0.667 - 33% progress */
+    }
+
+    .progress-circle-container[data-animate="true"][data-progress="1"] .progress-foreground {
+      stroke-dashoffset: 54.454; /* Desktop: 163.363 * 0.333 - 67% progress */
+    }
+
+    .progress-circle-container[data-animate="true"][data-progress="2"] .progress-foreground {
+      stroke-dashoffset: 0; /* Full circle - 100% progress */
+    }
+  }
+
+  /* Maintain hover effects as secondary interaction */
+  .group:hover [data-progress="0"] .progress-foreground {
+    stroke-dashoffset: 75.398;
+  }
+
+  .group:hover [data-progress="1"] .progress-foreground {
+    stroke-dashoffset: 37.699;
+  }
+
+  .group:hover [data-progress="2"] .progress-foreground {
+    stroke-dashoffset: 0;
+  }
+
+  @media (min-width: 640px) {
     .group:hover [data-progress="0"] .progress-foreground {
-      stroke-dashoffset: 108.909 !important; /* Desktop: 163.363 * 0.667 */
+      stroke-dashoffset: 108.909;
     }
 
     .group:hover [data-progress="1"] .progress-foreground {
-      stroke-dashoffset: 54.454 !important; /* Desktop: 163.363 * 0.333 */
+      stroke-dashoffset: 54.454;
     }
 
     .group:hover [data-progress="2"] .progress-foreground {
-      stroke-dashoffset: 0 !important; /* Full circle */
+      stroke-dashoffset: 0;
     }
   }
 </style>
