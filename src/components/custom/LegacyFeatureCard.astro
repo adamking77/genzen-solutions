@@ -19,7 +19,7 @@ const progressAngle = progressAngles[index] || '120deg';
         class="progress-circle-mobile sm:progress-circle relative"
         style={`--end-angle: ${progressAngle};`}
       >
-        <div class="text-xs sm:text-sm font-light text-foreground/80 absolute inset-0 flex items-center justify-center z-10">
+        <div class="text-xs sm:text-sm font-light text-foreground absolute inset-0 flex items-center justify-center" style="z-index: 10;">
           0{index + 1}
         </div>
       </div>
@@ -44,7 +44,12 @@ const progressAngle = progressAngles[index] || '120deg';
   .progress-circle-mobile {
     width: 40px;
     height: 40px;
+    min-width: 40px;
+    min-height: 40px;
+    max-width: 40px;
+    max-height: 40px;
     border-radius: 50%;
+    aspect-ratio: 1;
     background-color: hsl(var(--muted-foreground) / 0.2);
     background-image: conic-gradient(
       hsl(var(--primary)) 0deg var(--progress-angle),
@@ -54,12 +59,18 @@ const progressAngle = progressAngles[index] || '120deg';
     opacity: 1;
     -webkit-mask: radial-gradient(transparent 0 65%, white 65% 100%);
     mask: radial-gradient(transparent 0 65%, white 65% 100%);
+    flex-shrink: 0;
   }
 
   .progress-circle {
     width: 56px;
     height: 56px;
+    min-width: 56px;
+    min-height: 56px;
+    max-width: 56px;
+    max-height: 56px;
     border-radius: 50%;
+    aspect-ratio: 1;
     background-color: hsl(var(--muted-foreground) / 0.2);
     background-image: conic-gradient(
       hsl(var(--primary)) 0deg var(--progress-angle),
@@ -69,6 +80,7 @@ const progressAngle = progressAngles[index] || '120deg';
     opacity: 1;
     -webkit-mask: radial-gradient(transparent 0 65%, white 65% 100%);
     mask: radial-gradient(transparent 0 65%, white 65% 100%);
+    flex-shrink: 0;
   }
 
   .group:hover .progress-circle-mobile,
