@@ -92,7 +92,7 @@ const IntakeFormModal: React.FC<IntakeFormModalProps> = ({ children, className }
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: 20 }}
             transition={{ duration: 0.4, ease: "easeOut" }}
-            className="relative w-[95vw] max-w-sm sm:max-w-md md:max-w-lg lg:max-w-2xl xl:max-w-4xl max-h-[95vh] overflow-hidden bg-background border border-foreground/20 rounded-xl shadow-2xl"
+            className="relative w-[95vw] max-w-sm sm:max-w-md md:max-w-2xl lg:max-w-4xl xl:max-w-5xl max-h-[95vh] overflow-hidden bg-background border border-foreground/20 rounded-xl shadow-2xl"
           >
             <h2 id="modal-title" className="sr-only">Intake Form</h2>
             {/* Close Button */}
