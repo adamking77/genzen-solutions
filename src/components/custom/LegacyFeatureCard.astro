@@ -12,32 +12,19 @@ const progressAngle = progressAngles[index] || '120deg';
 ---
 
 <div class="relative group cursor-pointer hover:scale-105 transition-all duration-300">
-  <div class="grid grid-cols-1 sm:grid-cols-12 gap-4 sm:gap-6 items-start p-4 sm:p-6 rounded-lg hover:bg-foreground/5 transition-colors duration-300">
-    <!-- Mobile: Circle above content -->
-    <div class="flex sm:hidden items-center justify-center mb-4">
-      <div class="relative">
-        <div
-          class="progress-circle"
-          style={`--end-angle: ${progressAngle};`}
-        ></div>
-        <div class="text-sm font-light text-foreground/80 relative z-10 absolute inset-0 flex items-center justify-center">
-          0{index + 1}
-        </div>
-      </div>
-    </div>
-    
-    <!-- Desktop: Circle in grid column -->
-    <div class="hidden sm:block sm:col-span-1 relative flex items-center justify-center h-full mr-4">
+  <div class="grid grid-cols-[auto_1fr] sm:grid-cols-12 gap-4 sm:gap-6 items-start p-4 sm:p-6 rounded-lg hover:bg-foreground/5 transition-colors duration-300">
+    <!-- Mobile & Desktop: Left-aligned circle -->
+    <div class="relative flex items-start justify-center pt-1 sm:col-span-1 sm:h-full sm:mr-4">
       <div
-        class="progress-circle absolute"
+        class="progress-circle-mobile sm:progress-circle"
         style={`--end-angle: ${progressAngle};`}
       ></div>
-      <div class="text-sm font-light text-foreground/80 relative z-10">
+      <div class="text-xs sm:text-sm font-light text-foreground/80 relative z-10 absolute inset-0 flex items-center justify-center">
         0{index + 1}
       </div>
     </div>
     
-    <div class="col-span-1 sm:col-span-11">
+    <div class="sm:col-span-11">
       <div class="space-y-4">
         <h3 class="text-xl font-light text-foreground group-hover:text-foreground/90 transition-colors duration-300" set:html={title} />
         <p class="text-base font-light text-foreground/70 leading-relaxed group-hover:text-foreground transition-colors duration-300" set:html={description} />
@@ -51,6 +38,21 @@ const progressAngle = progressAngles[index] || '120deg';
     syntax: '<angle>';
     inherits: false;
     initial-value: 0deg;
+  }
+
+  .progress-circle-mobile {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: hsl(var(--muted-foreground) / 0.2);
+    background-image: conic-gradient(
+      hsl(var(--primary)) 0deg var(--progress-angle),
+      transparent var(--progress-angle) 360deg
+    );
+    transition: --progress-angle 0.5s ease-in-out;
+    opacity: 1;
+    -webkit-mask: radial-gradient(transparent 0 65%, white 65% 100%);
+    mask: radial-gradient(transparent 0 65%, white 65% 100%);
   }
 
   .progress-circle {
@@ -68,6 +70,7 @@ const progressAngle = progressAngles[index] || '120deg';
     mask: radial-gradient(transparent 0 65%, white 65% 100%);
   }
 
+  .group:hover .progress-circle-mobile,
   .group:hover .progress-circle {
     --progress-angle: var(--end-angle);
   }
