@@ -14,13 +14,14 @@ const progressAngle = progressAngles[index] || '120deg';
 <div class="relative group cursor-pointer hover:scale-105 transition-all duration-300">
   <div class="grid grid-cols-[auto_1fr] sm:grid-cols-12 gap-4 sm:gap-6 items-start p-4 sm:p-6 rounded-lg hover:bg-foreground/5 transition-colors duration-300">
     <!-- Mobile & Desktop: Left-aligned circle -->
-    <div class="relative flex items-start justify-center pt-1 sm:col-span-1 sm:h-full sm:mr-4">
+    <div class="relative flex items-center justify-center sm:col-span-1 sm:h-full sm:mr-4 sm:pt-1">
       <div
-        class="progress-circle-mobile sm:progress-circle"
+        class="progress-circle-mobile sm:progress-circle relative"
         style={`--end-angle: ${progressAngle};`}
-      ></div>
-      <div class="text-xs sm:text-sm font-light text-foreground/80 relative z-10 absolute inset-0 flex items-center justify-center">
-        0{index + 1}
+      >
+        <div class="text-xs sm:text-sm font-light text-foreground/80 absolute inset-0 flex items-center justify-center z-10">
+          0{index + 1}
+        </div>
       </div>
     </div>
     
