@@ -258,7 +258,7 @@ const GZSIntakeForm: React.FC<GZSIntakeFormProps> = ({ onComplete, isModal = fal
                     onClick={() => setCurrentQuestion(0)}
                     variant="outline"
                     size="lg"
-                    className="font-light text-base px-12 py-3 h-auto border-2 border-foreground/20 bg-transparent text-foreground hover:border-primary hover:bg-primary hover:text-primary-foreground hover:scale-105 transition-[border-color,background-color,color,transform] duration-300 ease-in-out rounded-full"
+                    className="font-light text-base px-12 py-3 h-auto border-2 border-foreground/20 bg-transparent text-foreground hover:border-primary hover:bg-primary hover:text-primary-foreground hover:scale-105 hover:neumorphic-hover-light hover:dark:neumorphic-hover-dark transition-[border-color,background-color,color,transform,box-shadow] duration-300 ease-in-out rounded-full"
                   >
                     Begin Application
                   </Button>
@@ -367,7 +367,7 @@ const GZSIntakeForm: React.FC<GZSIntakeFormProps> = ({ onComplete, isModal = fal
                   </div>
                   <div className="space-y-6 max-w-4xl mx-auto">
                     {questions.map((q, i) => (
-                      <div key={i} className="grid grid-cols-1 lg:grid-cols-2 gap-4 p-6 bg-secondary/20 border border-foreground/10 rounded-lg hover:bg-secondary/30 transition-all duration-300">
+                      <div key={i} className="grid grid-cols-1 lg:grid-cols-2 gap-4 p-6 bg-secondary/20 border border-foreground/10 rounded-lg hover:bg-secondary/30 hover:neumorphic-hover-card hover:dark:neumorphic-hover-card-dark transition-all duration-300">
                         <p className="font-light text-foreground/80 text-base">{q.question}</p>
                         <div className="text-foreground font-light text-base lg:text-right">
                           {q.type === 'multiselect' ? (
@@ -398,7 +398,7 @@ const GZSIntakeForm: React.FC<GZSIntakeFormProps> = ({ onComplete, isModal = fal
                   variant="outline" 
                   onClick={handlePrev}
                   size="lg"
-                  className="font-light text-sm sm:text-base px-6 sm:px-8 py-2 sm:py-3 border-2 border-foreground/30 rounded-full min-h-[44px] min-w-[44px]"
+                  className="font-light text-sm sm:text-base px-6 sm:px-8 py-2 sm:py-3 border-2 border-foreground/30 rounded-full min-h-[44px] min-w-[44px] hover:neumorphic-hover-light hover:dark:neumorphic-hover-dark transition-all duration-300"
                 >
                   Previous
                 </Button>
@@ -409,7 +409,7 @@ const GZSIntakeForm: React.FC<GZSIntakeFormProps> = ({ onComplete, isModal = fal
                   variant="outline"
                   size="lg"
                   disabled={!isCurrentQuestionAnswered()}
-                  className="font-light text-sm sm:text-base px-6 sm:px-8 py-2 sm:py-3 border-2 border-foreground/30 rounded-full min-h-[44px] disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="font-light text-sm sm:text-base px-6 sm:px-8 py-2 sm:py-3 border-2 border-foreground/30 rounded-full min-h-[44px] disabled:opacity-50 disabled:cursor-not-allowed hover:neumorphic-hover-light hover:dark:neumorphic-hover-dark transition-all duration-300"
                 >
                   Next
                 </Button>
@@ -419,7 +419,7 @@ const GZSIntakeForm: React.FC<GZSIntakeFormProps> = ({ onComplete, isModal = fal
                     variant="outline"
                     size="lg"
                     disabled={!isCurrentQuestionAnswered()}
-                    className="font-light text-sm sm:text-base px-6 sm:px-8 py-2 sm:py-3 border-2 border-foreground/30 rounded-full min-h-[44px] disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="font-light text-sm sm:text-base px-6 sm:px-8 py-2 sm:py-3 border-2 border-foreground/30 rounded-full min-h-[44px] disabled:opacity-50 disabled:cursor-not-allowed hover:neumorphic-hover-light hover:dark:neumorphic-hover-dark transition-all duration-300"
                   >
                     Review
                   </Button>
@@ -429,7 +429,7 @@ const GZSIntakeForm: React.FC<GZSIntakeFormProps> = ({ onComplete, isModal = fal
                   variant="outline"
                   size="lg"
                   disabled={isSubmitting}
-                  className="font-light text-sm sm:text-base px-6 sm:px-8 py-2 sm:py-3 border-2 border-foreground/30 rounded-full min-h-[44px] disabled:opacity-70 disabled:cursor-not-allowed"
+                  className="font-light text-sm sm:text-base px-6 sm:px-8 py-2 sm:py-3 border-2 border-foreground/30 rounded-full min-h-[44px] disabled:opacity-70 disabled:cursor-not-allowed hover:neumorphic-hover-light hover:dark:neumorphic-hover-dark transition-all duration-300"
                 >
                   {isSubmitting ? (
                     <div className="flex items-center space-x-2">

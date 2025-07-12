@@ -73,7 +73,7 @@ const ReportsFilter = ({ reports }: ReportsFilterProps) => {
                   href={`/reports/${report.slug}/`}
                   className="group block transition-all duration-300 hover:scale-105"
                 >
-                  <div className="bg-background border border-foreground/10 rounded-lg p-8 h-full hover:border-foreground/30 hover:shadow-xl transition-all duration-300">
+                  <div className="bg-background border border-foreground/10 rounded-lg p-8 h-full hover:border-foreground/30 hover:neumorphic-hover-card hover:dark:neumorphic-hover-card-dark transition-all duration-300">
                     <div className="space-y-6">
                       <div className="flex items-start justify-between">
                         <div className="space-y-2">
@@ -145,7 +145,7 @@ const ReportsFilter = ({ reports }: ReportsFilterProps) => {
                 href={`/reports/${report.slug}/`}
                 className="group block transition-all duration-300 hover:scale-105"
               >
-                <div className="bg-background border border-foreground/10 rounded-lg p-8 h-full hover:border-foreground/30 hover:shadow-xl transition-all duration-300">
+                <div className="bg-background border border-foreground/10 rounded-lg p-8 h-full hover:border-foreground/30 hover:neumorphic-hover-card hover:dark:neumorphic-hover-card-dark transition-all duration-300">
                   <div className="space-y-6">
                     <div className="flex items-start justify-between">
                       <div className="space-y-2">

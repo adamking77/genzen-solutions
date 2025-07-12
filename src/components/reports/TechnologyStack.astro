@@ -36,7 +36,7 @@ const { title, description, technologies } = Astro.props;
                   class="group animate-fade-in"
                   style={`animation-delay: ${400 + (index * 150)}ms;`}
                 >
-                  <div class="relative p-8 rounded-xl bg-background border border-foreground/10 hover:border-primary/30 transition-all duration-500 hover:shadow-lg hover:shadow-foreground/5 hover:scale-[1.02] hover:-translate-y-1">
+                  <div class="relative p-8 rounded-xl bg-background border border-foreground/10 hover:border-primary/30 transition-all duration-500 hover:neumorphic-hover-card hover:dark:neumorphic-hover-card-dark hover:scale-[1.02] hover:-translate-y-1">
                     
                     {/* Subtle connecting line (except for last card) */}
                     {index < technologies.length - 1 && (

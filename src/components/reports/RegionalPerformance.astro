@@ -30,9 +30,9 @@ const regions = [
                 class="group relative cursor-pointer animate-fade-in hover:scale-105 transition-all duration-300"
                 style={`animation-delay: ${index * 200}ms;`}
               >
-                <div class="bg-background/80 backdrop-blur-sm border border-foreground/10 rounded-lg p-6 space-y-4 hover:border-foreground/30 hover:shadow-xl transition-all duration-300">
+                <div class="bg-background/80 backdrop-blur-sm border border-foreground/10 rounded-lg p-6 space-y-4 hover:border-foreground/30 hover:neumorphic-hover-card hover:dark:neumorphic-hover-card-dark transition-all duration-300">
                   <div class="flex items-center space-x-3">
-                    <div class={`w-3 h-3 rounded-full ${region.color} transition-all duration-300 group-hover:scale-150 group-hover:shadow-lg`}></div>
+                    <div class={`w-3 h-3 rounded-full ${region.color} transition-all duration-300 group-hover:scale-150 group-hover:neumorphic-hover-subtle group-hover:dark:neumorphic-hover-subtle-dark`}></div>
                     <h3 class="text-lg font-light text-foreground group-hover:text-foreground/80 transition-colors duration-300">
                       {region.name}
                     </h3>

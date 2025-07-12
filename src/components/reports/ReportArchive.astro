@@ -190,7 +190,7 @@ const regularReports = allReports.filter(report => !report.featured);
   function createReportCardHTML(report, sequenceNumber, featured) {
     return `
       <a href="/reports/${report.slug}/" class="${featured ? 'lg:col-span-1' : ''} group block transition-all duration-300 hover:scale-105">
-        <div class="bg-background border border-foreground/10 rounded-lg p-8 h-full hover:border-foreground/30 hover:shadow-xl transition-all duration-300">
+        <div class="bg-background border border-foreground/10 rounded-lg p-8 h-full hover:border-foreground/30 hover:neumorphic-hover-card hover:dark:neumorphic-hover-card-dark transition-all duration-300">
           <div class="space-y-6">
             <div class="flex items-start justify-between">
               <div class="space-y-2">

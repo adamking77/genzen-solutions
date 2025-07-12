@@ -53,10 +53,10 @@ const { title, subtitle, metrics } = Astro.props;
                       class:list={[
                         "w-2 h-2 rounded-full mt-2 transition-[transform,box-shadow] duration-300 ease-in-out group-hover:scale-150",
                         {
-                          'bg-foreground/80 group-hover:shadow-lg group-hover:shadow-foreground/50': metric.trend === 'up',
-                          'bg-foreground/60 group-hover:shadow-lg group-hover:shadow-foreground/30': metric.trend === 'down',
-                          'bg-foreground/40 group-hover:shadow-lg group-hover:shadow-foreground/20': metric.trend === 'stable',
-                          'bg-red-500/80 group-hover:shadow-lg group-hover:shadow-red-500/50': metric.trend === 'critical',
+                          'bg-foreground/80 group-hover:neumorphic-hover-subtle group-hover:dark:neumorphic-hover-subtle-dark': metric.trend === 'up',
+                          'bg-foreground/60 group-hover:neumorphic-hover-subtle group-hover:dark:neumorphic-hover-subtle-dark': metric.trend === 'down',
+                          'bg-foreground/40 group-hover:neumorphic-hover-subtle group-hover:dark:neumorphic-hover-subtle-dark': metric.trend === 'stable',
+                          'bg-red-500/80 group-hover:neumorphic-hover-subtle group-hover:dark:neumorphic-hover-subtle-dark': metric.trend === 'critical',
                         }
                       ]}
                     />

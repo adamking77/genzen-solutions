@@ -99,7 +99,7 @@ const IntakeFormModal: React.FC<IntakeFormModalProps> = ({ children, className }
             <button
               ref={closeButtonRef}
               onClick={closeModal}
-              className="absolute top-2 right-2 sm:top-4 sm:right-4 z-20 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-background border-2 border-foreground/30 hover:bg-primary/5 hover:border-primary/40 hover:scale-105 hover:shadow-lg hover:shadow-primary/10 transition-all duration-300 flex items-center justify-center group focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+              className="absolute top-2 right-2 sm:top-4 sm:right-4 z-20 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-background border-2 border-foreground/30 hover:bg-primary/5 hover:border-primary/40 hover:scale-105 hover:neumorphic-hover-subtle hover:dark:neumorphic-hover-subtle-dark transition-all duration-300 flex items-center justify-center group focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background"
               aria-label="Close modal"
             >
               <svg
