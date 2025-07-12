@@ -24,7 +24,7 @@ const mobileNavLinks = isHome ? navLinksConfig.home : navLinksConfig.other;
 
 <nav id="main-nav" class="fixed top-0 left-0 right-0 z-50 transition-[background-color,border-color,backdrop-filter] duration-300 ease-in-out bg-transparent">
   <div class="max-w-6xl mx-auto px-6 lg:px-8">
-    <div id="nav-content-container" class="flex items-center justify-between transition-[height] duration-300 ease-in-out h-20 lg:h-24">
+    <div id="nav-content-container" class="flex items-center justify-between transition-[height] duration-300 ease-in-out h-16 sm:h-18 lg:h-20">
       <a href="/" id="nav-logo" class="font-light tracking-wide text-foreground transition-[color,font-size] duration-300 ease-in-out text-lg">
         GenZen Solutions
       </a>
@@ -77,7 +77,7 @@ const mobileNavLinks = isHome ? navLinksConfig.home : navLinksConfig.other;
 
   {/* Mobile Menu */}
   <div id="mobile-menu" class="hidden lg:hidden bg-background border-t border-foreground/10">
-    <div class="px-2 pt-8 pb-6 space-y-6">
+    <div class="px-2 pt-4 pb-6 space-y-4">
       {mobileNavLinks.map(link => (
          'id' in link ? (
           <button
@@ -131,8 +131,8 @@ const mobileNavLinks = isHome ? navLinksConfig.home : navLinksConfig.other;
           nav.classList.add('bg-background/95', 'backdrop-blur-sm', 'border-b', 'border-primary/20', 'shadow-lg', 'shadow-primary/5');
           nav.classList.remove('bg-transparent');
           
-          navContentContainer.classList.remove('h-20', 'lg:h-24');
-          navContentContainer.classList.add('h-14', 'lg:h-16');
+          navContentContainer.classList.remove('h-16', 'sm:h-18', 'lg:h-20');
+          navContentContainer.classList.add('h-12', 'sm:h-14', 'lg:h-16');
           
           navLogo.classList.remove('text-lg');
           navLogo.classList.add('text-base');
@@ -154,8 +154,8 @@ const mobileNavLinks = isHome ? navLinksConfig.home : navLinksConfig.other;
           nav.classList.remove('bg-background/95', 'backdrop-blur-sm', 'border-b', 'border-primary/20', 'shadow-lg', 'shadow-primary/5');
           nav.classList.add('bg-transparent');
           
-          navContentContainer.classList.remove('h-14', 'lg:h-16');
-          navContentContainer.classList.add('h-20', 'lg:h-24');
+          navContentContainer.classList.remove('h-12', 'sm:h-14', 'lg:h-16');
+          navContentContainer.classList.add('h-16', 'sm:h-18', 'lg:h-20');
           
           navLogo.classList.remove('text-base');
           navLogo.classList.add('text-lg');

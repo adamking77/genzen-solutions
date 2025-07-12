@@ -81,7 +81,7 @@ const IntakeFormModal: React.FC<IntakeFormModalProps> = ({ children, className }
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.3 }}
-          className="fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4 bg-black/60 backdrop-blur-sm overflow-x-hidden"
+          className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-black/60 backdrop-blur-sm overflow-hidden"
           onClick={handleBackdropClick}
           role="dialog"
           aria-modal="true"
@@ -92,18 +92,18 @@ const IntakeFormModal: React.FC<IntakeFormModalProps> = ({ children, className }
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: 20 }}
             transition={{ duration: 0.4, ease: "easeOut" }}
-            className="relative w-full max-w-sm sm:max-w-md md:max-w-2xl lg:max-w-4xl xl:max-w-5xl max-h-[90vh] overflow-hidden bg-background border border-foreground/20 rounded-xl shadow-2xl mx-2"
+            className="relative w-[95vw] max-w-xs sm:max-w-sm md:max-w-lg lg:max-w-2xl xl:max-w-4xl max-h-[90vh] overflow-hidden bg-background border border-foreground/20 rounded-xl shadow-2xl"
           >
             <h2 id="modal-title" className="sr-only">Intake Form</h2>
             {/* Close Button */}
             <button
               ref={closeButtonRef}
               onClick={closeModal}
-              className="absolute top-4 right-4 z-20 w-12 h-12 rounded-full bg-background border-2 border-foreground/30 hover:bg-primary/5 hover:border-primary/40 hover:scale-105 hover:shadow-lg hover:shadow-primary/10 transition-all duration-300 flex items-center justify-center group focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+              className="absolute top-2 right-2 sm:top-4 sm:right-4 z-20 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-background border-2 border-foreground/30 hover:bg-primary/5 hover:border-primary/40 hover:scale-105 hover:shadow-lg hover:shadow-primary/10 transition-all duration-300 flex items-center justify-center group focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background"
               aria-label="Close modal"
             >
               <svg
-                className="w-5 h-5 text-foreground/60 group-hover:text-primary transition-colors duration-200"
+                className="w-4 h-4 sm:w-5 sm:h-5 text-foreground/60 group-hover:text-primary transition-colors duration-200"
                 fill="none"
                 strokeLinecap="round"
                 strokeLinejoin="round"

@@ -22,14 +22,14 @@ const {
 }: Props = Astro.props;
 ---
 
-<section class="py-32 lg:py-40" id={sectionId}>
-  <div class="max-w-7xl mx-auto px-8 lg:px-12">
-    <div class="grid grid-cols-12 gap-16">
+<section class="py-16 sm:py-20 lg:py-24" id={sectionId}>
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
       <div class="col-span-12 lg:col-span-5">
         <ScrollAnimator client:load threshold={0.2} duration={1000}>
           <div class="space-y-8">
             {headline && (
-              <h2 class="text-4xl md:text-5xl font-light leading-tight tracking-tight text-foreground">
+              <h2 class="text-2xl sm:text-3xl md:text-4xl font-light leading-tight tracking-tight text-foreground">
                 {headline}
               </h2>
             )}

@@ -221,7 +221,7 @@ const GZSIntakeForm: React.FC<GZSIntakeFormProps> = ({ onComplete, isModal = fal
     <div className={isModal ? "w-full flex flex-col" : "min-h-screen w-full flex flex-col"}>
       <div className={isModal ? "flex flex-col" : "flex-1 flex flex-col"}>
         {/* Fixed Progress Bar at Top */}
-        <div className="w-full bg-background/95 backdrop-blur-sm px-6 py-4 sticky top-0 z-10">
+        <div className="w-full bg-background/95 backdrop-blur-sm px-4 sm:px-6 py-3 sm:py-4 sticky top-0 z-10">
           <div className="max-w-2xl mx-auto">
             <Progress value={progress} className="mb-2" />
             <div className="flex justify-between items-center text-xs font-light tracking-widest uppercase text-foreground/60">
@@ -232,7 +232,7 @@ const GZSIntakeForm: React.FC<GZSIntakeFormProps> = ({ onComplete, isModal = fal
         </div>
 
         {/* Main Content Area */}
-        <div className={isModal ? "flex flex-col justify-start px-6 pt-4" : "flex-1 flex flex-col justify-start px-6 pt-8"}>
+        <div className={isModal ? "flex flex-col justify-start px-4 sm:px-6 pt-4" : "flex-1 flex flex-col justify-start px-4 sm:px-6 pt-8"}>
           <div className="w-full max-w-3xl mx-auto my-10">
             <AnimatePresence mode="wait">
               {currentQuestion === -1 && (
@@ -246,7 +246,7 @@ const GZSIntakeForm: React.FC<GZSIntakeFormProps> = ({ onComplete, isModal = fal
                 >
                   <div className="space-y-8">
                     <div className="w-16 h-px bg-foreground/20 mx-auto"></div>
-                    <h1 className="text-3xl sm:text-4xl md:text-5xl font-light leading-[0.9] text-foreground">
+                    <h1 className="text-2xl sm:text-3xl md:text-4xl font-light leading-tight text-foreground">
                       Legacy Ecosystem 
                       <span className="block">Analysis Application</span>
                     </h1>
@@ -279,7 +279,7 @@ const GZSIntakeForm: React.FC<GZSIntakeFormProps> = ({ onComplete, isModal = fal
                         Question {currentQuestion + 1} of {questions.length}
                       </div>
                     </div>
-                    <label htmlFor={questions[currentQuestion].name} className="text-2xl sm:text-3xl md:text-4xl font-light leading-[1.1] text-foreground block">
+                    <label htmlFor={questions[currentQuestion].name} className="text-xl sm:text-2xl md:text-3xl font-light leading-tight text-foreground block">
                       {questions[currentQuestion].question}
                     </label>
                   </div>
@@ -289,7 +289,7 @@ const GZSIntakeForm: React.FC<GZSIntakeFormProps> = ({ onComplete, isModal = fal
                         <Input
                           id={questions[currentQuestion].name}
                           type="text"
-                          className="w-full p-4 text-lg font-light text-left bg-background border-2 border-foreground/20 rounded-lg focus:border-primary focus:ring-0 transition-all duration-300"
+                          className="w-full p-3 sm:p-4 text-base sm:text-lg font-light text-left bg-background border-2 border-foreground/20 rounded-lg focus:border-primary focus:ring-0 transition-all duration-300"
                           onChange={(e) => handleChange(questions[currentQuestion].name, e.target.value)}
                           value={answers[questions[currentQuestion].name] || ''}
                           autoFocus
@@ -299,7 +299,7 @@ const GZSIntakeForm: React.FC<GZSIntakeFormProps> = ({ onComplete, isModal = fal
                         <Input
                           id={questions[currentQuestion].name}
                           type="email"
-                          className="w-full p-4 text-lg font-light text-left bg-background border-2 border-foreground/20 rounded-lg focus:border-primary focus:ring-0 transition-all duration-300"
+                          className="w-full p-3 sm:p-4 text-base sm:text-lg font-light text-left bg-background border-2 border-foreground/20 rounded-lg focus:border-primary focus:ring-0 transition-all duration-300"
                           onChange={(e) => handleChange(questions[currentQuestion].name, e.target.value)}
                           value={answers[questions[currentQuestion].name] || ''}
                           autoFocus
@@ -307,12 +307,12 @@ const GZSIntakeForm: React.FC<GZSIntakeFormProps> = ({ onComplete, isModal = fal
                       )}
                       {questions[currentQuestion].type === 'select' && (
                         <Select onValueChange={(value) => handleChange(questions[currentQuestion].name, value)} value={answers[questions[currentQuestion].name] || ''}>
-                          <SelectTrigger className="w-full p-4 text-lg font-light bg-background border-2 border-foreground/20 rounded-lg focus:border-primary focus:ring-0 transition-all duration-300">
+                          <SelectTrigger className="w-full p-3 sm:p-4 text-base sm:text-lg font-light bg-background border-2 border-foreground/20 rounded-lg focus:border-primary focus:ring-0 transition-all duration-300">
                             <SelectValue placeholder="Select an option" className="font-light" />
                           </SelectTrigger>
                           <SelectContent className="bg-background border border-foreground/20">
                             {questions[currentQuestion].options?.map((option) => (
-                              <SelectItem key={option} value={option} className="text-lg font-light hover:bg-secondary/30 p-3">
+                              <SelectItem key={option} value={option} className="text-base sm:text-lg font-light hover:bg-secondary/30 p-3">
                                 {option}
                               </SelectItem>
                             ))}
@@ -322,7 +322,7 @@ const GZSIntakeForm: React.FC<GZSIntakeFormProps> = ({ onComplete, isModal = fal
                       {questions[currentQuestion].type === 'multiselect' && (
                         <div className="space-y-4">
                           {questions[currentQuestion].options?.map((option) => (
-                            <div key={option} className="flex items-center space-x-3 p-4 bg-secondary/10 hover:bg-secondary/20 border border-foreground/10 rounded-lg transition-all duration-300">
+                            <div key={option} className="flex items-center space-x-3 p-3 sm:p-4 bg-secondary/10 hover:bg-secondary/20 border border-foreground/10 rounded-lg transition-all duration-300">
                               <Checkbox
                                 id={`${questions[currentQuestion].name}-${option}`}
                                 checked={(answers[questions[currentQuestion].name] || []).includes(option)}
@@ -361,7 +361,7 @@ const GZSIntakeForm: React.FC<GZSIntakeFormProps> = ({ onComplete, isModal = fal
                         Final Review
                       </div>
                     </div>
-                    <h2 className="text-2xl sm:text-3xl md:text-4xl font-light leading-[1.2] text-foreground">
+                    <h2 className="text-xl sm:text-2xl md:text-3xl font-light leading-tight text-foreground">
                       Review Your Application
                     </h2>
                   </div>
@@ -392,13 +392,13 @@ const GZSIntakeForm: React.FC<GZSIntakeFormProps> = ({ onComplete, isModal = fal
             </AnimatePresence>
             
             {/* Navigation - Now inside content area */}
-            <div className="w-full max-w-2xl mx-auto flex justify-between items-center mt-12">
+            <div className="w-full max-w-2xl mx-auto flex justify-between items-center mt-8 sm:mt-12">
               {currentQuestion > -1 ? (
                 <Button 
                   variant="outline" 
                   onClick={handlePrev}
                   size="lg"
-                  className="font-light text-base px-8 py-3 border-2 border-foreground/30 rounded-full"
+                  className="font-light text-sm sm:text-base px-6 sm:px-8 py-2 sm:py-3 border-2 border-foreground/30 rounded-full min-h-[44px] min-w-[44px]"
                 >
                   Previous
                 </Button>
@@ -409,7 +409,7 @@ const GZSIntakeForm: React.FC<GZSIntakeFormProps> = ({ onComplete, isModal = fal
                   variant="outline"
                   size="lg"
                   disabled={!isCurrentQuestionAnswered()}
-                  className="font-light text-base px-8 py-3 border-2 border-foreground/30 rounded-full disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="font-light text-sm sm:text-base px-6 sm:px-8 py-2 sm:py-3 border-2 border-foreground/30 rounded-full min-h-[44px] disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   Next
                 </Button>
@@ -419,7 +419,7 @@ const GZSIntakeForm: React.FC<GZSIntakeFormProps> = ({ onComplete, isModal = fal
                     variant="outline"
                     size="lg"
                     disabled={!isCurrentQuestionAnswered()}
-                    className="font-light text-base px-8 py-3 border-2 border-foreground/30 rounded-full disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="font-light text-sm sm:text-base px-6 sm:px-8 py-2 sm:py-3 border-2 border-foreground/30 rounded-full min-h-[44px] disabled:opacity-50 disabled:cursor-not-allowed"
                   >
                     Review
                   </Button>
@@ -429,7 +429,7 @@ const GZSIntakeForm: React.FC<GZSIntakeFormProps> = ({ onComplete, isModal = fal
                   variant="outline"
                   size="lg"
                   disabled={isSubmitting}
-                  className="font-light text-base px-8 py-3 border-2 border-foreground/30 rounded-full disabled:opacity-70 disabled:cursor-not-allowed"
+                  className="font-light text-sm sm:text-base px-6 sm:px-8 py-2 sm:py-3 border-2 border-foreground/30 rounded-full min-h-[44px] disabled:opacity-70 disabled:cursor-not-allowed"
                 >
                   {isSubmitting ? (
                     <div className="flex items-center space-x-2">

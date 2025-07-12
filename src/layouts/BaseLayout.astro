@@ -59,10 +59,10 @@ const {
       })();
     </script>
 </head>
-<body class="min-h-screen bg-background font-sans antialiased">
+<body class="min-h-screen bg-background font-sans antialiased overflow-x-hidden">
   <ThemeProvider client:idle defaultTheme="system" storageKey="astro-ui-theme">
     <Navigation />
-    <main class="flex-1 pt-20 lg:pt-24">
+    <main class="flex-1 pt-16 sm:pt-18 lg:pt-20">
       <slot />
     </main>
     <Toaster client:idle />

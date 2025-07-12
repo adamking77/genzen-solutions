@@ -123,11 +123,11 @@ import ScrollAnimator from '../components/interactive/ScrollAnimator.tsx';
   />
 
   <!-- 6. Begin With Legacy Ecosystem Analysis -->
-  <section id="services" class="bg-secondary/20 py-20 sm:py-24">
-    <div class="mx-auto max-w-7xl px-6 lg:px-8">
+  <section id="services" class="bg-secondary/20 py-16 sm:py-20 lg:py-24">
+    <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
       <ScrollAnimator client:visible threshold={0.2} duration={1000}>
         <div class="mx-auto max-w-2xl lg:mx-0">
-          <h2 class="text-3xl sm:text-4xl md:text-5xl font-light leading-tight tracking-tight text-foreground">{homePageContent.legacyEcosystemAnalysis.title}</h2>
+          <h2 class="text-2xl sm:text-3xl md:text-4xl font-light leading-tight tracking-tight text-foreground">{homePageContent.legacyEcosystemAnalysis.title}</h2>
           <p class="mt-6 text-lg leading-8 text-muted-foreground">
             {homePageContent.legacyEcosystemAnalysis.description}
           </p>
@@ -148,14 +148,14 @@ import ScrollAnimator from '../components/interactive/ScrollAnimator.tsx';
   </section>
 
   <!-- 6. GenZen Solutions -->
-  <section id="about" class="py-32 lg:py-48 bg-secondary/20" aria-labelledby="about-heading">
-    <div class="max-w-7xl mx-auto px-6 lg:px-8">
+  <section id="about" class="py-16 sm:py-20 lg:py-24 bg-secondary/20" aria-labelledby="about-heading">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="max-w-4xl mx-auto">
         <div>
           <ScrollAnimator client:visible threshold={0.2} duration={1000}>
             <div class="space-y-12">
               <div class="space-y-8">
-                <h2 id="about-heading" class="text-3xl sm:text-4xl md:text-5xl font-light leading-tight tracking-tight text-foreground">
+                <h2 id="about-heading" class="text-2xl sm:text-3xl md:text-4xl font-light leading-tight tracking-tight text-foreground">
                   {homePageContent.foundedStory.companyName}
                 </h2>
                 <div class="w-16 h-px bg-foreground/20"></div>
@@ -173,7 +173,7 @@ import ScrollAnimator from '../components/interactive/ScrollAnimator.tsx';
                 </p>
               </div>
 
-              <div class="grid grid-cols-2 gap-8 pt-8 border-t border-foreground/10">
+              <div class="grid grid-cols-2 gap-6 sm:gap-8 pt-6 sm:pt-8 border-t border-foreground/10">
                 <div class="text-center">
                   <div class="text-2xl font-light mb-2 text-foreground">250M+</div>
                   <div class="text-sm font-light text-foreground/50">Assets Protected</div>
@@ -192,9 +192,9 @@ import ScrollAnimator from '../components/interactive/ScrollAnimator.tsx';
   </section>
 
   <!-- 7. The Founder -->
-  <section id="founder" class="py-32 lg:py-48" aria-labelledby="founder-heading">
-    <div class="max-w-7xl mx-auto px-6 lg:px-8">
-      <div class="grid lg:grid-cols-2 gap-24 items-center">
+  <section id="founder" class="py-16 sm:py-20 lg:py-24" aria-labelledby="founder-heading">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
         <div>
           <ScrollAnimator client:visible threshold={0.2} duration={1000}>
             <div class="flex items-center justify-center h-full">
@@ -202,7 +202,7 @@ import ScrollAnimator from '../components/interactive/ScrollAnimator.tsx';
                 <img
                   src={homePageContent.foundedStory.founderImage}
                   alt={`Professional portrait of ${homePageContent.foundedStory.founderName}`}
-                  class="w-80 h-96 object-cover rounded-lg shadow-xl"
+                  class="w-full max-w-sm sm:max-w-md lg:max-w-lg h-auto aspect-[4/5] object-cover rounded-lg shadow-xl"
                   loading="lazy"
                 />
                 <div class="absolute inset-0 rounded-lg bg-gradient-to-tr from-primary/10 to-transparent"></div>
@@ -215,7 +215,7 @@ import ScrollAnimator from '../components/interactive/ScrollAnimator.tsx';
           <ScrollAnimator client:visible threshold={0.2} duration={1000} delay={200}>
             <div class="space-y-12">
               <div class="space-y-8">
-                <h2 id="founder-heading" class="text-3xl sm:text-4xl md:text-5xl font-light leading-tight tracking-tight text-foreground">
+                <h2 id="founder-heading" class="text-2xl sm:text-3xl md:text-4xl font-light leading-tight tracking-tight text-foreground">
                   The Founder
                 </h2>
                 <div class="w-16 h-px bg-foreground/20"></div>
