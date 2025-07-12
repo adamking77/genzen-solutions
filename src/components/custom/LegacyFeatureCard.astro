@@ -12,8 +12,22 @@ const progressAngle = progressAngles[index] || '120deg';
 ---
 
 <div class="relative group cursor-pointer hover:scale-105 transition-all duration-300">
-  <div class="grid grid-cols-12 gap-6 items-start p-6 rounded-lg hover:bg-foreground/5 transition-colors duration-300">
-    <div class="col-span-1 relative flex items-center justify-center h-full mr-4">
+  <div class="grid grid-cols-1 sm:grid-cols-12 gap-4 sm:gap-6 items-start p-4 sm:p-6 rounded-lg hover:bg-foreground/5 transition-colors duration-300">
+    <!-- Mobile: Circle above content -->
+    <div class="flex sm:hidden items-center justify-center mb-4">
+      <div class="relative">
+        <div
+          class="progress-circle"
+          style={`--end-angle: ${progressAngle};`}
+        ></div>
+        <div class="text-sm font-light text-foreground/80 relative z-10 absolute inset-0 flex items-center justify-center">
+          0{index + 1}
+        </div>
+      </div>
+    </div>
+    
+    <!-- Desktop: Circle in grid column -->
+    <div class="hidden sm:block sm:col-span-1 relative flex items-center justify-center h-full mr-4">
       <div
         class="progress-circle absolute"
         style={`--end-angle: ${progressAngle};`}
@@ -22,14 +36,15 @@ const progressAngle = progressAngles[index] || '120deg';
         0{index + 1}
       </div>
     </div>
-    <div class="col-span-11">
+    
+    <div class="col-span-1 sm:col-span-11">
       <div class="space-y-4">
         <h3 class="text-xl font-light text-foreground group-hover:text-foreground/90 transition-colors duration-300" set:html={title} />
         <p class="text-base font-light text-foreground/70 leading-relaxed group-hover:text-foreground transition-colors duration-300" set:html={description} />
       </div>
     </div>
   </div>
-  <div class="w-full h-px bg-foreground/10 mt-8 transition-all duration-300 group-hover:bg-foreground/20" />
+  <div class="w-full h-px bg-foreground/10 mt-6 sm:mt-8 transition-all duration-300 group-hover:bg-foreground/20" />
 </div>
 <style>
   @property --progress-angle {

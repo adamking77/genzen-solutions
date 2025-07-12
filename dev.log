@@ -19,3 +19,215 @@
 17:24:49 [200] / 381ms
 17:24:56 [200] / 18ms
 17:25:41 [200] / 27ms
+17:42:06 [watch] /src/styles/global.css
+17:42:07 [200] / 209ms
+17:42:21 [watch] src/components/sections/CTA.astro
+17:42:21 [watch] src/components/sections/CTA.astro
+17:42:23 [200] / 117ms
+17:42:38 [watch] src/components/sections/CTA.astro
+17:42:38 [watch] src/components/sections/CTA.astro
+17:42:38 [200] / 96ms
+17:43:02 [watch] src/components/reports/PerformanceMetrics.astro
+17:43:02 [watch] src/components/reports/PerformanceMetrics.astro
+17:43:03 [200] / 104ms
+17:43:11 [watch] src/components/reports/PerformanceMetrics.astro
+17:43:11 [watch] src/components/reports/PerformanceMetrics.astro
+17:43:12 [200] / 86ms
+17:43:34 [watch] src/components/reports/PerformanceMetrics.astro
+17:43:34 [watch] src/components/reports/PerformanceMetrics.astro
+17:43:35 [200] / 82ms
+17:43:48 [watch] src/components/reports/PerformanceMetrics.astro
+17:43:48 [watch] src/components/reports/PerformanceMetrics.astro
+17:43:48 [200] / 96ms
+17:44:12 [watch] /src/components/interactive/ScrollAnimator.tsx, /node_modules/@astrojs/tailwind/base.css, /src/styles/global.css
+17:44:12 [watch] src/components/interactive/ScrollAnimator.tsx
+17:44:18 [watch] /src/components/interactive/ScrollAnimator.tsx, /node_modules/@astrojs/tailwind/base.css, /src/styles/global.css
+17:44:18 [watch] src/components/interactive/ScrollAnimator.tsx
+17:44:29 [watch] /src/components/interactive/ScrollAnimator.tsx, /node_modules/@astrojs/tailwind/base.css, /src/styles/global.css
+17:44:29 [watch] src/components/interactive/ScrollAnimator.tsx
+17:44:38 [watch] /src/components/interactive/ScrollAnimator.tsx, /node_modules/@astrojs/tailwind/base.css, /src/styles/global.css
+17:44:38 [watch] src/components/interactive/ScrollAnimator.tsx
+17:45:14 [watch] src/components/Navigation.astro
+17:45:14 [watch] src/components/Navigation.astro
+17:45:15 [200] / 129ms
+17:45:22 [watch] src/components/Navigation.astro
+17:45:22 [watch] src/components/Navigation.astro
+17:45:23 [200] / 89ms
+17:45:29 [watch] src/components/Navigation.astro
+17:45:29 [watch] src/components/Navigation.astro
+17:45:29 [200] / 70ms
+17:45:35 [watch] src/components/Navigation.astro
+17:45:35 [watch] src/components/Navigation.astro
+17:45:36 [200] / 93ms
+17:45:44 [watch] src/components/Navigation.astro
+17:45:44 [watch] src/components/Navigation.astro
+17:45:44 [200] / 73ms
+17:45:51 [watch] src/components/Navigation.astro
+17:45:51 [watch] src/components/Navigation.astro
+17:45:52 [200] / 76ms
+17:46:57 [watch] /src/styles/global.css
+17:46:57 [200] / 217ms
+17:47:03 [watch] /src/styles/global.css
+17:47:03 [200] / 220ms
+17:47:09 [watch] /src/styles/global.css
+17:47:09 [200] / 175ms
+17:47:35 [watch] /src/styles/global.css
+17:47:35 [200] / 207ms
+17:48:07 [watch] src/components/sections/CTA.astro
+17:48:07 [watch] src/components/sections/CTA.astro
+17:48:09 [200] / 197ms
+17:48:21 [watch] src/components/layouts/CompanyHero.astro
+17:48:21 [watch] src/components/layouts/CompanyHero.astro
+17:48:22 [200] / 104ms
+17:48:39 [watch] src/components/reports/ReportCard.astro
+17:48:39 [watch] src/components/reports/ReportCard.astro
+17:48:40 [200] / 91ms
+17:48:48 [watch] src/components/reports/ReportCard.astro
+17:48:48 [watch] src/components/reports/ReportCard.astro
+17:48:48 [200] / 75ms
+17:49:00 [watch] src/components/Navigation.astro
+17:49:00 [watch] src/components/Navigation.astro
+17:49:00 [200] / 79ms
+17:49:06 [watch] src/components/Navigation.astro
+17:49:06 [watch] src/components/Navigation.astro
+17:49:06 [200] / 95ms
+17:49:11 [watch] src/components/Navigation.astro
+17:49:11 [watch] src/components/Navigation.astro
+17:49:11 [200] / 72ms
+17:49:59 [watch] src/pages/index.astro
+17:49:59 [watch] src/pages/index.astro
+17:50:00 [200] / 112ms
+17:52:02 [200] / 28ms
+17:54:56 [200] / 26ms
+18:02:42 [watch] src/components/sections/CTA.astro
+18:02:42 [watch] src/components/sections/CTA.astro
+18:02:43 [ERROR] Cannot find module '~/components/modals/IntakeFormButton.tsx' imported from '/Users/adamking/claude-code-projects/genzen_solutions_site/src/components/sections/CTA.astro'
+  Stack trace:
+    at fetchModule (file:///Users/adamking/claude-code-projects/genzen_solutions_site/node_modules/vite/dist/node/chunks/dep-DBxKXgDP.js:46813:19)
+    at fetchModule (file:///Users/adamking/claude-code-projects/genzen_solutions_site/node_modules/vite/dist/node/chunks/dep-DBxKXgDP.js:47858:21)
+    at EventEmitter.listenerForInvokeHandler (file:///Users/adamking/claude-code-projects/genzen_solutions_site/node_modules/vite/dist/node/chunks/dep-DBxKXgDP.js:39046:25)
+    at Object.send (file:///Users/adamking/claude-code-projects/genzen_solutions_site/node_modules/vite/dist/node/chunks/dep-DBxKXgDP.js:25190:40)
+    at Object.invoke (file:///Users/adamking/claude-code-projects/genzen_solutions_site/node_modules/vite/dist/node/module-runner.js:682:34)
+    at SSRCompatModuleRunner.cachedModule (file:///Users/adamking/claude-code-projects/genzen_solutions_site/node_modules/vite/dist/node/module-runner.js:1191:21)
+    at /Users/adamking/claude-code-projects/genzen_solutions_site/src/components/sections/CTA.astro:2:1
+    at async SSRCompatModuleRunner.directRequest (file:///Users/adamking/claude-code-projects/genzen_solutions_site/node_modules/vite/dist/node/module-runner.js:1284:61)
+    at async SSRCompatModuleRunner.cachedRequest (file:///Users/adamking/claude-code-projects/genzen_solutions_site/node_modules/vite/dist/node/module-runner.js:1180:76)
+    at async ESModulesEvaluator.runInlinedModule (file:///Users/adamking/claude-code-projects/genzen_solutions_site/node_modules/vite/dist/node/module-runner.js:1062:5)
+    at async SSRCompatModuleRunner.directRequest (file:///Users/adamking/claude-code-projects/genzen_solutions_site/node_modules/vite/dist/node/chunks/dep-DBxKXgDP.js:25274:23)
+    at async SSRCompatModuleRunner.import (file:///Users/adamking/claude-code-projects/genzen_solutions_site/node_modules/vite/dist/node/module-runner.js:1117:12)
+    at async DevPipeline.preload (file:///Users/adamking/claude-code-projects/genzen_solutions_site/node_modules/astro/dist/vite-plugin-astro-server/pipeline.js:116:33)
+    at async getSortedPreloadedMatches (file:///Users/adamking/claude-code-projects/genzen_solutions_site/node_modules/astro/dist/prerender/routing.js:9:11)
+    at async run (file:///Users/adamking/claude-code-projects/genzen_solutions_site/node_modules/astro/dist/vite-plugin-astro-server/request.js:38:28)
+    at async handleRequest (file:///Users/adamking/claude-code-projects/genzen_solutions_site/node_modules/astro/dist/vite-plugin-astro-server/request.js:34:3)
+18:02:50 [watch] src/components/sections/CTA.astro
+18:02:50 [watch] src/components/sections/CTA.astro
+18:02:51 [200] / 281ms
+18:03:08 [watch] src/components/sections/CTA.astro
+18:03:08 [watch] src/components/sections/CTA.astro
+18:03:08 [200] / 160ms
+18:03:21 [watch] /src/components/interactive/SimpleQualificationModal.tsx, /node_modules/@astrojs/tailwind/base.css, /src/styles/global.css
+18:03:21 [watch] src/components/interactive/SimpleQualificationModal.tsx
+18:03:22 [404] /src/components/interactive/SimpleQualificationModal.tsx 85ms
+18:03:47 [ERROR] Could not import `/src/components/interactive/SimpleQualificationModal.tsx`.
+  Hint:
+    This is often caused by a typo in the import path. Please make sure the file exists.
+  Error reference:
+    https://docs.astro.build/en/reference/errors/failed-to-load-module-ssr/
+  Stack trace:
+    at loadAndTransform (file:///Users/adamking/claude-code-projects/genzen_solutions_site/node_modules/vite/dist/node/chunks/dep-DBxKXgDP.js:35725:17)
+    [...] See full stack trace in the browser, or rerun with --verbose.
+18:05:33 [watch] /src/components/ui/dialog.tsx, /node_modules/@astrojs/tailwind/base.css, /src/styles/global.css
+18:05:33 [watch] src/components/ui/dialog.tsx
+18:05:33 [ERROR] Could not import `../interactive/SimpleQualificationModal.tsx`.
+  Hint:
+    This is often caused by a typo in the import path. Please make sure the file exists.
+  Error reference:
+    https://docs.astro.build/en/reference/errors/failed-to-load-module-ssr/
+  Stack trace:
+    at loadAndTransform (file:///Users/adamking/claude-code-projects/genzen_solutions_site/node_modules/vite/dist/node/chunks/dep-DBxKXgDP.js:35725:17)
+18:05:56 [ERROR] Could not import `../interactive/SimpleQualificationModal.tsx`.
+  Hint:
+    This is often caused by a typo in the import path. Please make sure the file exists.
+  Error reference:
+    https://docs.astro.build/en/reference/errors/failed-to-load-module-ssr/
+  Stack trace:
+    at loadAndTransform (file:///Users/adamking/claude-code-projects/genzen_solutions_site/node_modules/vite/dist/node/chunks/dep-DBxKXgDP.js:35725:17)
+18:06:51 [watch] src/components/layouts/CompanyHero.astro
+18:06:51 [watch] src/components/layouts/CompanyHero.astro
+18:06:51 [ERROR] Cannot find module '~/components/modals/IntakeFormButton.tsx' imported from '/Users/adamking/claude-code-projects/genzen_solutions_site/src/components/layouts/CompanyHero.astro'
+  Stack trace:
+    at fetchModule (file:///Users/adamking/claude-code-projects/genzen_solutions_site/node_modules/vite/dist/node/chunks/dep-DBxKXgDP.js:46813:19)
+    [...] See full stack trace in the browser, or rerun with --verbose.
+18:07:14 [watch] src/components/layouts/CompanyHero.astro
+18:07:14 [watch] src/components/layouts/CompanyHero.astro
+18:07:15 [200] / 165ms
+18:08:49 [watch] /src/components/ui/dialog.tsx, /node_modules/@astrojs/tailwind/base.css, /src/styles/global.css
+18:08:49 [watch] src/components/ui/dialog.tsx
+18:09:12 [200] / 98ms
+18:11:14 [watch] src/components/modals/IntakeFormModal.tsx
+18:11:14 [watch] src/components/modals/IntakeFormModal.tsx
+18:11:15 [200] / 182ms
+18:11:33 [200] / 46ms
+18:14:32 [watch] src/components/reports/FinancialHighlights.astro
+18:14:32 [watch] src/components/reports/FinancialHighlights.astro
+18:14:32 [200] / 177ms
+18:14:48 [watch] src/components/reports/ClientInsights.astro
+18:14:48 [watch] src/components/reports/ClientInsights.astro
+18:14:48 [200] / 182ms
+18:15:05 [watch] src/components/reports/RegionalPerformance.astro
+18:15:05 [watch] src/components/reports/RegionalPerformance.astro
+18:15:05 [200] / 175ms
+18:15:23 [watch] src/components/reports/PerformanceMetrics.astro
+18:15:23 [watch] src/components/reports/PerformanceMetrics.astro
+18:15:24 [200] / 225ms
+18:15:39 [watch] src/components/reports/IndustryTrends.astro
+18:15:39 [watch] src/components/reports/IndustryTrends.astro
+18:15:39 [200] / 195ms
+18:15:55 [watch] src/components/reports/MarketAnalysis.astro
+18:15:55 [watch] src/components/reports/MarketAnalysis.astro
+18:15:56 [200] / 271ms
+18:16:12 [watch] src/components/reports/FutureOutlook.astro
+18:16:12 [watch] src/components/reports/FutureOutlook.astro
+18:16:12 [200] / 209ms
+18:16:29 [watch] src/components/reports/TechnologyStack.astro
+18:16:29 [watch] src/components/reports/TechnologyStack.astro
+18:16:29 [200] / 306ms
+18:16:37 [200] / 47ms
+18:19:31 [watch] src/components/modals/IntakeFormModal.tsx
+18:19:31 [watch] src/components/modals/IntakeFormModal.tsx
+18:19:32 [200] / 179ms
+18:20:03 [200] / 22ms
+18:23:21 [watch] src/components/modals/IntakeFormModal.tsx
+18:23:21 [watch] src/components/modals/IntakeFormModal.tsx
+18:24:59 [watch] /src/components/ui/dialog.tsx, /node_modules/@astrojs/tailwind/base.css, /src/styles/global.css
+18:24:59 [watch] src/components/ui/dialog.tsx
+18:26:42 [watch] /src/components/ui/dialog.tsx, /node_modules/@astrojs/tailwind/base.css, /src/styles/global.css
+18:26:42 [watch] src/components/ui/dialog.tsx
+18:31:28 [watch] /src/components/ui/dialog.tsx, /node_modules/@astrojs/tailwind/base.css, /src/styles/global.css
+18:31:28 [watch] src/components/ui/dialog.tsx
+18:32:46 [watch] /src/components/ui/dialog.tsx, /node_modules/@astrojs/tailwind/base.css, /src/styles/global.css
+18:32:46 [watch] src/components/ui/dialog.tsx
+18:34:18 [watch] src/components/modals/IntakeFormModal.tsx
+18:34:18 [watch] src/components/modals/IntakeFormModal.tsx
+18:38:26 [watch] /src/components/ui/dialog.tsx, /node_modules/@astrojs/tailwind/base.css, /src/styles/global.css
+18:38:26 [watch] src/components/ui/dialog.tsx
+18:40:22 [watch] src/components/modals/IntakeFormModal.tsx
+18:40:22 [watch] src/components/modals/IntakeFormModal.tsx
+18:41:57 Configuration file removed. Restarting...
+18:41:58 [vite] Re-optimizing dependencies because vite config has changed
+18:41:58 [ERROR] [config] [GenerateContentTypesError] `astro sync` command failed to generate content collection types: Cannot find module 'zod' imported from '/Users/adamking/claude-code-projects/genzen_solutions_site/node_modules/astro/dist/content/runtime.js'
+  Hint:
+    This error is often caused by a syntax error inside your content, or your content configuration file. Check your src/content/config.ts file for typos.
+  Error reference:
+    https://docs.astro.build/en/reference/errors/generate-content-types-error/
+  Stack trace:
+    at syncContentCollections (file:///Users/adamking/claude-code-projects/genzen_solutions_site/node_modules/astro/dist/core/sync/index.js:219:11)
+    at async createContainer (file:///Users/adamking/claude-code-projects/genzen_solutions_site/node_modules/astro/dist/core/dev/container.js:61:3)
+    at async restartContainer (file:///Users/adamking/claude-code-projects/genzen_solutions_site/node_modules/astro/dist/core/dev/restart.js:56:12)
+  Caused by:
+  Cannot find module 'zod' imported from '/Users/adamking/claude-code-projects/genzen_solutions_site/node_modules/astro/dist/content/runtime.js'
+    at fetchModule (file:///Users/adamking/claude-code-projects/genzen_solutions_site/node_modules/vite/dist/node/chunks/dep-DBxKXgDP.js:46813:19)
+    [...] See full stack trace in the browser, or rerun with --verbose.
+
+18:41:58 [ERROR] Continuing with previous valid configuration
+

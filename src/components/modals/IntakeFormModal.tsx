@@ -81,7 +81,7 @@ const IntakeFormModal: React.FC<IntakeFormModalProps> = ({ children, className }
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.3 }}
-          className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-black/60 backdrop-blur-sm overflow-hidden"
+          className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-black/60 backdrop-blur-sm overflow-hidden"
           onClick={handleBackdropClick}
           role="dialog"
           aria-modal="true"
@@ -92,7 +92,7 @@ const IntakeFormModal: React.FC<IntakeFormModalProps> = ({ children, className }
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: 20 }}
             transition={{ duration: 0.4, ease: "easeOut" }}
-            className="relative w-[95vw] max-w-xs sm:max-w-sm md:max-w-lg lg:max-w-2xl xl:max-w-4xl max-h-[90vh] overflow-hidden bg-background border border-foreground/20 rounded-xl shadow-2xl"
+            className="relative w-[95vw] max-w-sm sm:max-w-md md:max-w-lg lg:max-w-2xl xl:max-w-4xl max-h-[95vh] overflow-hidden bg-background border border-foreground/20 rounded-xl shadow-2xl"
           >
             <h2 id="modal-title" className="sr-only">Intake Form</h2>
             {/* Close Button */}
@@ -116,7 +116,7 @@ const IntakeFormModal: React.FC<IntakeFormModalProps> = ({ children, className }
             </button>
 
             {/* Scrollable Content */}
-            <div className="max-h-[90vh] overflow-y-auto">
+            <div className="max-h-[95vh] overflow-y-auto">
               <div className="p-0">
                 <GZSIntakeForm onComplete={closeModal} isModal={true} />
               </div>
