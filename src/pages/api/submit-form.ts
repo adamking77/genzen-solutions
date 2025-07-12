@@ -22,19 +22,24 @@ export const POST: APIRoute = async ({ request }) => {
     for (const [key, value] of Object.entries(formData)) {
       if (value) {
         if (Array.isArray(value)) {
-          // Multi-select field
+          // Multi-select fields
           properties[key] = {
             multi_select: value.map((item: string) => ({ name: item }))
           };
         } else {
-          // Text or select field
-          if (key === 'Submitted By' || key === 'Timing') {
-            // Select field
+          // Handle different field types
+          if (key === 'Email') {
+            // Email field
+            properties[key] = {
+              email: value as string
+            };
+          } else if (key === 'Submitted By' || key === 'Timing') {
+            // Select fields
             properties[key] = {
               select: { name: value as string }
             };
           } else {
-            // Text field
+            // Text fields (Name, Organization, Role)
             properties[key] = {
               rich_text: [{ text: { content: value as string } }]
             };

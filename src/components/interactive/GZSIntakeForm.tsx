@@ -10,25 +10,25 @@ const questions = [
   {
     question: 'What is your name?',
     type: 'text',
-    name: 'name',
+    name: 'Name',
     required: true,
   },
   {
     question: 'What is your email address?',
     type: 'email',
-    name: 'email',
+    name: 'Email',
     required: true,
   },
   {
     question: 'What is your organization or family office?',
     type: 'text',
-    name: 'organization',
+    name: 'Organization',
     required: true,
   },
   {
     question: 'What is your role?',
     type: 'text',
-    name: 'role',
+    name: 'Role',
     required: true,
   },
   {
