@@ -34,7 +34,7 @@ const questions = [
   {
     question: 'This application is being submitted by:',
     type: 'select',
-    name: 'submittedBy',
+    name: 'Submitted By',
     required: true,
     options: [
       'Family principal/decision-maker',
@@ -46,7 +46,7 @@ const questions = [
   {
     question: 'What\'s prompting this analysis?',
     type: 'multiselect',
-    name: 'promptingAnalysis',
+    name: 'What\'s Happening',
     required: true,
     options: [
       'Standard advisors are missing something critical',
@@ -59,7 +59,7 @@ const questions = [
   {
     question: 'Which areas are you most concerned about?',
     type: 'multiselect',
-    name: 'areasOfConcern',
+    name: 'Areas of Concern',
     required: true,
     options: [
       'Advisory relationships and governance',
@@ -72,7 +72,7 @@ const questions = [
   {
     question: 'What\'s the potential impact if current patterns continue?',
     type: 'multiselect',
-    name: 'potentialImpact',
+    name: 'Potential Impact',
     required: true,
     options: [
       '€10-50M in systematic exposure',
@@ -85,7 +85,7 @@ const questions = [
   {
     question: 'How did you first realize you might need a different approach?',
     type: 'multiselect',
-    name: 'realizationMethod',
+    name: 'Realization',
     required: true,
     options: [
       'Recognized something wasn\'t quite right through observation',
@@ -98,7 +98,7 @@ const questions = [
   {
     question: 'What\'s driving the timing on this?',
     type: 'select',
-    name: 'timingDrivers',
+    name: 'Timing',
     required: true,
     options: [
       'Immediate situation requiring urgent attention',
@@ -110,7 +110,7 @@ const questions = [
   {
     question: 'What\'s been your experience with traditional solutions on this type of issue?',
     type: 'multiselect',
-    name: 'traditionalSolutionsExperience',
+    name: 'Already Tried',
     required: true,
     options: [
       'They can\'t identify the sophisticated patterns we\'re seeing',
@@ -129,6 +129,7 @@ interface GZSIntakeFormProps {
 const GZSIntakeForm: React.FC<GZSIntakeFormProps> = ({ onComplete, isModal = false }) => {
   const [currentQuestion, setCurrentQuestion] = useState(-1);
   const [answers, setAnswers] = useState<Record<string, any>>({});
+  const [otherTexts, setOtherTexts] = useState<Record<string, string>>({});
   const [submitted, setSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -148,14 +149,63 @@ const GZSIntakeForm: React.FC<GZSIntakeFormProps> = ({ onComplete, isModal = fal
     setAnswers({ ...answers, [name]: value });
   };
 
+  const handleOtherTextChange = (questionName: string, text: string) => {
+    setOtherTexts({ ...otherTexts, [questionName]: text });
+    
+    // Update the answer if "Other" is already selected
+    const currentValues = answers[questionName];
+    if (currentValues) {
+      if (Array.isArray(currentValues)) {
+        // Multiselect case
+        if (currentValues.includes('Other') || currentValues.some(v => v.startsWith('Other: '))) {
+          const withoutOther = currentValues.filter(v => v !== 'Other' && !v.startsWith('Other: '));
+          const newValues = text ? [...withoutOther, `Other: ${text}`] : [...withoutOther, 'Other'];
+          handleChange(questionName, newValues);
+        }
+      } else {
+        // Select case
+        if (currentValues === 'Other' || currentValues.startsWith('Other: ')) {
+          const newValue = text ? `Other: ${text}` : 'Other';
+          handleChange(questionName, newValue);
+        }
+      }
+    }
+  };
+
+  const handleSelectChange = (name: string, value: string) => {
+    if (value === 'Other' && otherTexts[name]) {
+      handleChange(name, `Other: ${otherTexts[name]}`);
+    } else {
+      handleChange(name, value);
+      // Clear other text if not selecting Other
+      if (value !== 'Other') {
+        setOtherTexts({ ...otherTexts, [name]: '' });
+      }
+    }
+  };
+
   const handleMultiSelectChange = (name: string, option: string, checked: boolean) => {
     const currentValues = answers[name] || [];
     if (checked) {
       if (!currentValues.includes(option)) {
-        handleChange(name, [...currentValues, option]);
+        let newValues = [...currentValues, option];
+        // If "Other" was selected, combine with custom text if available
+        if (option === 'Other' && otherTexts[name]) {
+          newValues = newValues.filter(v => v !== 'Other');
+          newValues.push(`Other: ${otherTexts[name]}`);
+        }
+        handleChange(name, newValues);
       }
     } else {
-      handleChange(name, currentValues.filter((item: string) => item !== option));
+      // Remove both "Other" and "Other: [text]" variants
+      const filteredValues = currentValues.filter((item: string) => 
+        item !== option && !item.startsWith('Other: ')
+      );
+      handleChange(name, filteredValues);
+      // Clear other text if unchecking Other
+      if (option === 'Other') {
+        setOtherTexts({ ...otherTexts, [name]: '' });
+      }
     }
   };
 
@@ -176,12 +226,32 @@ const GZSIntakeForm: React.FC<GZSIntakeFormProps> = ({ onComplete, isModal = fal
   const handleSubmit = async () => {
     setIsSubmitting(true);
     
-    // Simulate API call
-    await new Promise(resolve => setTimeout(resolve, 1500));
-    
-    console.log('GZS Intake Form Answers:', answers);
-    setSubmitted(true);
-    setIsSubmitting(false);
+    try {
+      // Submit to Notion API
+      const response = await fetch('/api/submit-form', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(answers),
+      });
+
+      const result = await response.json();
+      
+      if (result.success) {
+        console.log('Form submitted successfully to Notion:', result.id);
+        setSubmitted(true);
+      } else {
+        console.error('Form submission failed:', result.error);
+        // You might want to show an error message to the user here
+        alert('Form submission failed. Please try again.');
+      }
+    } catch (error) {
+      console.error('Form submission error:', error);
+      alert('Form submission failed. Please try again.');
+    } finally {
+      setIsSubmitting(false);
+    }
     
     // Modal will only close when user clicks X - no auto-close
   };
@@ -306,39 +376,68 @@ const GZSIntakeForm: React.FC<GZSIntakeFormProps> = ({ onComplete, isModal = fal
                         />
                       )}
                       {questions[currentQuestion].type === 'select' && (
-                        <Select onValueChange={(value) => handleChange(questions[currentQuestion].name, value)} value={answers[questions[currentQuestion].name] || ''}>
-                          <SelectTrigger className="w-full p-3 sm:p-4 text-base sm:text-lg font-light bg-background border-2 border-foreground/20 rounded-lg focus:border-primary focus:ring-0 transition-all duration-300">
-                            <SelectValue placeholder="Select an option" className="font-light" />
-                          </SelectTrigger>
-                          <SelectContent className="bg-background border border-foreground/20">
-                            {questions[currentQuestion].options?.map((option) => (
-                              <SelectItem key={option} value={option} className="text-base sm:text-lg font-light hover:bg-secondary/30 p-3">
-                                {option}
-                              </SelectItem>
-                            ))}
-                          </SelectContent>
-                        </Select>
+                        <div className="space-y-4">
+                          <Select onValueChange={(value) => handleSelectChange(questions[currentQuestion].name, value)} value={answers[questions[currentQuestion].name]?.startsWith('Other: ') ? 'Other' : answers[questions[currentQuestion].name] || ''}>
+                            <SelectTrigger className="w-full p-3 sm:p-4 text-base sm:text-lg font-light bg-background border-2 border-foreground/20 rounded-lg focus:border-primary focus:ring-0 transition-all duration-300">
+                              <SelectValue placeholder="Select an option" className="font-light" />
+                            </SelectTrigger>
+                            <SelectContent className="bg-background border border-foreground/20">
+                              {questions[currentQuestion].options?.map((option) => (
+                                <SelectItem key={option} value={option} className="text-base sm:text-lg font-light hover:bg-secondary/30 p-3">
+                                  {option}
+                                </SelectItem>
+                              ))}
+                            </SelectContent>
+                          </Select>
+                          {(answers[questions[currentQuestion].name] === 'Other' || answers[questions[currentQuestion].name]?.startsWith('Other: ')) && (
+                            <Input
+                              type="text"
+                              placeholder="Please specify..."
+                              className="w-full p-3 sm:p-4 text-base sm:text-lg font-light bg-background border-2 border-foreground/20 rounded-lg focus:border-primary focus:ring-0 transition-all duration-300"
+                              value={otherTexts[questions[currentQuestion].name] || ''}
+                              onChange={(e) => handleOtherTextChange(questions[currentQuestion].name, e.target.value)}
+                            />
+                          )}
+                        </div>
                       )}
                       {questions[currentQuestion].type === 'multiselect' && (
                         <div className="space-y-4">
-                          {questions[currentQuestion].options?.map((option) => (
-                            <div key={option} className="flex items-center space-x-3 p-3 sm:p-4 bg-secondary/10 hover:bg-secondary/20 border border-foreground/10 rounded-lg transition-all duration-300">
-                              <Checkbox
-                                id={`${questions[currentQuestion].name}-${option}`}
-                                checked={(answers[questions[currentQuestion].name] || []).includes(option)}
-                                onCheckedChange={(checked) => 
-                                  handleMultiSelectChange(questions[currentQuestion].name, option, checked as boolean)
-                                }
-                                className="data-[state=checked]:bg-primary data-[state=checked]:border-primary"
-                              />
-                              <label 
-                                htmlFor={`${questions[currentQuestion].name}-${option}`}
-                                className="text-base font-light text-foreground cursor-pointer flex-1"
-                              >
-                                {option}
-                              </label>
-                            </div>
-                          ))}
+                          {questions[currentQuestion].options?.map((option) => {
+                            const currentValues = answers[questions[currentQuestion].name] || [];
+                            const isOtherSelected = option === 'Other' && (currentValues.includes('Other') || currentValues.some(v => v.startsWith('Other: ')));
+                            const isRegularSelected = option !== 'Other' && currentValues.includes(option);
+                            const isChecked = isOtherSelected || isRegularSelected;
+                            
+                            return (
+                              <div key={option} className="space-y-3">
+                                <div className="flex items-center space-x-3 p-3 sm:p-4 bg-secondary/10 hover:bg-secondary/20 border border-foreground/10 rounded-lg transition-all duration-300">
+                                  <Checkbox
+                                    id={`${questions[currentQuestion].name}-${option}`}
+                                    checked={isChecked}
+                                    onCheckedChange={(checked) => 
+                                      handleMultiSelectChange(questions[currentQuestion].name, option, checked as boolean)
+                                    }
+                                    className="data-[state=checked]:bg-primary data-[state=checked]:border-primary"
+                                  />
+                                  <label 
+                                    htmlFor={`${questions[currentQuestion].name}-${option}`}
+                                    className="text-base font-light text-foreground cursor-pointer flex-1"
+                                  >
+                                    {option}
+                                  </label>
+                                </div>
+                                {option === 'Other' && isOtherSelected && (
+                                  <Input
+                                    type="text"
+                                    placeholder="Please specify..."
+                                    className="w-full p-3 sm:p-4 text-base sm:text-lg font-light bg-background border-2 border-foreground/20 rounded-lg focus:border-primary focus:ring-0 transition-all duration-300 ml-0"
+                                    value={otherTexts[questions[currentQuestion].name] || ''}
+                                    onChange={(e) => handleOtherTextChange(questions[currentQuestion].name, e.target.value)}
+                                  />
+                                )}
+                              </div>
+                            );
+                          })}
                         </div>
                       )}
                     </div>
