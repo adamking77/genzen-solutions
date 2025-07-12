@@ -24,49 +24,8 @@ if (!report) {
   return Astro.redirect('/404');
 }
 
-// Define which components to render for each report (matching React version)
-const getReportSections = (slug: string) => {
-  switch (slug) {
-    case '2024-strategic-business-intelligence':
-      return [
-        { component: 'ExecutiveSummary', key: 'executive' },
-        { component: 'DataVisualization', key: 'data-viz' },
-        { component: 'FinancialHighlights', key: 'financial' },
-        { component: 'ClientInsights', key: 'insights' },
-        { component: 'FutureOutlook', key: 'outlook' }
-      ];
-    case 'market-performance-analysis-2024':
-      return [
-        { component: 'ExecutiveSummary', key: 'executive' },
-        { component: 'MarketAnalysis', key: 'market' },
-        { component: 'IndustryTrends', key: 'trends' },
-        { component: 'FinancialHighlights', key: 'financial' },
-        { component: 'FutureOutlook', key: 'outlook' }
-      ];
-    case 'regional-performance-global-expansion':
-      return [
-        { component: 'ExecutiveSummary', key: 'executive' },
-        { component: 'MarketAnalysis', key: 'market' },
-        { component: 'DataVisualization', key: 'data-viz' },
-        { component: 'ClientInsights', key: 'insights' },
-        { component: 'FutureOutlook', key: 'outlook' }
-      ];
-    case 'technology-infrastructure-report':
-      return [
-        { component: 'ExecutiveSummary', key: 'executive' },
-        { component: 'IndustryTrends', key: 'trends' },
-        { component: 'DataVisualization', key: 'data-viz' },
-        { component: 'FinancialHighlights', key: 'financial' },
-        { component: 'FutureOutlook', key: 'outlook' }
-      ];
-    default:
-      return [
-        { component: 'ExecutiveSummary', key: 'executive' }
-      ];
-  }
-};
-
-const reportSections = getReportSections(report.slug) || [];
+// Use the sections array from the report data (new structure)
+const reportSections = report.sections || [];
 const allReports = await getCollection('reports');
 const relatedReports = allReports ? allReports.filter(r => r.data.id !== report.id).slice(0, 2).map(r => r.data) : [];
 ---
@@ -167,59 +126,78 @@ const relatedReports = allReports ? allReports.filter(r => r.data.id !== report.
   </section>
 
   <!-- Report Sections -->
-  {reportSections && Array.isArray(reportSections) && reportSections.map((section) => (
-    <div key={section.key}>
-      {section.component === 'ExecutiveSummary' && (
-        report.executiveSummary ? (
-          <ExecutiveSummary 
-            keyPoints={report.executiveSummary.keyPoints || []}
-            recommendations={report.executiveSummary.recommendations || []}
-            nextReview={report.executiveSummary.nextReview}
-            projectTimeline={report.executiveSummary.projectTimeline}
-          />
-        ) : <ExecutiveSummary />
-      )}
-      {section.component === 'DataVisualization' && (
-        report.dataVisualization ? (
-          <DataVisualization 
-            title={report.dataVisualization.title}
-            description={report.dataVisualization.description}
-            services={report.dataVisualization.services || []}
-          />
-        ) : <DataVisualization />
-      )}
-      {section.component === 'FinancialHighlights' && (
-        report.financialHighlights ? (
-          <FinancialHighlights 
-            title={report.financialHighlights.title}
-            description={report.financialHighlights.description}
-            highlights={report.financialHighlights.highlights || []}
-          />
-        ) : <FinancialHighlights />
-      )}
-      {section.component === 'ClientInsights' && (
-        report.clientInsights ? (
-          <ClientInsights 
-            title={report.clientInsights.title}
-            subtitle={report.clientInsights.subtitle}
-            insights={report.clientInsights.insights || []}
-          />
-        ) : <ClientInsights />
-      )}
-      {section.component === 'MarketAnalysis' && <MarketAnalysis />}
-      {section.component === 'IndustryTrends' && <IndustryTrends />}
-      {section.component === 'FutureOutlook' && (
-        report.futureOutlook ? (
-          <FutureOutlook 
-            title={report.futureOutlook.title}
-            description={report.futureOutlook.description}
-            projections={report.futureOutlook.projections || []}
-            initiatives={report.futureOutlook.initiatives || []}
-          />
-        ) : <FutureOutlook />
-      )}
-    </div>
-  ))}
+  {reportSections && Array.isArray(reportSections) && reportSections.map((section) => {
+    const sectionData = report.sectionData && report.sectionData[section.key];
+    return (
+      <div key={section.key}>
+        {section.component === 'ExecutiveSummary' && (
+          sectionData ? (
+            <ExecutiveSummary 
+              title={sectionData.title}
+              description={sectionData.description}
+              keyPoints={sectionData.keyPoints || []}
+              recommendations={sectionData.recommendations}
+              timeline={sectionData.timeline}
+            />
+          ) : <ExecutiveSummary />
+        )}
+        {section.component === 'DataVisualization' && (
+          sectionData ? (
+            <DataVisualization 
+              title={sectionData.title}
+              description={sectionData.description}
+              services={sectionData.services || []}
+            />
+          ) : <DataVisualization />
+        )}
+        {section.component === 'FinancialHighlights' && (
+          sectionData ? (
+            <FinancialHighlights 
+              title={sectionData.title}
+              description={sectionData.description}
+              metrics={sectionData.metrics || []}
+              quote={sectionData.quote}
+            />
+          ) : <FinancialHighlights />
+        )}
+        {section.component === 'ClientInsights' && (
+          sectionData ? (
+            <ClientInsights 
+              title={sectionData.title}
+              subtitle={sectionData.subtitle}
+              description={sectionData.description}
+              insights={sectionData.insights || []}
+            />
+          ) : <ClientInsights />
+        )}
+        {section.component === 'MarketAnalysis' && <MarketAnalysis />}
+        {section.component === 'IndustryTrends' && <IndustryTrends />}
+        {section.component === 'FutureOutlook' && (
+          sectionData ? (
+            <FutureOutlook 
+              title={sectionData.title}
+              subtitle={sectionData.subtitle}
+              introduction={sectionData.introduction}
+              projections={sectionData.projections}
+              initiatives={sectionData.initiatives}
+              positioning={sectionData.positioning}
+            />
+          ) : <FutureOutlook />
+        )}
+        {section.component === 'PerformanceMetrics' && (
+          sectionData ? (
+            <DataVisualization 
+              title={sectionData.title}
+              description={sectionData.description}
+              metrics={sectionData.metrics || []}
+            />
+          ) : <DataVisualization />
+        )}
+        {section.component === 'RegionalPerformance' && <MarketAnalysis />}
+        {section.component === 'TechnologyStack' && <IndustryTrends />}
+      </div>
+    );
+  })}
 
   <!-- Related Reports -->
   {relatedReports.length > 0 && (
