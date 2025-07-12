@@ -16,12 +16,10 @@ const progressAngle = progressAngles[index] || '120deg';
     <!-- Mobile & Desktop: Left-aligned circle -->
     <div class="relative flex items-center justify-center sm:col-span-1 sm:h-full sm:mr-4 sm:pt-1">
       <div
-        class="progress-circle-mobile sm:progress-circle relative"
+        class="progress-circle-mobile sm:progress-circle"
         style={`--end-angle: ${progressAngle};`}
+        data-number={`0${index + 1}`}
       ></div>
-      <div class="text-xs sm:text-sm font-light text-foreground absolute inset-0 flex items-center justify-center z-10">
-        0{index + 1}
-      </div>
     </div>
     
     <div class="sm:col-span-11">
@@ -44,30 +42,59 @@ const progressAngle = progressAngles[index] || '120deg';
     width: 40px;
     height: 40px;
     border-radius: 50%;
-    background-color: hsl(var(--muted-foreground) / 0.2);
-    background-image: conic-gradient(
+    border: 3px solid hsl(var(--muted-foreground) / 0.2);
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75rem;
+    font-weight: 300;
+    color: hsl(var(--foreground));
+    transition: all 0.5s ease-in-out;
+    background: conic-gradient(
       hsl(var(--primary)) 0deg var(--progress-angle),
       transparent var(--progress-angle) 360deg
     );
-    transition: --progress-angle 0.5s ease-in-out;
-    opacity: 1;
-    -webkit-mask: radial-gradient(transparent 0 65%, white 65% 100%);
-    mask: radial-gradient(transparent 0 65%, white 65% 100%);
+    background-clip: border-box;
+    -webkit-background-clip: border-box;
   }
 
   .progress-circle {
     width: 56px;
     height: 56px;
     border-radius: 50%;
-    background-color: hsl(var(--muted-foreground) / 0.2);
-    background-image: conic-gradient(
+    border: 4px solid hsl(var(--muted-foreground) / 0.2);
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.875rem;
+    font-weight: 300;
+    color: hsl(var(--foreground));
+    transition: all 0.5s ease-in-out;
+    background: conic-gradient(
       hsl(var(--primary)) 0deg var(--progress-angle),
       transparent var(--progress-angle) 360deg
     );
-    transition: --progress-angle 0.5s ease-in-out;
-    opacity: 1;
-    -webkit-mask: radial-gradient(transparent 0 65%, white 65% 100%);
-    mask: radial-gradient(transparent 0 65%, white 65% 100%);
+    background-clip: border-box;
+    -webkit-background-clip: border-box;
+  }
+
+  .progress-circle-mobile::before,
+  .progress-circle::before {
+    content: attr(data-number);
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: hsl(var(--background));
+    border-radius: 50%;
+    margin: 3px;
+  }
+
+  .progress-circle::before {
+    margin: 4px;
   }
 
   .group:hover .progress-circle-mobile,
