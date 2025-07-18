@@ -4,12 +4,6 @@
     "reports": {
       "type": "object",
       "properties": {
-        "id": {
-          "type": "string"
-        },
-        "slug": {
-          "type": "string"
-        },
         "title": {
           "type": "string"
         },
@@ -40,36 +34,191 @@
         "featured": {
           "type": "boolean"
         },
-        "sections": {
+        "executiveSummary": {
+          "type": "object",
+          "properties": {
+            "keyPoints": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "recommendations": {
+              "type": "object",
+              "properties": {
+                "immediate": {
+                  "type": "string"
+                },
+                "shortTerm": {
+                  "type": "string"
+                },
+                "longTerm": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "immediate",
+                "shortTerm",
+                "longTerm"
+              ],
+              "additionalProperties": false
+            },
+            "nextReview": {
+              "type": "string"
+            },
+            "timeline": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "keyPoints",
+            "recommendations"
+          ],
+          "additionalProperties": false
+        },
+        "financialHighlights": {
+          "type": "object",
+          "properties": {
+            "title": {
+              "type": "string"
+            },
+            "description": {
+              "type": "string"
+            },
+            "highlights": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "label": {
+                    "type": "string"
+                  },
+                  "value": {
+                    "type": "string"
+                  },
+                  "change": {
+                    "type": "string"
+                  },
+                  "period": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "label",
+                  "value",
+                  "change",
+                  "period"
+                ],
+                "additionalProperties": false
+              }
+            }
+          },
+          "required": [
+            "highlights"
+          ],
+          "additionalProperties": false
+        },
+        "clientInsights": {
+          "type": "object",
+          "properties": {
+            "title": {
+              "type": "string"
+            },
+            "subtitle": {
+              "type": "string"
+            },
+            "insights": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "category": {
+                    "type": "string"
+                  },
+                  "score": {
+                    "type": "string"
+                  },
+                  "feedback": {
+                    "type": "string"
+                  },
+                  "statistic": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "category",
+                  "score",
+                  "feedback",
+                  "statistic"
+                ],
+                "additionalProperties": false
+              }
+            }
+          },
+          "required": [
+            "insights"
+          ],
+          "additionalProperties": false
+        },
+        "metrics": {
           "type": "array",
           "items": {
             "type": "object",
             "properties": {
-              "component": {
+              "label": {
                 "type": "string"
               },
-              "key": {
+              "value": {
+                "type": "string"
+              },
+              "change": {
+                "type": "string"
+              },
+              "period": {
                 "type": "string"
               }
             },
             "required": [
-              "component",
-              "key"
+              "label",
+              "value",
+              "change",
+              "period"
             ],
             "additionalProperties": false
           }
         },
-        "sectionData": {
-          "type": "object",
-          "additionalProperties": {}
+        "insights": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "category": {
+                "type": "string"
+              },
+              "score": {
+                "type": "number"
+              },
+              "feedback": {
+                "type": "string"
+              },
+              "clients": {
+                "type": "number"
+              }
+            },
+            "required": [
+              "category",
+              "score",
+              "feedback",
+              "clients"
+            ],
+            "additionalProperties": false
+          }
         },
         "$schema": {
           "type": "string"
         }
       },
       "required": [
-        "id",
-        "slug",
         "title",
         "subtitle",
         "description",
@@ -77,8 +226,7 @@
         "publishDate",
         "category",
         "tags",
-        "readTime",
-        "featured"
+        "readTime"
       ],
       "additionalProperties": false
     }

@@ -5,7 +5,7 @@ import { Menu } from 'lucide-react'; // Hamburger icon
 
 const navLinks = [
   { href: "/", label: "Home" },
-  { href: "/reports", label: "Reports" },
+  { href: "/insights", label: "Insights" },
 ];
 
 export function MobileNavSheet() {

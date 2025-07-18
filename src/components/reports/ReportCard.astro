@@ -12,7 +12,7 @@ const { report, sequenceNumber, featured = false } = Astro.props;
 ---
 
 <a 
-  href={`/reports/${report.slug}/`}
+  href={`/insights/${report.slug}/`}
   class={`group block transition-transform duration-300 ease-in-out hover:scale-105 ${
     featured ? 'lg:col-span-2' : ''
   }`}
@@ -62,7 +62,7 @@ const { report, sequenceNumber, featured = false } = Astro.props;
         </div>
         
         <div class="text-xs font-light text-foreground group-hover:text-primary transition-colors duration-300">
-          Read Report →
+          Read Insight →
         </div>
       </div>
     </div>

@@ -2,17 +2,25 @@
 import ScrollAnimator from '../interactive/ScrollAnimator.tsx';
 
 export interface Props {
-  title: string;
+  title?: string;
   subtitle?: string;
-  metrics: Array<{
-    metric: string;
+  description?: string;
+  metrics?: Array<{
+    label: string;
     value: string;
-    trend: 'up' | 'down' | 'stable' | 'critical';
-    description: string;
+    trend?: 'up' | 'down' | 'stable' | 'critical';
+    percentage?: number;
+    metric?: string;
+    description?: string;
   }>;
 }
 
-const { title, subtitle, metrics } = Astro.props;
+const { 
+  title = "Performance Metrics",
+  subtitle,
+  description,
+  metrics = []
+} = Astro.props;
 ---
 
 <section class="py-16 sm:py-20 lg:py-24 bg-secondary/30" id="performance-metrics-section">
@@ -28,6 +36,11 @@ const { title, subtitle, metrics } = Astro.props;
             {subtitle && (
               <p class="text-sm sm:text-base font-light text-foreground leading-relaxed">
                 {subtitle}
+              </p>
+            )}
+            {description && (
+              <p class="text-sm sm:text-base font-light text-foreground leading-relaxed">
+                {description}
               </p>
             )}
           </div>
@@ -54,13 +67,13 @@ const { title, subtitle, metrics } = Astro.props;
                           {metric.value}
                         </div>
                         <div class={`font-light text-foreground tracking-wider ${index === 0 ? 'text-base' : 'text-sm'}`}>
-                          {metric.metric.toUpperCase()}
+                          {(metric.label || metric.metric || '').toUpperCase()}
                         </div>
                       </div>
                       <div class="w-2 h-2 rounded-full bg-primary/60 transition-[transform,box-shadow] duration-300 ease-in-out group-hover:scale-125 group-hover:bg-primary group-hover:neumorphic-hover-subtle group-hover:dark:neumorphic-hover-subtle-dark flex-shrink-0" />
                     </div>
                     <p class={`font-light text-foreground/60 leading-relaxed ${index === 0 ? 'text-sm' : 'text-xs'}`}>
-                      {metric.description}
+                      {metric.description || `${metric.label || metric.metric} performance indicator`}
                     </p>
                   </div>
                 </div>

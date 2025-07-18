@@ -1,6 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import homePageContent from '../data/homePageContent';
+import homePageContent from '../data/homePageContent.ts';
 
 // Import sophisticated Swiss theme components per BUILD_INSTRUCTIONS
 import CompanyHero from '../components/layouts/CompanyHero.astro';
@@ -122,26 +122,41 @@ import ScrollAnimator from '../components/interactive/ScrollAnimator.tsx';
     ]}
   />
 
-  <!-- 6. Begin With Legacy Ecosystem Analysis -->
+  <!-- 6. Begin With Legacy Ecosystem Analysis - Updated 2025-07-18 -->
   <section id="services" class="bg-secondary/20 py-16 sm:py-20 lg:py-24">
     <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
       <ScrollAnimator client:visible threshold={0.2} duration={1000}>
-        <div class="mx-auto max-w-2xl lg:mx-0">
-          <h2 class="text-4xl md:text-5xl font-light leading-tight tracking-tight text-foreground">{homePageContent.legacyEcosystemAnalysis.title}</h2>
-          <p class="mt-6 text-lg leading-8 text-muted-foreground">
-            {homePageContent.legacyEcosystemAnalysis.description}
-          </p>
-          <h3 class="mt-8 text-xl font-light text-foreground">
-            {homePageContent.legacyEcosystemAnalysis.subtitle}
-          </h3>
-          <p class="mt-4 text-lg leading-8 text-muted-foreground">
-            {homePageContent.legacyEcosystemAnalysis.description2}
-          </p>
-          <ul class="mt-6 space-y-2 list-disc pl-5 text-lg font-light text-foreground/80 leading-relaxed">
-            {homePageContent.legacyEcosystemAnalysis.services.map(service => (
-              <li>{service.name}</li>
+        <div class="mx-auto max-w-3xl lg:mx-0">
+          <div class="text-left space-y-8 animate-fade-in">
+            <h2 class="text-4xl md:text-5xl font-light leading-tight tracking-tight text-foreground">Legacy Ecosystem Analysis - TEST HARDCODED</h2>
+          </div>
+          
+          <div class="mt-8 space-y-6 animate-fade-in" style="animation-delay: 200ms;">
+            {homePageContent.legacyEcosystemAnalysis.description.split('\n\n').map(paragraph => (
+              <p class="text-lg font-light leading-relaxed text-foreground/70">{paragraph}</p>
             ))}
-          </ul>
+          </div>
+
+          <div class="mt-12 space-y-8 animate-fade-in" style="animation-delay: 400ms;">
+            <h3 class="text-2xl font-light text-foreground tracking-tight">
+              {homePageContent.legacyEcosystemAnalysis.subtitle}
+            </h3>
+            
+            <div class="grid gap-6 md:grid-cols-1 lg:grid-cols-1">
+              {homePageContent.legacyEcosystemAnalysis.services.map((service, index) => (
+                <div class="group border-l-2 border-primary/20 pl-6 py-4 px-4 -ml-4 rounded-r-lg hover:border-primary hover:bg-foreground/5 transition-all duration-300 cursor-pointer animate-fade-in" style={`animation-delay: ${600 + (index * 100)}ms;`}>
+                  <h4 class="text-lg font-medium text-foreground group-hover:text-primary transition-colors duration-300">{service.name}</h4>
+                  <p class="mt-2 text-base font-light text-foreground/70 group-hover:text-foreground transition-colors duration-300 leading-relaxed">{service.description}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div class="mt-12 space-y-4 animate-fade-in" style="animation-delay: 1000ms;">
+            {homePageContent.legacyEcosystemAnalysis.description2.split('\n\n').map(paragraph => (
+              <p class="text-lg font-light leading-relaxed text-foreground/70">{paragraph}</p>
+            ))}
+          </div>
         </div>
       </ScrollAnimator>
     </div>

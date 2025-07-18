@@ -2,55 +2,87 @@
 > genzen-solutions-site@0.1.0 dev
 > astro dev
 
-21:07:16 [types] Generated 1ms
-21:07:16 [content] Syncing content
-21:07:16 [content] Synced content
-21:07:16 [vite] Port 4321 is in use, trying another one...
-21:07:16 [vite] Port 4322 is in use, trying another one...
+12:00:03 [types] Generated 1ms
+12:00:03 [content] Syncing content
+12:00:03 [content] Synced content
+12:00:03 [vite] Re-optimizing dependencies because vite config has changed
 
- astro  v5.10.0 ready in 814 ms
+ astro  v5.10.0 ready in 671 ms
 
-┃ Local    http://localhost:4323/
+┃ Local    http://localhost:4321/
 ┃ Network  use --host to expose
 
-21:07:16 watching for file changes...
-21:07:31 [WARN] [router] getStaticPaths() ignored in dynamic page /src/pages/reports/[slug].astro. Add `export const prerender = true;` to prerender the page as static HTML during the build process.
-21:07:32 [302] /reports/2024-strategic-business-intelligence 400ms
-21:09:36 [302] /reports/2024-strategic-business-intelligence 55ms
-21:09:36 [404] /404 16ms
-21:09:48 [302] /reports/market-performance-analysis-2024 14ms
-21:09:48 [404] /404 16ms
-21:10:22 [watch] src/content/config.ts
-21:10:22 [watch] src/content/config.ts
-21:10:22 [content] Syncing content
-21:10:22 [content] Content config changed
-21:10:22 [content] Clearing content store
-21:10:22 [content] Synced content
-21:10:44 [302] /reports/2024-strategic-business-intelligence 109ms
-21:10:54 [watch] src/pages/reports/[slug].astro
-21:10:54 [watch] src/pages/reports/[slug].astro
-21:11:04 [WARN] [router] getStaticPaths() ignored in dynamic page /src/pages/reports/[slug].astro. Add `export const prerender = true;` to prerender the page as static HTML during the build process.
-21:11:04 [302] /reports/2024-strategic-business-intelligence 145ms
-21:11:13 [watch] src/pages/reports/[slug].astro
-21:11:13 [watch] src/pages/reports/[slug].astro
-Found reports: 4
-Report slugs: [
-  'market-performance-analysis-2024',
-  'technology-infrastructure-report',
-  '2024-strategic-business-intelligence',
-  'regional-performance-global-expansion'
-]
-21:11:22 [200] /reports/2024-strategic-business-intelligence 90ms
-Found reports: 4
-Report slugs: [
-  'market-performance-analysis-2024',
-  'technology-infrastructure-report',
-  '2024-strategic-business-intelligence',
-  'regional-performance-global-expansion'
-]
-21:11:36 [200] /reports/market-performance-analysis-2024 13ms
-21:11:36 [200] /reports/regional-performance-global-expansion 8ms
-21:11:36 [200] /reports/technology-infrastructure-report 17ms
-21:11:44 [WARN] Unsupported file type /Users/adamking/claude-code-projects/genzen_solutions_site/src/pages/reports/[slug].astro.tmp.67372.1752340304680 found. Prefix filename with an underscore (`_`) to ignore.
-21:11:44 [watch] src/pages/reports/[slug].astro
-21:11:44 [watch] src/pages/reports/[slug].astro
+12:00:03 watching for file changes...
+12:00:09 [200] / 457ms
+12:02:09 [watch] src/pages/index.astro
+12:02:09 [watch] src/pages/index.astro
+12:02:09 [200] / 108ms
+12:02:14 [watch] .vercel/output/static/insights/2024-strategic-business-intelligence/index.html
+12:02:14 [watch] .vercel/output/static/insights/trust-architecture-analysis/index.html
+12:02:22 [watch] .vercel/output/static/insights/trust-architecture-analysis/index.html
+12:02:22 [watch] .vercel/output/static/insights/2024-strategic-business-intelligence/index.html
+12:03:19 [watch] src/pages/index.astro
+12:03:19 [watch] src/pages/index.astro
+12:03:19 [200] / 90ms
+12:03:24 [watch] src/pages/index.astro
+12:03:24 [watch] src/pages/index.astro
+12:03:24 [200] / 81ms
+12:03:29 [watch] src/pages/index.astro
+12:03:29 [watch] src/pages/index.astro
+12:03:30 [200] / 81ms
+12:03:35 [watch] .vercel/output/static/insights/2024-strategic-business-intelligence/index.html
+12:03:35 [watch] .vercel/output/static/insights/trust-architecture-analysis/index.html
+12:03:43 [watch] .vercel/output/static/insights/trust-architecture-analysis/index.html
+12:03:43 [watch] .vercel/output/static/insights/2024-strategic-business-intelligence/index.html
+12:03:44 [watch] .vercel/output/static/insights/trust-architecture-analysis/index.html
+12:03:44 [watch] .vercel/output/static/insights/2024-strategic-business-intelligence/index.html
+12:05:01 [watch] src/pages/index.astro
+12:05:01 [watch] src/pages/index.astro
+12:05:02 [200] / 108ms
+12:05:07 [watch] .vercel/output/static/insights/trust-architecture-analysis/index.html
+12:05:07 [watch] .vercel/output/static/insights/2024-strategic-business-intelligence/index.html
+12:05:15 [watch] .vercel/output/static/insights/trust-architecture-analysis/index.html
+12:05:15 [watch] .vercel/output/static/insights/2024-strategic-business-intelligence/index.html
+12:05:15 [watch] .vercel/output/static/insights/trust-architecture-analysis/index.html
+12:05:15 [watch] .vercel/output/static/insights/2024-strategic-business-intelligence/index.html
+12:06:43 [watch] src/pages/index.astro
+12:06:43 [watch] src/pages/index.astro
+12:06:43 [200] / 93ms
+12:06:49 [watch] .vercel/output/static/insights/trust-architecture-analysis/index.html
+12:06:49 [watch] .vercel/output/static/insights/2024-strategic-business-intelligence/index.html
+12:06:57 [watch] .vercel/output/static/insights/trust-architecture-analysis/index.html
+12:06:57 [watch] .vercel/output/static/insights/2024-strategic-business-intelligence/index.html
+12:06:57 [watch] .vercel/output/static/insights/trust-architecture-analysis/index.html
+12:06:57 [watch] .vercel/output/static/insights/2024-strategic-business-intelligence/index.html
+12:08:05 [watch] src/pages/index.astro
+12:08:05 [watch] src/pages/index.astro
+12:08:05 [200] / 143ms
+12:08:11 [watch] .vercel/output/static/insights/2024-strategic-business-intelligence/index.html
+12:08:11 [watch] .vercel/output/static/insights/trust-architecture-analysis/index.html
+12:08:19 [watch] .vercel/output/static/insights/trust-architecture-analysis/index.html
+12:08:19 [watch] .vercel/output/static/insights/2024-strategic-business-intelligence/index.html
+12:12:17 [watch] src/pages/index.astro
+12:12:17 [watch] src/pages/index.astro
+12:12:18 [200] / 108ms
+12:20:20 [watch] src/pages/index.astro
+12:20:20 [watch] src/pages/index.astro
+12:20:20 [200] / 141ms
+12:20:25 [watch] .vercel/output/static/insights/trust-architecture-analysis/index.html
+12:20:25 [watch] .vercel/output/static/insights/2024-strategic-business-intelligence/index.html
+12:20:33 [watch] .vercel/output/static/insights/trust-architecture-analysis/index.html
+12:20:33 [watch] .vercel/output/static/insights/2024-strategic-business-intelligence/index.html
+12:24:26 [watch] .vercel/output/static/insights/trust-architecture-analysis/index.html
+12:24:26 [watch] .vercel/output/static/insights/2024-strategic-business-intelligence/index.html
+12:24:34 [watch] .vercel/output/static/insights/trust-architecture-analysis/index.html
+12:24:34 [watch] .vercel/output/static/insights/2024-strategic-business-intelligence/index.html
+12:33:39 [watch] src/pages/index.astro
+12:33:39 [watch] src/pages/index.astro
+12:33:39 [200] / 109ms
+12:33:47 [watch] .vercel/output/static/insights/2024-strategic-business-intelligence/index.html
+12:33:47 [watch] .vercel/output/static/insights/trust-architecture-analysis/index.html
+12:33:54 [watch] .vercel/output/static/insights/trust-architecture-analysis/index.html
+12:33:54 [watch] .vercel/output/static/insights/2024-strategic-business-intelligence/index.html
+12:33:54 [watch] .vercel/output/static/insights/trust-architecture-analysis/index.html
+12:33:54 [watch] .vercel/output/static/insights/2024-strategic-business-intelligence/index.html
+15:05:26 [watch] src/pages/index.astro
+15:05:26 [watch] src/pages/index.astro

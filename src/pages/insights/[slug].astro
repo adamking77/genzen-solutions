@@ -1,0 +1,216 @@
+---
+export const prerender = true;
+
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import CTA from '../../components/sections/CTA.astro';
+import { getCollection } from 'astro:content';
+import ExecutiveSummary from '../../components/reports/ExecutiveSummary.astro';
+import FinancialHighlights from '../../components/reports/FinancialHighlights.astro';
+import ClientInsights from '../../components/reports/ClientInsights.astro';
+
+export async function getStaticPaths() {
+  const insights = await getCollection('insights');
+  return insights.map((entry) => ({
+    params: { slug: entry.slug },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const report = entry.data;
+
+const allInsights = await getCollection('insights');
+const relatedInsights = allInsights
+  .filter(r => r.slug !== entry.slug)
+  .slice(0, 2);
+---
+
+<BaseLayout 
+  title={report.title}
+  description={report.subtitle}
+>
+  <!-- Header -->
+  <section class="pt-32 pb-16 lg:pt-40 lg:pb-24">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8">
+      <div class="space-y-8">
+        <a 
+          href="/insights" 
+          class="inline-flex items-center space-x-2 text-foreground/70 hover:text-foreground transition-colors group"
+        >
+          <svg class="h-4 w-4 group-hover:-translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+          </svg>
+          <span class="text-sm font-light tracking-wide">Back to Insights</span>
+        </a>
+        
+        <div class="grid lg:grid-cols-3 gap-12">
+          <div class="lg:col-span-2 space-y-8">
+            <div class="space-y-4">
+              <div class="flex items-center space-x-3">
+                <span class="px-3 py-1 bg-foreground/10 text-foreground text-xs font-light rounded-full">
+                  {report.category}
+                </span>
+                {report.featured && (
+                  <span class="px-3 py-1 bg-blue-500/10 text-blue-500 text-xs font-light rounded-full">
+                    Featured
+                  </span>
+                )}
+              </div>
+              
+              <h1 class="text-4xl md:text-5xl lg:text-6xl font-light leading-[1.1] tracking-tight text-foreground">
+                {report.title}
+              </h1>
+              
+              <p class="text-xl font-light text-foreground/70 leading-relaxed">
+                {report.subtitle}
+              </p>
+            </div>
+            
+            <div class="prose prose-lg max-w-none">
+              <p class="text-lg font-light text-foreground/80 leading-relaxed">
+                {report.description}
+              </p>
+            </div>
+          </div>
+          
+          <div class="space-y-8">
+            <div class="bg-foreground/5 rounded-lg p-6 space-y-6">
+              <h3 class="text-lg font-light text-foreground">Report Details</h3>
+              
+              <div class="space-y-4">
+                <div class="flex items-center space-x-3">
+                  <svg class="h-4 w-4 text-foreground/40" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+                  </svg>
+                  <span class="text-sm font-light text-foreground">{report.author}</span>
+                </div>
+                <div class="flex items-center space-x-3">
+                  <svg class="h-4 w-4 text-foreground/40" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                  </svg>
+                  <span class="text-sm font-light text-foreground">{report.publishDate}</span>
+                </div>
+                <div class="flex items-center space-x-3">
+                  <svg class="h-4 w-4 text-foreground/40" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                  </svg>
+                  <span class="text-sm font-light text-foreground">{report.readTime}</span>
+                </div>
+              </div>
+              
+              <div class="space-y-3">
+                <div class="flex items-center space-x-2">
+                  <svg class="h-4 w-4 text-foreground/40" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"></path>
+                  </svg>
+                  <span class="text-sm font-light text-foreground">Tags</span>
+                </div>
+                <div class="flex flex-wrap gap-2">
+                  {report.tags && Array.isArray(report.tags) && report.tags.map((tag) => (
+                    <span key={tag} class="px-2 py-1 bg-foreground/10 text-foreground text-xs font-light rounded">
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Executive Summary Section (if data exists) -->
+  {report.executiveSummary && (
+    <ExecutiveSummary 
+      keyPoints={report.executiveSummary.keyPoints || []}
+      recommendations={[
+        { category: "IMMEDIATE", description: report.executiveSummary.recommendations.immediate },
+        { category: "SHORT-TERM", description: report.executiveSummary.recommendations.shortTerm },
+        { category: "LONG-TERM", description: report.executiveSummary.recommendations.longTerm }
+      ]}
+      nextReview={report.executiveSummary.nextReview}
+      projectTimeline={report.executiveSummary.timeline}
+    />
+  )}
+
+  <!-- Financial Highlights Section (preferred: use financialHighlights, fallback: metrics) -->
+  {(report.financialHighlights || report.metrics) && (
+    <FinancialHighlights 
+      title={report.financialHighlights?.title || "Financial Highlights"}
+      description={report.financialHighlights?.description || "Our financial performance demonstrates exceptional resilience and strategic execution across all key metrics."}
+      highlights={report.financialHighlights?.highlights || report.metrics || []}
+    />
+  )}
+
+  <!-- Client Insights Section (preferred: use clientInsights, fallback: convert insights) -->
+  {(report.clientInsights || report.insights) && (
+    <ClientInsights 
+      title={report.clientInsights?.title || "Client Insights"}
+      subtitle={report.clientInsights?.subtitle || "Comprehensive feedback analysis and satisfaction metrics"}
+      insights={
+        report.clientInsights?.insights || 
+        (report.insights || []).map(insight => ({
+          category: insight.category,
+          score: insight.score.toString(),
+          feedback: insight.feedback,
+          statistic: `${insight.clients} clients`
+        }))
+      }
+    />
+  )}
+
+
+  <!-- Related Insights -->
+  {relatedInsights.length > 0 && (
+    <section class="py-16 lg:py-24 bg-foreground/5">
+      <div class="max-w-7xl mx-auto px-6 lg:px-8">
+        <div class="space-y-12">
+          <h2 class="text-3xl font-light tracking-tight text-foreground">
+            Related Insights
+          </h2>
+          
+          <div class="grid md:grid-cols-2 gap-8">
+            {relatedInsights.map((relatedInsight) => (
+              <a
+                key={relatedInsight.slug}
+                href={`/insights/${relatedInsight.slug}`}
+                class="group block bg-background border border-foreground/10 rounded-lg p-6 hover:border-foreground/30 hover:neumorphic-hover-card hover:dark:neumorphic-hover-card-dark transition-all duration-300"
+              >
+                <div class="space-y-4">
+                  <div class="flex items-center justify-between">
+                    <span class="px-3 py-1 bg-foreground/10 text-foreground text-xs font-light rounded-full">
+                      {relatedInsight.data.category}
+                    </span>
+                    <span class="text-xs font-light text-foreground/40">
+                      {relatedInsight.data.readTime}
+                    </span>
+                  </div>
+                  
+                  <h3 class="text-xl font-light text-foreground group-hover:text-foreground/80 transition-colors">
+                    {relatedInsight.data.title}
+                  </h3>
+                  
+                  <p class="text-sm font-light text-foreground/70 line-clamp-2">
+                    {relatedInsight.data.description}
+                  </p>
+                  
+                  <div class="text-xs font-light text-foreground group-hover:text-blue-500 transition-colors">
+                    Read Insight →
+                  </div>
+                </div>
+              </a>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  )}
+
+  <CTA
+    headline="Apply For Your Legacy Ecosystem Analysis"
+    subtext="This confidential analysis reveals exactly how relationships and systems affect your legacy - and how to optimize authentic control. During this discreet evaluation, we map how your ecosystem actually functions, identify which relationships strengthen or compromise your position, and provide clear recommendations that enhance rather than disrupt your current operations. The analysis is conducted with complete confidentiality. Most clients discover important dynamics about their ecosystem they never knew existed."
+    buttonText="Apply for Analysis"
+    buttonLink="/qualification-form"
+  />
+</BaseLayout>

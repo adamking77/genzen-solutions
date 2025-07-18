@@ -18,9 +18,9 @@ const { company, title, subtitle, navigation } = Astro.props;
         </div>
         <nav class="hidden md:flex space-x-8">
           {navigation.map((item) => (
-            item === 'Reports' ? (
+            item === 'Insights' ? (
               <a
-                href="/reports"
+                href="/insights"
                 class="text-xs font-normal text-foreground/50 hover:text-foreground transition-colors tracking-wide"
               >
                 {item}

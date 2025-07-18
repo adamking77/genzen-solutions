@@ -7,7 +7,7 @@ import { Home, FileText, ArrowLeft } from 'lucide-react'; // Import lucide-react
 
 const suggestedPages = [
   { name: "Home", path: "/", icon: Home, description: "Return to the main page" },
-  { name: "Reports", path: "/reports", icon: FileText, description: "Browse our detailed reports" },
+  { name: "Insights", path: "/insights", icon: FileText, description: "Browse our detailed insights" },
 ];
 
 const attemptedPath = Astro.url.pathname; // Get the path that triggered 404
@@ -42,8 +42,8 @@ const attemptedPath = Astro.url.pathname; // Get the path that triggered 404
             </a>
           </Button>
           <Button asChild variant="outline" className="font-light">
-            <a href="/reports">
-              View Reports
+            <a href="/insights">
+              View Insights
             </a>
           </Button>
         </div>

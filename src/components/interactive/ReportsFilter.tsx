@@ -2,17 +2,17 @@ import { useState, useMemo } from 'react';
 import { Search, Filter } from 'lucide-react';
 import type { Report } from '../../types/report';
 
-interface ReportsFilterProps {
+interface InsightsFilterProps {
   reports: Report[];
 }
 
-const ReportsFilter = ({ reports }: ReportsFilterProps) => {
+const InsightsFilter = ({ reports }: InsightsFilterProps) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('All');
   
   const categories = ['All', ...Array.from(new Set(reports.map(report => report.category)))];
   
-  const filteredReports = useMemo(() => {
+  const filteredInsights = useMemo(() => {
     return reports.filter(report => {
       const matchesSearch = report.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
                            report.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -22,8 +22,8 @@ const ReportsFilter = ({ reports }: ReportsFilterProps) => {
     });
   }, [reports, searchTerm, selectedCategory]);
 
-  const featuredReports = filteredReports.filter(report => report.featured);
-  const regularReports = filteredReports.filter(report => !report.featured);
+  const featuredInsights = filteredInsights.filter(report => report.featured);
+  const regularInsights = filteredInsights.filter(report => !report.featured);
 
   return (
     <div className="space-y-20">
@@ -33,7 +33,7 @@ const ReportsFilter = ({ reports }: ReportsFilterProps) => {
           <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-foreground/40" />
           <input
             type="text"
-            placeholder="Search reports..."
+            placeholder="Search insights..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             className="w-full pl-10 pr-4 py-3 bg-background border border-foreground/10 rounded-lg text-sm font-light text-foreground placeholder:text-foreground/40 focus:outline-none focus:border-foreground/30 transition-colors duration-300"
@@ -60,17 +60,17 @@ const ReportsFilter = ({ reports }: ReportsFilterProps) => {
         </div>
       </div>
 
-      {/* Featured Reports */}
-      {featuredReports.length > 0 && (
+      {/* Featured Insights */}
+      {featuredInsights.length > 0 && (
         <div className="space-y-12">
           <h2 className="text-2xl font-light tracking-tight text-foreground">
-            Featured Reports
+            Featured Insights
           </h2>
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-            {featuredReports.map((report) => (
+            {featuredInsights.map((report) => (
               <div key={report.id} className="lg:col-span-2">
                 <a 
-                  href={`/reports/${report.slug}/`}
+                  href={`/insights/${report.slug}/`}
                   className="group block transition-all duration-300 hover:scale-105"
                 >
                   <div className="bg-background border border-foreground/10 rounded-lg p-8 h-full hover:border-foreground/30 hover:neumorphic-hover-card hover:dark:neumorphic-hover-card-dark transition-all duration-300">
@@ -120,7 +120,7 @@ const ReportsFilter = ({ reports }: ReportsFilterProps) => {
                         </div>
                         
                         <div className="text-xs font-light text-foreground group-hover:text-blue-500 transition-colors duration-300">
-                          Read Report →
+                          Read Insight →
                         </div>
                       </div>
                     </div>
@@ -132,17 +132,17 @@ const ReportsFilter = ({ reports }: ReportsFilterProps) => {
         </div>
       )}
 
-      {/* Regular Reports */}
-      {regularReports.length > 0 && (
+      {/* Regular Insights */}
+      {regularInsights.length > 0 && (
         <div className="space-y-12">
           <h2 className="text-2xl font-light tracking-tight text-foreground">
-            {featuredReports.length > 0 ? 'All Reports' : 'Reports'}
+            {featuredInsights.length > 0 ? 'All Insights' : 'Insights'}
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {regularReports.map((report) => (
+            {regularInsights.map((report) => (
               <a 
                 key={report.id}
-                href={`/reports/${report.slug}/`}
+                href={`/insights/${report.slug}/`}
                 className="group block transition-all duration-300 hover:scale-105"
               >
                 <div className="bg-background border border-foreground/10 rounded-lg p-8 h-full hover:border-foreground/30 hover:neumorphic-hover-card hover:dark:neumorphic-hover-card-dark transition-all duration-300">
@@ -187,7 +187,7 @@ const ReportsFilter = ({ reports }: ReportsFilterProps) => {
                       </div>
                       
                       <div className="text-xs font-light text-foreground group-hover:text-blue-500 transition-colors duration-300">
-                        Read Report →
+                        Read Insight →
                       </div>
                     </div>
                   </div>
@@ -199,10 +199,10 @@ const ReportsFilter = ({ reports }: ReportsFilterProps) => {
       )}
 
       {/* No Results */}
-      {filteredReports.length === 0 && (
+      {filteredInsights.length === 0 && (
         <div className="text-center py-20">
           <div className="space-y-4">
-            <h3 className="text-xl font-light text-foreground">No reports found</h3>
+            <h3 className="text-xl font-light text-foreground">No insights found</h3>
             <p className="text-base font-light text-foreground/70">
               Try adjusting your search terms or filter criteria.
             </p>
@@ -213,4 +213,4 @@ const ReportsFilter = ({ reports }: ReportsFilterProps) => {
   );
 };
 
-export default ReportsFilter;
+export default InsightsFilter;
