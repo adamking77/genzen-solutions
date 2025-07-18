@@ -28,15 +28,11 @@
 			"dest": "_render"
 		},
 		{
+			"src": "^/insights/?$",
+			"dest": "_render"
+		},
+		{
 			"src": "^/qualification-form/?$",
-			"dest": "_render"
-		},
-		{
-			"src": "^/reports/([^/]+?)/?$",
-			"dest": "_render"
-		},
-		{
-			"src": "^/reports/?$",
 			"dest": "_render"
 		},
 		{
