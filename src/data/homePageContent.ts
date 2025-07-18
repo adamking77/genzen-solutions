@@ -71,6 +71,7 @@ const homePageContent = {
     title: "Legacy Ecosystem Analysis",
     description: "Most organizations make critical decisions based on incomplete intelligence about their own ecosystem.\n\nThese intelligence gaps create the exact vulnerabilities that Legacy Hijacking exploits - turning trusted relationships and protective systems into channels for systematic exploitation.\n\nThe Legacy Ecosystem Analysis provides complete intelligence mapping of how your legacy actually operates, revealing the true dynamics affecting your influence and decision-making power.",
     subtitle: "This comprehensive intelligence operation delivers:",
+    description2: "This analysis is available by invitation or application only.\n\nDue to the sensitive nature of legacy intelligence operations and the requirement for strategic partnerships with specialized intelligence providers, we carefully evaluate each engagement to ensure optimal results.\n\nApply below for confidential evaluation of your situation and availability for this strategic diagnostic.",
     services: [
       {
         name: "Cultural Intelligence Mapping",
