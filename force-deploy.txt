@@ -1,0 +1,9 @@
+Force deployment: 2025-07-18 16:32:00
+
+This file forces a new deployment to clear any cached serverless functions on Vercel.
+Footer changes should be visible after this deployment.
+
+Changes made:
+- Moved GenZen HQ division text below copyright
+- Added italic styling to the division text
+- Build artifacts contain the correct changes

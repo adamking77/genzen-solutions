@@ -1,7 +1,7 @@
 /* empty css                                 */
 import { a as createComponent, b as renderComponent, r as renderTemplate, m as maybeRenderHead } from '../chunks/astro/server_CFDc-_dA.mjs';
 import 'kleur/colors';
-import { $ as $$BaseLayout } from '../chunks/BaseLayout_Y8ae8WI4.mjs';
+import { $ as $$BaseLayout } from '../chunks/BaseLayout_B_N8G20q.mjs';
 import { jsxs, jsx } from 'react/jsx-runtime';
 import { useState, useMemo } from 'react';
 import { Search, Filter } from 'lucide-react';

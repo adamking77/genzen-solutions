@@ -176,9 +176,9 @@ const $$Footer = createComponent(($$result, $$props, $$slots) => {
   </svg>
 `;
   return renderTemplate`${maybeRenderHead()}<footer class="py-16 border-t border-foreground/10"> <div class="max-w-7xl mx-auto px-6 lg:px-8"> <div class="flex flex-col md:flex-row justify-between items-center space-y-6 md:space-y-0"> <div class="text-center md:text-left"> <div class="text-sm font-light text-foreground/50 mb-2">
-GenZen Solutions is a division of GenZen HQ - restoring human agency in an age of systematic exploitation.
-</div> <div class="text-sm font-light text-foreground/50">
 © 2025 <a href="https://genzenhq.com" target="_blank" rel="noopener noreferrer" class="hover:text-foreground/70 transition-colors">GenZen HQ</a> All Rights Reserved
+</div> <div class="text-sm font-light text-foreground/50 italic">
+GenZen Solutions is a division of GenZen HQ - restoring human agency in an age of systematic exploitation.
 </div> </div> <div class="flex items-center space-x-6"> <a href="https://www.linkedin.com/in/-adamking" target="_blank" rel="noopener noreferrer" class="text-foreground/40 hover:text-foreground/70 transition-colors" aria-label="LinkedIn">${unescapeHTML(LinkedinIcon)}</a> </div> </div> </div> </footer>`;
 }, "/Users/adamking/claude-code-projects/genzen_solutions_site/src/components/sections/Footer.astro", void 0);
 
