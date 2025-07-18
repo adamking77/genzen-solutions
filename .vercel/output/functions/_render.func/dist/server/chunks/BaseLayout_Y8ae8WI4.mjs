@@ -1,7 +1,7 @@
 import { c as createAstro, a as createComponent, r as renderTemplate, b as renderComponent, d as renderHead, e as addAttribute, f as renderSlot } from './astro/server_CFDc-_dA.mjs';
 import 'kleur/colors';
 /* empty css                         */
-import { T as ThemeProvider, $ as $$Navigation, a as Toaster, S as ScrollToTop, b as $$Footer } from './toaster_Br8Fs97V.mjs';
+import { T as ThemeProvider, $ as $$Navigation, a as Toaster, S as ScrollToTop, b as $$Footer } from './toaster_BasIGqIJ.mjs';
 
 var __freeze = Object.freeze;
 var __defProp = Object.defineProperty;
