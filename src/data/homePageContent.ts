@@ -69,32 +69,28 @@ const homePageContent = {
   },
   legacyEcosystemAnalysis: {
     title: "Legacy Ecosystem Analysis",
-    description: "Understanding your complete protective ecosystem reveals how various relationships and systems either strengthen or compromise your legacy. The comprehensive Legacy Ecosystem Analysis provides the intelligence foundation needed to restore authentic control.",
-    subtitle: "This strategic diagnostic delivers:",
+    description: "Most organizations make critical decisions based on incomplete intelligence about their own ecosystem.\n\nThese intelligence gaps create the exact vulnerabilities that Legacy Hijacking exploits - turning trusted relationships and protective systems into channels for systematic exploitation.\n\nThe Legacy Ecosystem Analysis provides complete intelligence mapping of how your legacy actually operates, revealing the true dynamics affecting your influence and decision-making power.",
+    subtitle: "This comprehensive intelligence operation delivers:",
     services: [
       {
-        name: "Trust dependency mapping across advisory relationships",
-        description: ""
+        name: "Cultural Intelligence Mapping",
+        description: "Understand how cultural dynamics actually affect your decision-making and influence"
       },
       {
-        name: "Cultural dynamics assessment in communication patterns",
-        description: ""
+        name: "Human Ecosystem Due Diligence",
+        description: "Identify who holds real influence in your network and where dependencies create vulnerability"
       },
       {
-        name: "Cross-border relationship mapping and network analysis",
-        description: ""
+        name: "Behavioral Pattern Analysis",
+        description: "Predict how key stakeholders will respond to critical decisions before you make them"
       },
       {
-        name: "Succession transition vulnerability documentation",
-        description: ""
+        name: "Strategic Synthesis",
+        description: "Discover hidden leverage points and optimization opportunities others miss"
       },
       {
-        name: "Ecosystem strengthening recommendations",
-        description: ""
-      },
-      {
-        name: "Implementation roadmap enhancing existing protective systems",
-        description: ""
+        name: "Implementation Roadmap",
+        description: "Receive clear actions to strengthen your legacy position based on intelligence findings"
       }
     ]
   },
