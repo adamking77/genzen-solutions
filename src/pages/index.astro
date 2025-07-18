@@ -141,9 +141,9 @@ import ScrollAnimator from '../components/interactive/ScrollAnimator.tsx';
           
           <div class="mt-8 grid gap-6 md:grid-cols-1 lg:grid-cols-1">
             {homePageContent.legacyEcosystemAnalysis.services.map(service => (
-              <div class="border-l-2 border-primary/20 pl-6 py-2">
-                <h4 class="text-lg font-medium text-foreground">{service.name}</h4>
-                <p class="mt-2 text-base text-muted-foreground leading-relaxed">{service.description}</p>
+              <div class="group border-l-2 border-primary/20 pl-6 py-4 px-4 -ml-4 rounded-r-lg hover:border-primary hover:bg-foreground/5 transition-all duration-300 cursor-pointer">
+                <h4 class="text-lg font-medium text-foreground group-hover:text-primary transition-colors duration-300">{service.name}</h4>
+                <p class="mt-2 text-base text-muted-foreground group-hover:text-foreground transition-colors duration-300 leading-relaxed">{service.description}</p>
               </div>
             ))}
           </div>
