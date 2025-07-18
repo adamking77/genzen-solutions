@@ -131,7 +131,7 @@ import ScrollAnimator from '../components/interactive/ScrollAnimator.tsx';
           
           <div class="mt-8 space-y-6">
             {homePageContent.legacyEcosystemAnalysis.description.split('\n\n').map(paragraph => (
-              <p class="text-lg leading-8 text-muted-foreground">{paragraph}</p>
+              <p class="text-lg font-light leading-relaxed text-foreground/70">{paragraph}</p>
             ))}
           </div>
 
@@ -143,14 +143,14 @@ import ScrollAnimator from '../components/interactive/ScrollAnimator.tsx';
             {homePageContent.legacyEcosystemAnalysis.services.map(service => (
               <div class="group border-l-2 border-primary/20 pl-6 py-4 px-4 -ml-4 rounded-r-lg hover:border-primary hover:bg-foreground/5 transition-all duration-300 cursor-pointer">
                 <h4 class="text-lg font-medium text-foreground group-hover:text-primary transition-colors duration-300">{service.name}</h4>
-                <p class="mt-2 text-base text-muted-foreground group-hover:text-foreground transition-colors duration-300 leading-relaxed">{service.description}</p>
+                <p class="mt-2 text-lg font-light text-foreground/70 group-hover:text-foreground transition-colors duration-300 leading-relaxed">{service.description}</p>
               </div>
             ))}
           </div>
 
           <div class="mt-12 space-y-4">
             {homePageContent.legacyEcosystemAnalysis.description2.split('\n\n').map(paragraph => (
-              <p class="text-lg leading-8 text-muted-foreground">{paragraph}</p>
+              <p class="text-lg font-light leading-relaxed text-foreground/70">{paragraph}</p>
             ))}
           </div>
         </div>
