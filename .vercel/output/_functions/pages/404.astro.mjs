@@ -1,8 +1,8 @@
 /* empty css                                 */
-import { c as createAstro, a as createComponent, b as renderComponent, r as renderTemplate, m as maybeRenderHead, e as addAttribute } from '../chunks/astro/server_CFDc-_dA.mjs';
+import { c as createAstro, a as createComponent, r as renderComponent, d as renderTemplate, m as maybeRenderHead, b as addAttribute } from '../chunks/astro/server_Co88VAjz.mjs';
 import 'kleur/colors';
-import { $ as $$BaseLayout } from '../chunks/BaseLayout_B_N8G20q.mjs';
-import { $ as $$Navigation, B as Button, b as $$Footer } from '../chunks/toaster_Ch3OmOK9.mjs';
+import { $ as $$BaseLayout } from '../chunks/BaseLayout_C47Iay-C.mjs';
+import { a as $$Navigation, B as Button, $ as $$Footer } from '../chunks/toaster_CUOm5jLy.mjs';
 import { ArrowLeft, Home, FileText } from 'lucide-react';
 export { renderers } from '../renderers.mjs';
 

@@ -1,0 +1,260 @@
+---
+import ScrollAnimator from '../interactive/ScrollAnimator.tsx';
+
+interface Event {
+  date: string;
+  title: string;
+  description: string;
+  category?: string;
+  highlight?: boolean;
+  details?: string;
+}
+
+export interface Props {
+  title: string;
+  events: Event[];
+}
+
+const { title, events } = Astro.props;
+---
+
+<section class="py-16 lg:py-32 xl:py-40 relative overflow-hidden">
+  <!-- Background with brand color gradient -->
+  <div class="absolute inset-0 bg-gradient-to-br from-primary/5 via-background to-secondary/10"></div>
+  
+  <div class="relative max-w-6xl mx-auto px-4 md:px-6 lg:px-8">
+    <!-- Section Header -->
+    <ScrollAnimator client:load threshold={0.2} duration={800}>
+      <div class="text-center mb-20">
+        <h2 class="text-2xl md:text-4xl lg:text-5xl font-light leading-tight lg:leading-[0.9] tracking-tight text-primary mb-6">
+          {title}
+        </h2>
+        <div class="w-24 h-px bg-primary/30 mx-auto mb-8"></div>
+        <p class="text-lg font-light text-muted-foreground max-w-2xl mx-auto leading-relaxed">
+          Precision milestones in our journey, crafted with Swiss attention to detail
+        </p>
+      </div>
+    </ScrollAnimator>
+
+    <!-- Alternating Timeline -->
+    <div class="space-y-12 lg:space-y-10 relative">
+      <!-- Center Line -->
+      <div class="hidden lg:block absolute left-1/2 transform -translate-x-1/2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-primary/20 via-primary/40 to-primary/20"></div>
+      
+      {events.map((event, index) => {
+        const isHighlight = event.highlight;
+        const isLeft = index % 2 === 0; // Even index = left side, Odd index = right side
+        
+        return (
+          <ScrollAnimator client:load threshold={0.3} duration={600} delay={index * 100}>
+            <div class="relative grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-center">
+              {/* Left Side Content (for even-indexed events) */}
+              {isLeft ? (
+                <div class="text-center lg:text-right lg:pr-8">
+                  <div class="inline-block max-w-sm p-4 bg-card border border-primary/10 rounded-lg shadow-sm hover:shadow-md hover:shadow-foreground/10 dark:hover:shadow-lg dark:hover:shadow-[hsl(var(--shadow-soft))]/35 hover:scale-[1.02] hover:bg-gradient-to-r hover:from-background hover:to-accent/20 dark:hover:from-[hsl(var(--background))] dark:hover:to-[hsl(var(--background-elevated))]/70 hover:border-accent/50 dark:hover:border-[hsl(var(--accent-bright))]/60 active:scale-100 transition-all duration-300 cursor-pointer group timeline-content">
+                    <div class="space-y-3">
+                      <div class="flex items-center justify-center lg:justify-end gap-3">
+                        <time class={`inline-flex items-center justify-center text-xs font-medium px-2 py-1 rounded-full ${isHighlight ? 'bg-primary text-primary-foreground' : 'bg-primary/10 text-primary'}`}>
+                          {event.date}
+                        </time>
+                        {event.category && (
+                          <span class="text-xs font-medium text-muted-foreground uppercase tracking-wide">
+                            {event.category}
+                          </span>
+                        )}
+                      </div>
+                      <h3 class="text-lg font-light text-foreground group-hover:text-primary transition-colors">
+                        {event.title}
+                      </h3>
+                      <p class="text-muted-foreground text-xs leading-relaxed">
+                        {event.description}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              ) : (
+                <div></div> // Empty space on left for right-aligned events
+              )}
+              
+              {/* Right Side Content (for odd-indexed events) */}
+              {!isLeft ? (
+                <div class="text-center lg:text-left lg:pl-8">
+                  <div class="inline-block max-w-sm p-4 bg-card border border-primary/10 rounded-lg shadow-sm hover:shadow-md hover:shadow-foreground/10 dark:hover:shadow-lg dark:hover:shadow-[hsl(var(--shadow-soft))]/35 hover:scale-[1.02] hover:bg-gradient-to-r hover:from-background hover:to-accent/20 dark:hover:from-[hsl(var(--background))] dark:hover:to-[hsl(var(--background-elevated))]/70 hover:border-accent/50 dark:hover:border-[hsl(var(--accent-bright))]/60 active:scale-100 transition-all duration-300 cursor-pointer group timeline-content">
+                    <div class="space-y-3">
+                      <div class="flex items-center justify-center lg:justify-start gap-3">
+                        <time class={`inline-flex items-center justify-center text-xs font-medium px-2 py-1 rounded-full ${isHighlight ? 'bg-primary text-primary-foreground' : 'bg-primary/10 text-primary'}`}>
+                          {event.date}
+                        </time>
+                        {event.category && (
+                          <span class="text-xs font-medium text-muted-foreground uppercase tracking-wide">
+                            {event.category}
+                          </span>
+                        )}
+                      </div>
+                      <h3 class="text-lg font-light text-foreground group-hover:text-primary transition-colors">
+                        {event.title}
+                      </h3>
+                      <p class="text-muted-foreground text-xs leading-relaxed">
+                        {event.description}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              ) : (
+                <div></div> // Empty space on right for left-aligned events
+              )}
+              
+              <!-- Center Dot (positioned absolutely) -->
+              <div class="absolute left-1/2 transform -translate-x-1/2 flex items-center justify-center w-6 h-6 z-10">
+                <div class={`timeline-dot w-3 h-3 rounded-full border-3 border-background bg-primary transition-all duration-300 hover:scale-125 hover:shadow-lg`}></div>
+              </div>
+            </div>
+          </ScrollAnimator>
+        );
+      })}
+    </div>
+
+  </div>
+</section>
+
+<style>
+  /* Mobile responsive timeline */
+  @media (max-width: 767px) {
+    /* Single column layout on mobile */
+    .grid-cols-2 {
+      grid-template-columns: 1fr;
+      gap: 1rem;
+    }
+    
+    /* Move center line to left side on mobile */
+    .absolute.left-1\/2 {
+      left: 2rem !important;
+      transform: none !important;
+    }
+    
+    /* Stack all content on left side for mobile */
+    .text-right,
+    .text-left {
+      text-align: left !important;
+    }
+    
+    .pr-8,
+    .pl-8 {
+      padding-left: 0 !important;
+      padding-right: 0 !important;
+      margin-left: 3rem;
+    }
+    
+    /* Adjust dot position for mobile */
+    .absolute.left-1\/2.transform.-translate-x-1\/2 {
+      left: 2rem !important;
+      transform: translateX(-50%) !important;
+    }
+  }
+  
+  /* Subtle dot hover and pulse effects */
+  .timeline-dot.hover-active {
+    transform: scale(1.15) !important;
+    background-color: hsl(var(--primary)) !important;
+    box-shadow: 0 0 12px hsl(var(--primary) / 0.4);
+  }
+  
+  /* Gentle pulse animation for active dots */
+  .timeline-dot.active {
+    animation: gentle-pulse 3s ease-in-out infinite;
+  }
+  
+  @keyframes gentle-pulse {
+    0%, 100% { 
+      opacity: 0.9;
+      box-shadow: 0 0 6px hsl(var(--primary) / 0.3);
+    }
+    50% { 
+      opacity: 1;
+      box-shadow: 0 0 10px hsl(var(--primary) / 0.4);
+    }
+  }
+  
+  /* Refined dot transitions */
+  .timeline-dot {
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  /* Smooth transitions */
+  * {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  /* Ensure proper z-index stacking */
+  .z-10 {
+    z-index: 10;
+  }
+</style>
+
+<script>
+  document.addEventListener('astro:page-load', () => {
+    console.log('Timeline script loaded');
+    const timelineItems = document.querySelectorAll('.grid-cols-2');
+    console.log('Found timeline items:', timelineItems.length);
+    
+    // Enhanced accessibility and interactions
+    timelineItems.forEach((item, index) => {
+      const content = item.querySelector('.timeline-content');
+      const dot = item.querySelector('.timeline-dot');
+      console.log(`Item ${index}: content=${!!content}, dot=${!!dot}`);
+      
+      if (content && dot) {
+        // Add accessibility attributes
+        content.setAttribute('tabindex', '0');
+        content.setAttribute('role', 'button');
+        content.setAttribute('aria-label', `Timeline milestone ${index + 1}`);
+        
+        // Enhanced content hover effects on dot - subtle and sophisticated
+        if (content && dot) {
+          content.addEventListener('mouseenter', () => {
+            console.log('Content hovered, adding hover-active to dot');
+            dot.classList.add('hover-active');
+          });
+          
+          content.addEventListener('mouseleave', () => {
+            console.log('Content unhovered, removing hover-active from dot');
+            dot.classList.remove('hover-active');
+          });
+        } else {
+          console.log(`Missing elements for item ${index}: content=${!!content}, dot=${!!dot}`);
+        }
+        
+        // Keyboard navigation
+        content.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            content.style.transform = 'scale(1.02)';
+            dot.style.transform = 'scale(1.4)';
+            setTimeout(() => {
+              content.style.transform = '';
+              dot.style.transform = '';
+            }, 150);
+          }
+        });
+        
+        // Progressive dot activation on scroll
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              setTimeout(() => {
+                dot.classList.add('active');
+                dot.style.backgroundColor = 'hsl(var(--primary))';
+                dot.style.transform = 'scale(1.1)';
+              }, index * 150);
+            }
+          });
+        }, {
+          threshold: 0.3,
+          rootMargin: '0px 0px -100px 0px'
+        });
+        
+        observer.observe(item);
+      }
+    });
+  });
+</script>

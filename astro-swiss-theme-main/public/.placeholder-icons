@@ -1,0 +1,29 @@
+# Placeholder Icon Files
+
+This theme references the following icon files that should be created:
+
+- favicon-16x16.png
+- favicon-32x32.png  
+- apple-touch-icon.png (180x180)
+- android-chrome-192x192.png
+- android-chrome-512x512.png
+
+## Recommended Tools for Icon Generation:
+
+1. **Online Generators:**
+   - https://realfavicongenerator.net/
+   - https://favicon.io/
+
+2. **Design Tools:**
+   - Use the favicon.svg as a base design
+   - Maintain Swiss design principles: clean lines, minimal colors
+   - Use white background with black geometric elements
+   - Add red accent in corner for brand recognition
+
+3. **PWA Icon Requirements:**
+   - All icons should be square
+   - Follow PWA maskable icon guidelines for Android
+   - Test on various devices and browsers
+
+## Temporary Solution:
+The favicon.svg will work as a fallback for modern browsers until PNG versions are created.

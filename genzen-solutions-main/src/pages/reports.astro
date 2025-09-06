@@ -48,7 +48,7 @@ const categories = Array.from(new Set(reportsData.map(report => report.category)
 
       <!-- Interactive Reports with Search/Filter -->
       <ScrollAnimator client:load threshold={0.2} duration={800} delay={200}>
-        <ReportsFilter client:idle reports={reportsData} />
+        <ReportsFilter client:idle reports={reportsData} basePath="/reports" />
       </ScrollAnimator>
     </div>
 

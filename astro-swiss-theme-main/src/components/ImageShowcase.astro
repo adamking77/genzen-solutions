@@ -1,0 +1,106 @@
+---
+import OptimizedImage from './OptimizedImage.astro';
+import { generateSwissPlaceholder, generateSizes, getOptimalQuality } from '../utils/imageUtils';
+
+interface Props {
+  images?: Array<{
+    src: string;
+    alt: string;
+    caption?: string;
+    priority?: boolean;
+  }>;
+  title?: string;
+  layout?: 'grid' | 'hero' | 'gallery';
+}
+
+const {
+  images = [],
+  title = "Image Gallery",
+  layout = 'grid'
+} = Astro.props;
+
+// Generate placeholder for empty state
+const placeholderSrc = generateSwissPlaceholder(400, 300, 'Swiss Design');
+const responsiveSizes = generateSizes();
+---
+
+<section class="py-16 lg:py-24">
+  <div class="max-w-7xl mx-auto px-6 lg:px-8">
+    {title && (
+      <h2 class="text-3xl lg:text-4xl font-light tracking-tight text-foreground mb-12 text-center">
+        {title}
+      </h2>
+    )}
+    
+    {images.length > 0 ? (
+      <div class={`
+        ${layout === 'grid' ? 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8' : ''}
+        ${layout === 'hero' ? 'flex flex-col items-center space-y-8' : ''}
+        ${layout === 'gallery' ? 'grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4' : ''}
+      `}>
+        {images.map((image, index) => (
+          <figure class={`
+            ${layout === 'hero' && index === 0 ? 'w-full max-w-4xl' : ''}
+            ${layout === 'gallery' ? 'aspect-square' : 'aspect-[4/3]'}
+            group relative overflow-hidden bg-muted rounded-lg
+          `}>
+            <OptimizedImage
+              src={image.src}
+              alt={image.alt}
+              width={layout === 'hero' && index === 0 ? 1200 : 400}
+              height={layout === 'hero' && index === 0 ? 600 : 300}
+              class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+              loading={image.priority || (layout === 'hero' && index === 0) ? 'eager' : 'lazy'}
+              priority={image.priority || (layout === 'hero' && index === 0)}
+              quality={getOptimalQuality(layout === 'hero' && index === 0 ? 'hero' : 'content')}
+              sizes={responsiveSizes}
+            />
+            
+            {image.caption && (
+              <figcaption class="absolute bottom-0 left-0 right-0 bg-black/50 backdrop-blur-sm text-white p-4">
+                <p class="text-sm font-light">{image.caption}</p>
+              </figcaption>
+            )}
+            
+            <!-- Swiss design accent -->
+            <div class="absolute top-4 right-4 w-2 h-2 bg-red-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+          </figure>
+        ))}
+      </div>
+    ) : (
+      <!-- Empty state with Swiss placeholder -->
+      <div class="text-center py-16">
+        <div class="max-w-md mx-auto">
+          <OptimizedImage
+            src={placeholderSrc}
+            alt="Swiss design placeholder"
+            width={400}
+            height={300}
+            class="w-full h-auto opacity-50"
+          />
+          <p class="text-foreground/50 mt-6 font-light">
+            No images to display. Add some images to showcase your work.
+          </p>
+        </div>
+      </div>
+    )}
+  </div>
+</section>
+
+<style>
+  /* Additional Swiss-inspired styling */
+  figure::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border: 1px solid transparent;
+    transition: border-color 0.3s ease;
+  }
+  
+  figure:hover::before {
+    border-color: hsl(var(--foreground) / 0.1);
+  }
+</style>

@@ -1,0 +1,74 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ReportCard from '../components/reports/ReportCard.astro';
+import ReportsFilter from '../components/interactive/ReportsFilter.tsx';
+import { getCollection } from 'astro:content';
+import ScrollAnimator from '../components/interactive/ScrollAnimator.tsx';
+
+const reports = await getCollection('reports');
+const reportsData = reports.map(entry => ({
+  id: entry.id,
+  ...(entry.data || {}),
+  slug: entry.slug
+}));
+
+// Filter reports
+const featuredReports = reportsData.filter(report => report.featured);
+const regularReports = reportsData.filter(report => !report.featured);
+
+// Get unique categories for filter
+const categories = Array.from(new Set(reportsData.map(report => report.category)));
+---
+
+<BaseLayout 
+  title="Reports Archive | Strategic Intelligence & Market Analysis"
+  description="Comprehensive collection of strategic reports, market analysis, and performance insights that drive informed decision-making across global markets."
+>
+  <section class="py-24 lg:py-32">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8">
+      <!-- Header -->
+      <ScrollAnimator client:load threshold={0.1} duration={1000}>
+        <div class="space-y-12 mb-20">
+          <div class="space-y-8">
+            <div class="text-sm font-medium tracking-widest text-foreground/60 uppercase">
+              REPORTS ARCHIVE
+            </div>
+            <h2 class="text-3xl md:text-4xl lg:text-5xl font-light leading-[1.1] tracking-tight max-w-4xl text-foreground">
+              Strategic Intelligence
+              <br />
+              & Market Analysis
+            </h1>
+            <p class="text-lg font-light text-foreground/70 leading-relaxed max-w-2xl">
+              Comprehensive collection of strategic reports, market analysis, and performance insights 
+              that drive informed decision-making across global markets.
+            </p>
+          </div>
+        </div>
+      </ScrollAnimator>
+
+      <!-- Interactive Reports with Search/Filter -->
+      <ScrollAnimator client:load threshold={0.2} duration={800} delay={200}>
+        <ReportsFilter client:idle reports={reportsData} />
+      </ScrollAnimator>
+    </div>
+
+      <!-- Stats -->
+      <ScrollAnimator client:load threshold={0.2} duration={800}>
+        <div class="grid grid-cols-3 gap-8 pt-20 mt-20 border-t border-foreground/10">
+          <div class="text-center space-y-2">
+            <div class="text-3xl font-light text-foreground">{reportsData.length}</div>
+            <div class="text-sm font-light text-foreground/60 tracking-wider">TOTAL REPORTS</div>
+          </div>
+          <div class="text-center space-y-2">
+            <div class="text-3xl font-light text-foreground">{categories.length}</div>
+            <div class="text-sm font-light text-foreground/60 tracking-wider">CATEGORIES</div>
+          </div>
+          <div class="text-center space-y-2">
+            <div class="text-3xl font-light text-foreground">{new Date().getFullYear()}</div>
+            <div class="text-sm font-light text-foreground/60 tracking-wider">CURRENT YEAR</div>
+          </div>
+        </div>
+      </ScrollAnimator>
+    </div>
+  </section>
+</BaseLayout>

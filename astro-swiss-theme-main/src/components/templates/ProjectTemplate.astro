@@ -1,0 +1,235 @@
+---
+export interface Props {
+  entry: any;
+  Content: any;
+}
+
+const { entry, Content } = Astro.props;
+const { data } = entry;
+
+// Format date for display
+const formatDate = (dateString: string) => {
+  if (!dateString) return '';
+  return new Date(dateString).toLocaleDateString('en-US', {
+    year: 'numeric',
+    month: 'long'
+  });
+};
+
+// Get status badge color
+const getStatusColor = (status: string) => {
+  switch (status) {
+    case 'completed': return 'bg-green-100 text-green-800';
+    case 'in-progress': return 'bg-blue-100 text-blue-800';  
+    case 'planned': return 'bg-yellow-100 text-yellow-800';
+    default: return 'bg-gray-100 text-gray-800';
+  }
+};
+---
+
+<!-- Project Hero Section -->
+<section class="pt-32 pb-16 lg:pt-40 lg:pb-24">
+  <div class="max-w-6xl mx-auto px-6 lg:px-8">
+    <div class="grid lg:grid-cols-2 gap-12 items-start">
+      <!-- Project Info -->
+      <div class="section-animate">
+        <div class="flex flex-wrap items-center gap-2 text-sm mb-6">
+          {data.category && (
+            <span class="px-3 py-1 bg-accent/10 text-accent-foreground rounded-full">
+              {data.category}
+            </span>
+          )}
+          {data.status && (
+            <span class={`px-3 py-1 rounded-full ${getStatusColor(data.status)}`}>
+              {data.status}
+            </span>
+          )}
+          {data.featured && (
+            <span class="px-3 py-1 bg-amber-100 text-amber-800 rounded-full">
+              Featured
+            </span>
+          )}
+        </div>
+        
+        <h1 class="text-3xl md:text-4xl lg:text-5xl font-light leading-[1.3] tracking-tight text-foreground mb-4">
+          {data.title}
+        </h1>
+        
+        {data.subtitle && (
+          <p class="text-xl text-foreground/80 font-light mb-6">
+            {data.subtitle}
+          </p>
+        )}
+        
+        <p class="text-lg text-muted-foreground font-light leading-relaxed mb-8">
+          {data.description}
+        </p>
+        
+        <!-- Project Links -->
+        {data.repositoryUrl && (
+          <div class="mb-8">
+            <a 
+              href={data.repositoryUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-flex items-center px-6 py-3 border border-border hover:bg-accent/5 rounded-full font-light transition-colors"
+            >
+              View Code
+            </a>
+          </div>
+        )}
+        
+        <!-- Project Metadata -->
+        <div class="grid grid-cols-2 gap-6 pt-6 border-t border-border">
+          {data.client && (
+            <div>
+              <dt class="text-sm font-medium text-muted-foreground mb-1">Client</dt>
+              <dd class="text-foreground font-light">{data.client}</dd>
+            </div>
+          )}
+          {data.industry && (
+            <div>
+              <dt class="text-sm font-medium text-muted-foreground mb-1">Industry</dt>
+              <dd class="text-foreground font-light">{data.industry}</dd>
+            </div>
+          )}
+          {data.startDate && (
+            <div>
+              <dt class="text-sm font-medium text-muted-foreground mb-1">Timeline</dt>
+              <dd class="text-foreground font-light">
+                {formatDate(data.startDate)}
+                {data.endDate && ` - ${formatDate(data.endDate)}`}
+              </dd>
+            </div>
+          )}
+          {data.services && data.services.length > 0 && (
+            <div>
+              <dt class="text-sm font-medium text-muted-foreground mb-1">Services</dt>
+              <dd class="text-foreground font-light">
+                {data.services.join(', ')}
+              </dd>
+            </div>
+          )}
+        </div>
+      </div>
+      
+      <!-- Featured Image -->
+      <div class="section-animate">
+        {data.featuredImage && (
+          <div class="aspect-video overflow-hidden rounded-xl bg-accent/10">
+            <img 
+              src={data.featuredImage}
+              alt={data.title}
+              class="w-full h-full object-cover"
+            />
+          </div>
+        )}
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Project Gallery -->
+{data.gallery && data.gallery.length > 0 && (
+  <section class="py-16 lg:py-24 bg-accent/5">
+    <div class="max-w-6xl mx-auto px-6 lg:px-8">
+      <div class="section-animate mb-12">
+        <h2 class="text-2xl md:text-3xl font-light tracking-tight text-foreground mb-4">
+          Project Gallery
+        </h2>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {data.gallery.map((image: string, index: number) => (
+          <div class="section-animate aspect-video overflow-hidden rounded-lg bg-accent/10">
+            <img 
+              src={image}
+              alt={`${data.title} - Image ${index + 1}`}
+              class="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+              loading="lazy"
+            />
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+)}
+
+<!-- Main Content -->
+<article class="py-16 lg:py-24">
+  <div class="max-w-4xl mx-auto px-6 lg:px-8">
+    <div class="section-animate prose prose-lg max-w-none prose-headings:font-light prose-headings:tracking-tight prose-p:font-light prose-p:leading-relaxed prose-a:text-accent prose-a:no-underline hover:prose-a:underline">
+      <Content />
+    </div>
+  </div>
+</article>
+
+<!-- Technologies Used -->
+{data.technologies && data.technologies.length > 0 && (
+  <section class="py-16 lg:py-24 bg-accent/5">
+    <div class="max-w-4xl mx-auto px-6 lg:px-8">
+      <div class="section-animate">
+        <h2 class="text-2xl md:text-3xl font-light tracking-tight text-foreground mb-8">
+          Technologies Used
+        </h2>
+        <div class="flex flex-wrap gap-3">
+          {data.technologies.map((tech: string) => (
+            <span class="px-4 py-2 bg-secondary text-secondary-foreground rounded-full font-light">
+              {tech}
+            </span>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+)}
+
+<!-- Project Tags -->
+{data.tags && data.tags.length > 0 && (
+  <section class="py-16 lg:py-24">
+    <div class="max-w-4xl mx-auto px-6 lg:px-8">
+      <div class="section-animate">
+        <h2 class="text-xl font-light tracking-tight text-foreground mb-6">
+          Project Tags
+        </h2>
+        <div class="flex flex-wrap gap-2">
+          {data.tags.map((tag: string) => (
+            <span class="px-3 py-1 bg-muted text-muted-foreground rounded-full text-sm font-light">
+              #{tag}
+            </span>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+)}
+
+<style>
+  .section-animate {
+    opacity: 0;
+    transform: translateY(2rem);
+    animation: fadeInUp 0.8s ease-out forwards;
+  }
+  
+  .section-animate:nth-child(2) { animation-delay: 0.1s; }
+  .section-animate:nth-child(3) { animation-delay: 0.2s; }
+  .section-animate:nth-child(4) { animation-delay: 0.3s; }
+  
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(2rem);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  @media (prefers-reduced-motion: reduce) {
+    .section-animate {
+      animation: none;
+      opacity: 1;
+      transform: none;
+    }
+  }
+</style>

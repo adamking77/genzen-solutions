@@ -1,0 +1,229 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+import type { GetStaticPaths } from 'astro';
+
+export const getStaticPaths: GetStaticPaths = async () => {
+  const pages = await getCollection('pages');
+  
+  return pages
+    .filter(page => page.data.published)
+    .map(page => ({
+      params: { page: page.slug },
+      props: { page }
+    }));
+};
+
+interface Props {
+  page: any;
+}
+
+const { page } = Astro.props;
+const { Content } = await page.render();
+
+// Helper function to render section-based content
+const renderSection = (section: any) => {
+  switch (section.type) {
+    case 'hero':
+      return {
+        type: 'hero',
+        title: section.title,
+        content: section.content,
+        variant: section.settings?.variant || 'default',
+        showCta: section.settings?.showCta !== false
+      };
+    case 'content':
+      return {
+        type: 'content',
+        title: section.title,
+        content: section.content
+      };
+    case 'cta':
+      return {
+        type: 'cta',
+        title: section.title || 'Ready to Get Started?',
+        content: section.content || 'Contact us to discuss your project.',
+        primaryButton: section.settings?.primaryButton || 'Contact Us',
+        secondaryButton: section.settings?.secondaryButton
+      };
+    default:
+      return section;
+  }
+};
+---
+
+<BaseLayout 
+  title={page.data.seoTitle || page.data.title}
+  description={page.data.seoDescription || page.data.description}
+  image={page.data.featuredImage}
+  canonical={page.data.canonicalUrl}
+  noindex={page.data.noindex}
+>
+  <!-- Dynamic Page Content -->
+  
+  {/* Render sections if they exist */}
+  {page.data.sections && page.data.sections.length > 0 && (
+    <div>
+      {page.data.sections.map((section: any, index: number) => {
+        const processedSection = renderSection(section);
+        
+        if (processedSection.type === 'hero') {
+          return (
+            <section class={`pt-32 pb-16 lg:pt-40 lg:pb-24 ${processedSection.variant === 'centered' ? 'text-center' : ''}`}>
+              <div class="max-w-6xl mx-auto px-6 lg:px-8">
+                <div class={`${processedSection.variant === 'centered' ? 'max-w-4xl mx-auto' : 'max-w-3xl'}`}>
+                  {processedSection.title && (
+                    <h2 class="text-3xl md:text-4xl lg:text-5xl font-light tracking-tight text-foreground mb-6">
+                      {processedSection.title}
+                    </h1>
+                  )}
+                  {processedSection.content && (
+                    <p class="text-xl text-muted-foreground font-light leading-relaxed mb-8">
+                      {processedSection.content}
+                    </p>
+                  )}
+                  {processedSection.showCta && (
+                    <div class="flex flex-col sm:flex-row gap-4 justify-start">
+                      <a 
+                        href="/contact" 
+                        class="inline-flex items-center justify-center px-6 py-3 bg-accent text-accent-foreground hover:bg-accent/90 rounded-full font-light transition-colors"
+                      >
+                        Get Started
+                      </a>
+                    </div>
+                  )}
+                </div>
+              </div>
+            </section>
+          );
+        }
+        
+        if (processedSection.type === 'content') {
+          return (
+            <section class={`py-16 lg:py-24 ${index % 2 === 1 ? 'bg-accent/5' : ''}`}>
+              <div class="max-w-4xl mx-auto px-6 lg:px-8">
+                {processedSection.title && (
+                  <h2 class="text-2xl md:text-3xl font-light tracking-tight text-foreground mb-8">
+                    {processedSection.title}
+                  </h2>
+                )}
+                {processedSection.content && (
+                  <div class="prose prose-lg max-w-none prose-headings:font-light prose-headings:tracking-tight prose-p:font-light prose-p:leading-relaxed prose-a:text-accent prose-a:no-underline hover:prose-a:underline">
+                    <p>{processedSection.content}</p>
+                  </div>
+                )}
+              </div>
+            </section>
+          );
+        }
+        
+        if (processedSection.type === 'cta') {
+          return (
+            <section class="py-16 lg:py-24 bg-accent/5">
+              <div class="max-w-4xl mx-auto px-6 lg:px-8 text-center">
+                <h2 class="text-2xl md:text-3xl font-light tracking-tight text-foreground mb-4">
+                  {processedSection.title}
+                </h2>
+                <p class="text-muted-foreground font-light max-w-2xl mx-auto mb-8">
+                  {processedSection.content}
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                  <a 
+                    href="/contact" 
+                    class="inline-flex items-center justify-center px-6 py-3 bg-accent text-accent-foreground hover:bg-accent/90 rounded-full font-light transition-colors"
+                  >
+                    {processedSection.primaryButton}
+                  </a>
+                  {processedSection.secondaryButton && (
+                    <a 
+                      href="/projects" 
+                      class="inline-flex items-center justify-center px-6 py-3 border border-border hover:bg-accent/5 rounded-full font-light transition-colors"
+                    >
+                      {processedSection.secondaryButton}
+                    </a>
+                  )}
+                </div>
+              </div>
+            </section>
+          );
+        }
+        
+        return null;
+      })}
+    </div>
+  )}
+  
+  {/* Default page layout for pages without sections */}
+  {(!page.data.sections || page.data.sections.length === 0) && (
+    <>
+      <!-- Page Header -->
+      <section class="pt-32 pb-16 lg:pt-40 lg:pb-24">
+        <div class="max-w-6xl mx-auto px-6 lg:px-8">
+          <div class="max-w-4xl">
+            <h2 class="text-3xl md:text-4xl lg:text-5xl font-light tracking-tight text-foreground mb-6">
+              {page.data.title}
+            </h1>
+            <p class="text-xl text-muted-foreground font-light leading-relaxed mb-8">
+              {page.data.description}
+            </p>
+            
+            {/* Page metadata */}
+            {(page.data.publishDate || page.data.lastModified) && (
+              <div class="flex items-center gap-4 text-sm text-muted-foreground">
+                {page.data.publishDate && (
+                  <span>Published: {new Date(page.data.publishDate).toLocaleDateString()}</span>
+                )}
+                {page.data.lastModified && (
+                  <span>Updated: {new Date(page.data.lastModified).toLocaleDateString()}</span>
+                )}
+              </div>
+            )}
+          </div>
+        </div>
+      </section>
+
+      <!-- Featured Image -->
+      {page.data.featuredImage && (
+        <section class="py-16 lg:py-24 bg-accent/5">
+          <div class="max-w-6xl mx-auto px-6 lg:px-8">
+            <div class="aspect-video overflow-hidden rounded-xl bg-accent/10">
+              <img 
+                src={page.data.featuredImage}
+                alt={page.data.title}
+                class="w-full h-full object-cover"
+              />
+            </div>
+          </div>
+        </section>
+      )}
+
+      <!-- Page Content -->
+      <article class="py-16 lg:py-24">
+        <div class="max-w-4xl mx-auto px-6 lg:px-8">
+          <div class="prose prose-lg max-w-none prose-headings:font-light prose-headings:tracking-tight prose-p:font-light prose-p:leading-relaxed prose-a:text-accent prose-a:no-underline hover:prose-a:underline">
+            <Content />
+          </div>
+        </div>
+      </article>
+    </>
+  )}
+
+  <!-- Navigation for hierarchical pages -->
+  {page.data.parent && (
+    <section class="py-8 bg-accent/5">
+      <div class="max-w-4xl mx-auto px-6 lg:px-8">
+        <nav class="flex items-center space-x-2 text-sm">
+          <a href="/" class="text-muted-foreground hover:text-foreground transition-colors">
+            Home
+          </a>
+          <span class="text-muted-foreground">/</span>
+          <a href={`/${page.data.parent}`} class="text-muted-foreground hover:text-foreground transition-colors">
+            {page.data.parent}
+          </a>
+          <span class="text-muted-foreground">/</span>
+          <span class="text-foreground">{page.data.title}</span>
+        </nav>
+      </div>
+    </section>
+  )}
+</BaseLayout>

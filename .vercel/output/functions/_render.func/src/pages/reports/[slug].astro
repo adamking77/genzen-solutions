@@ -1,0 +1,144 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ReportTemplate from '../../components/templates/ReportTemplate.astro';
+import ReportCard from '../../components/reports/ReportCard.astro';
+import ScrollAnimator from '../../components/interactive/ScrollAnimator.tsx';
+import { getCollection } from 'astro:content';
+import type { GetStaticPaths } from 'astro';
+
+export const getStaticPaths: GetStaticPaths = async () => {
+  const reports = await getCollection('reports');
+  
+  return reports
+    .filter(report => report.data.published)
+    .map(report => ({
+      params: { slug: report.slug },
+      props: { entry: report }
+    }));
+};
+
+interface Props {
+  entry: any;
+}
+
+const { entry } = Astro.props;
+const { Content } = await entry.render();
+
+// Get related reports (same category, excluding current)
+const allReports = await getCollection('reports');
+const relatedReports = allReports
+  .filter(r => 
+    r.data.published && 
+    r.slug !== entry.slug && 
+    r.data.category === entry.data.category
+  )
+  .slice(0, 3);
+
+const pageTitle = `${entry.data.title} | GenZen Solutions`;
+const pageDescription = entry.data.description || entry.data.excerpt || '';
+---
+
+<BaseLayout 
+  title={pageTitle}
+  description={pageDescription}
+>
+  <!-- Main Report Content -->
+  <ReportTemplate entry={entry} Content={Content} />
+
+  <!-- Related Reports Section -->
+  {relatedReports.length > 0 && (
+    <section class="py-16 lg:py-24 bg-accent/5">
+      <div class="max-w-6xl mx-auto px-6 lg:px-8">
+        <ScrollAnimator client:load threshold={0.1} duration={800}>
+          <div class="text-center mb-12">
+            <h2 class="text-2xl md:text-3xl font-light tracking-tight text-foreground mb-4">
+              Related Reports
+            </h2>
+            <div class="w-12 h-px bg-foreground/20 mx-auto"></div>
+          </div>
+
+          <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {relatedReports.map((report) => (
+              <ReportCard 
+                id={report.id}
+                title={report.data.title}
+                description={report.data.description}
+                category={report.data.category}
+                publishDate={report.data.publishDate}
+                readTime={report.data.readTime}
+                slug={report.slug}
+                featured={report.data.featured || false}
+                tags={report.data.tags}
+              />
+            ))}
+          </div>
+        </ScrollAnimator>
+      </div>
+    </section>
+  )}
+
+  <!-- CTA Section -->
+  <section class="py-16 lg:py-24">
+    <div class="max-w-4xl mx-auto px-6 lg:px-8 text-center">
+      <ScrollAnimator client:load threshold={0.1} duration={800} delay={200}>
+        <div class="space-y-8">
+          <div>
+            <h2 class="text-2xl md:text-3xl font-light tracking-tight text-foreground mb-4">
+              Stay Informed with Strategic Intelligence
+            </h2>
+            <p class="text-lg text-foreground/70 font-light max-w-2xl mx-auto">
+              Get exclusive access to our latest reports, market analysis, and strategic insights delivered directly to your inbox.
+            </p>
+          </div>
+          
+          <div class="flex flex-col sm:flex-row gap-4 justify-center">
+            <a 
+              href="/reports" 
+              class="inline-flex items-center justify-center px-8 py-3 bg-accent text-accent-foreground rounded-full font-light transition-all duration-300 hover:bg-accent/90 hover:scale-105 genzen-button-hover swiss-button-shimmer"
+            >
+              View All Reports
+            </a>
+            <a 
+              href="#contact" 
+              class="inline-flex items-center justify-center px-8 py-3 border border-border rounded-full font-light transition-all duration-300 hover-lift-subtle"
+            >
+              Subscribe to Updates
+            </a>
+          </div>
+        </div>
+      </ScrollAnimator>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  /* Smooth scroll animations for sections */
+  section {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInUp 0.8s ease-out forwards;
+  }
+  
+  section:nth-of-type(1) { animation-delay: 0s; }
+  section:nth-of-type(2) { animation-delay: 0.2s; }
+  section:nth-of-type(3) { animation-delay: 0.4s; }
+  
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  @media (prefers-reduced-motion: reduce) {
+    section {
+      opacity: 1;
+      transform: none;
+      animation: none;
+    }
+  }
+</style>

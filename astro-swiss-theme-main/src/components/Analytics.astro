@@ -1,0 +1,61 @@
+---
+// Analytics component for Google Analytics, Plausible, or custom tracking
+
+interface Props {
+  googleAnalyticsId?: string;
+  plausibleDomain?: string;
+  customTrackingScript?: string;
+}
+
+const { googleAnalyticsId, plausibleDomain, customTrackingScript } = Astro.props;
+---
+
+<!-- Google Analytics -->
+{googleAnalyticsId && (
+  <>
+    <script async src={`https://www.googletagmanager.com/gtag/js?id=${googleAnalyticsId}`}></script>
+    <script is:inline define:vars={{ googleAnalyticsId }}>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', googleAnalyticsId, {
+        page_title: document.title,
+        page_location: window.location.href,
+      });
+    </script>
+  </>
+)}
+
+<!-- Plausible Analytics -->
+{plausibleDomain && (
+  <script 
+    defer 
+    data-domain={plausibleDomain} 
+    src="https://plausible.io/js/plausible.js"
+  ></script>
+)}
+
+<!-- Custom tracking script -->
+{customTrackingScript && (
+  <script is:inline set:html={customTrackingScript}></script>
+)}
+
+<!-- Schema.org structured data for SEO -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "Swiss Design Consulting",
+  "url": "https://swiss-astro-theme.vercel.app",
+  "description": "Professional consulting services with modern Swiss design approach",
+  "sameAs": [
+    "https://linkedin.com/company/swiss-design-consulting",
+    "https://twitter.com/swissdesigncorp"
+  ],
+  "contactPoint": {
+    "@type": "ContactPoint",
+    "contactType": "customer service",
+    "availableLanguage": ["English"]
+  }
+}
+</script>

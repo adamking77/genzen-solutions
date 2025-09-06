@@ -1,6 +1,6 @@
 import { renderers } from './renderers.mjs';
-import { c as createExports } from './chunks/entrypoint_0sXSeP4a.mjs';
-import { manifest } from './manifest_RDTXKERs.mjs';
+import { c as createExports } from './chunks/entrypoint_Cnv2d775.mjs';
+import { manifest } from './manifest_DYCNrVaN.mjs';
 
 const serverIslandMap = new Map();;
 
@@ -10,7 +10,9 @@ const _page2 = () => import('./pages/api/submit-form.astro.mjs');
 const _page3 = () => import('./pages/insights/_slug_.astro.mjs');
 const _page4 = () => import('./pages/insights.astro.mjs');
 const _page5 = () => import('./pages/qualification-form.astro.mjs');
-const _page6 = () => import('./pages/index.astro.mjs');
+const _page6 = () => import('./pages/reports/_slug_.astro.mjs');
+const _page7 = () => import('./pages/reports.astro.mjs');
+const _page8 = () => import('./pages/index.astro.mjs');
 const pageMap = new Map([
     ["node_modules/astro/dist/assets/endpoint/generic.js", _page0],
     ["src/pages/404.astro", _page1],
@@ -18,7 +20,9 @@ const pageMap = new Map([
     ["src/pages/insights/[slug].astro", _page3],
     ["src/pages/insights.astro", _page4],
     ["src/pages/qualification-form.astro", _page5],
-    ["src/pages/index.astro", _page6]
+    ["src/pages/reports/[slug].astro", _page6],
+    ["src/pages/reports.astro", _page7],
+    ["src/pages/index.astro", _page8]
 ]);
 
 const _manifest = Object.assign(manifest, {
@@ -29,7 +33,7 @@ const _manifest = Object.assign(manifest, {
     middleware: () => import('./_noop-middleware.mjs')
 });
 const _args = {
-    "middlewareSecret": "160bf209-4513-41f7-ba32-cef505f81a0f",
+    "middlewareSecret": "c3b5c48d-7f69-440c-8dad-c6f25eeba9ef",
     "skewProtection": false
 };
 const _exports = createExports(_manifest, _args);

@@ -1,9 +1,81 @@
 /* empty css                                 */
-import { c as createAstro, a as createComponent, r as renderTemplate, b as renderComponent, d as renderHead, e as addAttribute, f as renderSlot, m as maybeRenderHead } from '../chunks/astro/server_CFDc-_dA.mjs';
+import { c as createAstro, a as createComponent, d as renderTemplate, r as renderComponent, f as renderHead, b as addAttribute, e as renderSlot, m as maybeRenderHead } from '../chunks/astro/server_Co88VAjz.mjs';
 import 'kleur/colors';
-import { T as ThemeProvider, $ as $$Navigation, a as Toaster, S as ScrollToTop, b as $$Footer } from '../chunks/toaster_Ch3OmOK9.mjs';
-import { G as GZSIntakeForm } from '../chunks/GZSIntakeForm_DG0p4oP4.mjs';
+/* empty css                                 */
+import { jsx } from 'react/jsx-runtime';
+import { createContext, useState, useEffect } from 'react';
+import { a as $$Navigation, T as Toaster, S as ScrollToTop, $ as $$Footer } from '../chunks/toaster_CUOm5jLy.mjs';
+import { G as GZSIntakeForm } from '../chunks/GZSIntakeForm_D_M8ahL2.mjs';
 export { renderers } from '../renderers.mjs';
+
+const defaultContextState = {
+  theme: "system",
+  actualTheme: "light",
+  setTheme: () => {
+  }
+};
+const ThemeProviderContext = createContext(defaultContextState);
+function ThemeProvider({
+  children,
+  defaultTheme = "system",
+  storageKey = "astro-ui-theme"
+}) {
+  const [theme, setThemeState] = useState(defaultTheme);
+  const [actualTheme, setActualTheme] = useState("light");
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const stored = localStorage.getItem(storageKey);
+      const storedTheme = stored || defaultTheme;
+      setThemeState(storedTheme);
+      let initialActual;
+      if (storedTheme === "system") {
+        initialActual = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+      } else {
+        initialActual = storedTheme;
+      }
+      setActualTheme(initialActual);
+    }
+  }, [defaultTheme, storageKey]);
+  const setTheme = (newTheme) => {
+    setThemeState(newTheme);
+    if (typeof window !== "undefined") {
+      localStorage.setItem(storageKey, newTheme);
+    }
+  };
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const updateActualTheme = () => {
+      let newActualTheme;
+      if (theme === "system") {
+        newActualTheme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+      } else {
+        newActualTheme = theme;
+      }
+      const root = document.documentElement;
+      root.classList.remove("light", "dark");
+      root.classList.add(newActualTheme);
+      root.setAttribute("data-theme", newActualTheme);
+      setActualTheme(newActualTheme);
+    };
+    updateActualTheme();
+    const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
+    const handleSystemChange = () => {
+      if (theme === "system") {
+        updateActualTheme();
+      }
+    };
+    if (theme === "system") {
+      mediaQuery.addEventListener("change", handleSystemChange);
+      return () => mediaQuery.removeEventListener("change", handleSystemChange);
+    }
+  }, [theme]);
+  const contextValue = {
+    theme,
+    actualTheme,
+    setTheme
+  };
+  return /* @__PURE__ */ jsx(ThemeProviderContext.Provider, { value: contextValue, children });
+}
 
 var __freeze = Object.freeze;
 var __defProp = Object.defineProperty;

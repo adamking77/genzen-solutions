@@ -1,0 +1,168 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ReportTemplate from '../../components/templates/ReportTemplate.astro';
+import { getCollection } from 'astro:content';
+import type { GetStaticPaths } from 'astro';
+
+export const getStaticPaths: GetStaticPaths = async () => {
+  const reports = await getCollection('reports');
+  
+  return reports
+    .filter(report => report.data.published)
+    .map(report => ({
+      params: { slug: report.slug },
+      props: { report }
+    }));
+};
+
+interface Props {
+  report: any;
+}
+
+const { report } = Astro.props;
+const { Content } = await report.render();
+
+// Get related reports (same category, excluding current)
+const allReports = await getCollection('reports');
+const relatedReports = allReports
+  .filter(r => 
+    r.data.published && 
+    r.slug !== report.slug && 
+    r.data.category === report.data.category
+  )
+  .slice(0, 3);
+---
+
+<BaseLayout 
+  title={report.data.seoTitle || `${report.data.title} - Research Report`}
+  description={report.data.seoDescription || report.data.description}
+  image={report.data.featuredImage}
+  type="article"
+>
+  <!-- Use Simplified Report Template -->
+  <ReportTemplate entry={report} Content={Content} />
+
+  <!-- Related Reports -->
+  {relatedReports.length > 0 && (
+    <section class="py-16 lg:py-24 bg-accent/5">
+      <div class="max-w-6xl mx-auto px-6 lg:px-8">
+        <div class="section-animate text-center mb-12">
+          <h2 class="text-2xl md:text-3xl font-light tracking-tight text-foreground">
+            Related Reports
+          </h2>
+        </div>
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {relatedReports.map((relatedReport, index) => (
+            <article class="section-animate group bg-white rounded-xl overflow-hidden border border-border hover:shadow-lg transition-shadow duration-300">
+              <a href={`/reports/${relatedReport.slug}`} class="block">
+                {relatedReport.data.featuredImage && (
+                  <div class="aspect-video overflow-hidden bg-accent/10">
+                    <img 
+                      src={relatedReport.data.featuredImage}
+                      alt={relatedReport.data.title}
+                      class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                      loading="lazy"
+                    />
+                  </div>
+                )}
+                
+                <div class="p-6">
+                  <div class="flex items-center gap-2 mb-3">
+                    <span class="text-xs px-2 py-1 bg-accent/10 text-accent-foreground rounded-full">
+                      {relatedReport.data.category}
+                    </span>
+                  </div>
+                  
+                  <h3 class="text-lg font-light tracking-tight text-foreground group-hover:text-foreground/70 transition-colors mb-3">
+                    {relatedReport.data.title}
+                  </h3>
+                  
+                  <p class="text-sm text-muted-foreground font-light leading-relaxed line-clamp-2">
+                    {relatedReport.data.excerpt || relatedReport.data.description}
+                  </p>
+                  
+                  {(relatedReport.data.publishDate || relatedReport.data.readTime) && (
+                    <div class="flex items-center gap-4 mt-4 text-xs text-muted-foreground">
+                      {relatedReport.data.publishDate && (
+                        <span>{relatedReport.data.publishDate}</span>
+                      )}
+                      {relatedReport.data.readTime && (
+                        <span>{relatedReport.data.readTime}</span>
+                      )}
+                    </div>
+                  )}
+                </div>
+              </a>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- CTA Section -->
+  <section class="py-16 lg:py-24">
+    <div class="max-w-4xl mx-auto px-6 lg:px-8 text-center">
+      <div class="section-animate">
+        <h2 class="text-2xl md:text-3xl font-light tracking-tight text-foreground mb-4">
+          Want More Research Insights?
+        </h2>
+        <p class="text-muted-foreground font-light max-w-2xl mx-auto mb-8">
+          Stay updated with our latest research and industry analysis reports.
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+          <a 
+            href="/contact" 
+            class="inline-flex items-center justify-center px-6 py-3 bg-accent text-accent-foreground hover:bg-accent/90 rounded-full font-light transition-colors"
+          >
+            Subscribe to Updates
+          </a>
+          <a 
+            href="/reports" 
+            class="inline-flex items-center justify-center px-6 py-3 border border-border hover:bg-accent/5 rounded-full font-light transition-colors"
+          >
+            View More Reports
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  
+  .section-animate {
+    opacity: 0;
+    transform: translateY(2rem);
+    animation: fadeInUp 0.8s ease-out forwards;
+  }
+  
+  .section-animate:nth-child(2) { animation-delay: 0.1s; }
+  .section-animate:nth-child(3) { animation-delay: 0.2s; }
+  .section-animate:nth-child(4) { animation-delay: 0.3s; }
+  
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(2rem);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  @media (prefers-reduced-motion: reduce) {
+    .section-animate {
+      animation: none;
+      opacity: 1;
+      transform: none;
+    }
+  }
+</style>

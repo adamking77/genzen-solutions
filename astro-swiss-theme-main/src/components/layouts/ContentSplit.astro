@@ -1,0 +1,108 @@
+---
+import ChartWrapper from '../reports/ChartWrapper.astro';
+import ScrollAnimator from '../interactive/ScrollAnimator.tsx';
+
+interface Item {
+  title: string;
+  description: string;
+  meta?: string;
+}
+
+interface ChartConfig {
+  id: string;
+  title?: string;
+  description?: string;
+  embedUrl: string;
+  height?: string;
+}
+
+interface Props {
+  leftTitle: string;
+  leftDescription: string;
+  rightTitle: string;
+  rightItems?: Item[];
+  rightChart?: ChartConfig;
+  reversed?: boolean;
+}
+
+const { 
+  leftTitle,
+  leftDescription,
+  rightTitle,
+  rightItems,
+  rightChart,
+  reversed = false 
+} = Astro.props;
+---
+
+<section class="py-24 lg:py-32 bg-secondary/30">
+  <div class="max-w-7xl mx-auto px-4 md:px-6 lg:px-8">
+    <div class={`grid grid-cols-12 gap-6 md:gap-12 lg:gap-20 ${reversed ? 'lg:[&>*:nth-child(1)]:col-start-7 lg:[&>*:nth-child(2)]:col-start-1 lg:[&>*:nth-child(2)]:row-start-1' : ''}`}>
+      {/* Left Content */}
+      <div class="col-span-12 lg:col-span-6">
+        <ScrollAnimator client:load threshold={0.2} duration={800}>
+          <div class="space-y-8 lg:space-y-12">
+            <div class="space-y-8">
+              <h2 class="text-3xl md:text-4xl lg:text-5xl font-light leading-[1.1] tracking-tight text-foreground">
+                {leftTitle}
+              </h2>
+              <div class="w-16 h-px bg-border"></div>
+              <div class="space-y-6">
+                <p class="text-lg font-light text-muted-foreground leading-relaxed">
+                  {leftDescription}
+                </p>
+              </div>
+            </div>
+          </div>
+        </ScrollAnimator>
+      </div>
+
+      {/* Right Content */}
+      <div class="col-span-12 lg:col-span-6">
+        <ScrollAnimator client:load threshold={0.2} duration={800} delay={200}>
+          <div class="space-y-8 lg:space-y-12">
+            <div class="space-y-6">
+              <h3 class="text-2xl font-light tracking-tight text-foreground">
+                {rightTitle}
+              </h3>
+            </div>
+            
+            {/* Conditional rendering: Chart or Items */}
+            {rightChart ? (
+              <ChartWrapper 
+                id={rightChart.id}
+                title={rightChart.title}
+                description={rightChart.description}
+                embedUrl={rightChart.embedUrl}
+                height={rightChart.height || "400px"}
+              />
+            ) : rightItems && (
+              <div class="space-y-8">
+                {rightItems.map((item) => (
+                  <div class="group border-b border-border pb-8 last:border-b-0">
+                    <div class="flex items-start justify-between mb-4">
+                      <h4 class="text-xl font-light text-foreground group-hover:text-primary transition-colors duration-300">
+                        {item.title}
+                      </h4>
+                      {item.meta && (
+                        <div class="text-xs font-light text-muted-foreground tracking-wider uppercase bg-secondary px-3 py-1 rounded">
+                          {item.meta}
+                        </div>
+                      )}
+                    </div>
+                    <div class="space-y-4">
+                      <p class="text-base font-light text-muted-foreground leading-relaxed">
+                        {item.description}
+                      </p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        </ScrollAnimator>
+      </div>
+    </div>
+  </div>
+</section>
+

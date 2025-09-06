@@ -1,0 +1,158 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ProjectTemplate from '../../components/templates/ProjectTemplate.astro';
+import { getCollection } from 'astro:content';
+import type { GetStaticPaths } from 'astro';
+
+export const getStaticPaths: GetStaticPaths = async () => {
+  const projects = await getCollection('projects');
+  
+  return projects
+    .filter(project => project.data.published)
+    .map(project => ({
+      params: { slug: project.slug },
+      props: { project }
+    }));
+};
+
+interface Props {
+  project: any;
+}
+
+const { project } = Astro.props;
+const { Content } = await project.render();
+
+// Get related projects (same category, excluding current)
+const allProjects = await getCollection('projects');
+const relatedProjects = allProjects
+  .filter(p => 
+    p.data.published && 
+    p.slug !== project.slug && 
+    p.data.category === project.data.category
+  )
+  .slice(0, 3);
+
+---
+
+<BaseLayout 
+  title={project.data.seoTitle || `${project.data.title} - Project Case Study`}
+  description={project.data.seoDescription || project.data.description}
+  image={project.data.featuredImage}
+  type="article"
+>
+  <!-- Use Simplified Project Template -->
+  <ProjectTemplate entry={project} Content={Content} />
+
+  <!-- Related Projects -->
+  {relatedProjects.length > 0 && (
+    <section class="py-16 lg:py-24 bg-accent/5">
+      <div class="max-w-6xl mx-auto px-6 lg:px-8">
+        <div class="section-animate text-center mb-12">
+          <h2 class="text-2xl md:text-3xl font-light tracking-tight text-foreground">
+            Related Projects
+          </h2>
+        </div>
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {relatedProjects.map((relatedProject, index) => (
+            <article class="section-animate group bg-white rounded-xl overflow-hidden border border-border hover:shadow-lg transition-shadow duration-300">
+              <a href={`/projects/${relatedProject.slug}`} class="block">
+                {relatedProject.data.featuredImage && (
+                  <div class="aspect-video overflow-hidden bg-accent/10">
+                    <img 
+                      src={relatedProject.data.featuredImage}
+                      alt={relatedProject.data.title}
+                      class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                      loading="lazy"
+                    />
+                  </div>
+                )}
+                
+                <div class="p-6">
+                  <div class="flex items-center gap-2 mb-3">
+                    <span class="text-xs px-2 py-1 bg-accent/10 text-accent-foreground rounded-full">
+                      {relatedProject.data.category}
+                    </span>
+                  </div>
+                  
+                  <h3 class="text-lg font-light tracking-tight text-foreground group-hover:text-foreground/70 transition-colors mb-3">
+                    {relatedProject.data.title}
+                  </h3>
+                  
+                  <p class="text-sm text-muted-foreground font-light leading-relaxed line-clamp-2">
+                    {relatedProject.data.excerpt || relatedProject.data.description}
+                  </p>
+                </div>
+              </a>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- CTA Section -->
+  <section class="py-16 lg:py-24">
+    <div class="max-w-4xl mx-auto px-6 lg:px-8 text-center">
+      <div class="section-animate">
+        <h2 class="text-2xl md:text-3xl font-light tracking-tight text-foreground mb-4">
+          Interested in Working Together?
+        </h2>
+        <p class="text-muted-foreground font-light max-w-2xl mx-auto mb-8">
+          Let's discuss your project and explore how we can help bring your vision to life.
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+          <a 
+            href="/contact" 
+            class="inline-flex items-center justify-center px-6 py-3 bg-accent text-accent-foreground hover:bg-accent/90 rounded-full font-light transition-colors"
+          >
+            Get Started
+          </a>
+          <a 
+            href="/projects" 
+            class="inline-flex items-center justify-center px-6 py-3 border border-border hover:bg-accent/5 rounded-full font-light transition-colors"
+          >
+            View More Projects
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  
+  .section-animate {
+    opacity: 0;
+    transform: translateY(2rem);
+    animation: fadeInUp 0.8s ease-out forwards;
+  }
+  
+  .section-animate:nth-child(2) { animation-delay: 0.1s; }
+  .section-animate:nth-child(3) { animation-delay: 0.2s; }
+  .section-animate:nth-child(4) { animation-delay: 0.3s; }
+  
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(2rem);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  @media (prefers-reduced-motion: reduce) {
+    .section-animate {
+      animation: none;
+      opacity: 1;
+      transform: none;
+    }
+  }
+</style>
