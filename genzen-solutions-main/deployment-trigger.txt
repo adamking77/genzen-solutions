@@ -1,0 +1,1 @@
+Sat Sep  6 20:33:34 +04 2025: Vercel adapter configuration fix for /reports route
