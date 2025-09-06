@@ -4,9 +4,6 @@ import ReportTemplate from '../../components/templates/ReportTemplate.astro';
 import { getCollection, type CollectionEntry } from 'astro:content';
 import type { GetStaticPaths } from 'astro';
 
-// Enable static site generation
-export const prerender = true;
-
 export const getStaticPaths: GetStaticPaths = async () => {
   const reports = await getCollection('reports');
   
