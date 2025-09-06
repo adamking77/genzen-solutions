@@ -39,22 +39,16 @@ Published: ${formatPublishDate(data.publishDate)} </p>`} </div> </div> </div> </
 }, "/Users/adamking/claude-code-projects/genzen_solutions_site/genzen-solutions-main/src/components/templates/ReportTemplate.astro", void 0);
 
 const $$Astro = createAstro("https://genzen-solutions.com");
-const getStaticPaths = async () => {
-  const reports = await getCollection("reports");
-  return reports.filter((report) => report.data.published !== false).map((report) => ({
-    params: { slug: report.slug },
-    props: { report }
-  }));
-};
 const $$slug = createComponent(async ($$result, $$props, $$slots) => {
   const Astro2 = $$result.createAstro($$Astro, $$props, $$slots);
   Astro2.self = $$slug;
-  const { report } = Astro2.props;
-  if (!report) {
+  const { slug } = Astro2.params;
+  const allReports = await getCollection("reports");
+  const report = allReports.find((r) => r.slug === slug);
+  if (!report || report.data.published === false) {
     return Astro2.redirect("/404");
   }
   const { Content } = await report.render();
-  const allReports = await getCollection("reports");
   const relatedReports = allReports.filter(
     (r) => r.data.published !== false && r.slug !== report.slug && r.data.category === report.data.category
   ).slice(0, 3);
@@ -80,7 +74,6 @@ const _page = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.defineProperty({
   __proto__: null,
   default: $$slug,
   file: $$file,
-  getStaticPaths,
   url: $$url
 }, Symbol.toStringTag, { value: 'Module' }));
 

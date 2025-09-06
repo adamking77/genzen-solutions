@@ -1,28 +1,17 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import ReportTemplate from '../../components/templates/ReportTemplate.astro';
-import { getCollection, type CollectionEntry } from 'astro:content';
-import type { GetStaticPaths } from 'astro';
+import { getCollection } from 'astro:content';
 
-export const getStaticPaths: GetStaticPaths = async () => {
-  const reports = await getCollection('reports');
-  
-  return reports
-    .filter(report => report.data.published !== false)
-    .map(report => ({
-      params: { slug: report.slug },
-      props: { report }
-    }));
-};
+// Get the slug from the URL params
+const { slug } = Astro.params;
 
-interface Props {
-  report: CollectionEntry<'reports'>;
-}
+// Get all reports and find the one matching the slug
+const allReports = await getCollection('reports');
+const report = allReports.find(r => r.slug === slug);
 
-const { report } = Astro.props;
-
-// Safety check
-if (!report) {
+// Safety check - redirect to 404 if report not found
+if (!report || report.data.published === false) {
   return Astro.redirect('/404');
 }
 
@@ -30,7 +19,6 @@ if (!report) {
 const { Content } = await report.render();
 
 // Get related reports (same category, excluding current)
-const allReports = await getCollection('reports');
 const relatedReports = allReports
   .filter(r => 
     r.data.published !== false && 
