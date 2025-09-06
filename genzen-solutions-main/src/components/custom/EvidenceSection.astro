@@ -1,0 +1,36 @@
+---
+interface Props {
+  evidenceText: string;
+  gapText: string;
+}
+
+const { evidenceText, gapText } = Astro.props;
+---
+
+<section class="py-32 lg:py-40 bg-secondary/20">
+  <div class="max-w-7xl mx-auto px-8 lg:px-12">
+    <div class="grid lg:grid-cols-2 gap-24 items-center">
+      <div>
+        <div class="space-y-8">
+          <h2 class="text-4xl md:text-5xl font-light leading-[1.1] tracking-tight text-foreground">
+            The Evidence
+          </h2>
+          <div class="w-16 h-px bg-foreground/20"></div>
+          <p class="text-lg font-light text-foreground/70 leading-relaxed">
+            {evidenceText}
+          </p>
+        </div>
+      </div>
+      <div>
+        <div class="space-y-6">
+          <h3 class="text-2xl font-light text-foreground">
+            The Gap
+          </h3>
+          <p class="text-base font-light text-foreground/60 leading-relaxed">
+            {gapText}
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

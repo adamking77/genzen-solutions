@@ -1,0 +1,107 @@
+---
+import LegacyFeatureCard from './LegacyFeatureCard.astro';
+
+interface Props {
+  title: string;
+  description: string;
+  features: Array<{
+    title: string;
+    description: string;
+  }>;
+}
+
+const { title, description, features } = Astro.props;
+---
+
+<section class="py-32 lg:py-40">
+  <div class="max-w-6xl mx-auto px-6 lg:px-20 xl:px-24">
+    <div class="flex flex-col gap-8 lg:gap-16">
+      <div class="w-full space-y-8">
+        <div class="w-full md:w-2/3 space-y-8">
+          <div class="text-left space-y-8 animate-fade-in">
+            <h2 class="text-4xl md:text-5xl font-light leading-tight tracking-tight text-foreground">
+              {title}
+            </h2>
+          </div>
+          <div class="space-y-8 animate-fade-in" style="animation-delay: 200ms;">
+            <div class="prose prose-lg max-w-none">
+              <p class="text-lg font-light text-foreground leading-relaxed mb-6">
+                {description}
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="w-full md:w-3/4 md:mx-auto space-y-8">
+          {
+            features.map((feature, index) => (
+              <div class="legacy-feature-wrapper" data-index={index}>
+                <LegacyFeatureCard
+                  title={feature.title}
+                  description={feature.description}
+                  index={index}
+                  isVisible={true}
+                />
+              </div>
+            ))
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  // Scroll-triggered circle animations
+  document.addEventListener('DOMContentLoaded', () => {
+    const observerOptions = {
+      threshold: 0.4, // Trigger when 40% of section is visible
+      rootMargin: '0px 0px -20% 0px' // Wait until well into viewport
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          const wrapper = entry.target;
+          const index = parseInt(wrapper.dataset.index || '0');
+          const container = wrapper.querySelector('.progress-circle-container');
+          
+          if (container) {
+            // Find the correct SVG element
+            const mobileSvg = container.querySelector('.progress-svg-mobile .progress-foreground');
+            const desktopSvg = container.querySelector('.progress-svg .progress-foreground');
+            const progressElement = window.innerWidth >= 640 ? desktopSvg : mobileSvg;
+            
+            if (progressElement) {
+              // Set transition
+              progressElement.style.transition = 'stroke-dashoffset 0.8s cubic-bezier(0.4, 0, 0.2, 1)';
+              
+              // Staggered animation delay
+              setTimeout(() => {
+                let targetOffset;
+                const circumference = window.innerWidth >= 640 ? 163.363 : 113.097;
+                
+                // Calculate proper progress: 33%, 67%, 100%
+                if (index === 0) {
+                  targetOffset = circumference * (1 - 0.33); // 33% progress
+                } else if (index === 1) {
+                  targetOffset = circumference * (1 - 0.67); // 67% progress  
+                } else {
+                  targetOffset = 0; // 100% progress
+                }
+                
+                progressElement.style.strokeDashoffset = targetOffset.toString();
+              }, index * 300); // 300ms stagger between cards
+            }
+          }
+          
+          // Stop observing once animated
+          observer.unobserve(wrapper);
+        }
+      });
+    }, observerOptions);
+
+    // Observe all legacy feature wrappers
+    const wrappers = document.querySelectorAll('.legacy-feature-wrapper');
+    wrappers.forEach(wrapper => observer.observe(wrapper));
+  });
+</script>
