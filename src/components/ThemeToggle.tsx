@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from 'react';
+import React, { useEffect, useLayoutEffect, useState, useCallback } from 'react';
 import { Sun, Moon } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
@@ -6,19 +6,29 @@ const THEME_CHANGE_REQUEST_EVENT = 'theme-change-request';
 const THEME_ACTUALLY_CHANGED_EVENT = 'theme-actually-changed';
 
 export function ThemeToggle() {
-  const [currentActualTheme, setCurrentActualTheme] = useState<'light' | 'dark'>(() => {
-    if (typeof window !== 'undefined') {
-      return document.documentElement.classList.contains('dark') ? 'dark' : 'light';
-    }
-    return 'light';
-  });
+  const [currentActualTheme, setCurrentActualTheme] = useState<'light' | 'dark'>('light');
+  const [isHydrated, setIsHydrated] = useState(false);
 
-  // console.log('[ThemeToggle] Initial actual theme (client/SSR):', currentActualTheme);
+  // Use useLayoutEffect for immediate DOM synchronization before paint
+  useLayoutEffect(() => {
+    if (typeof window === 'undefined') return;
+
+    // Wait a tick to ensure server script has run
+    const syncTheme = () => {
+      const actualTheme = document.documentElement.classList.contains('dark') ? 'dark' : 'light';
+      setCurrentActualTheme(actualTheme);
+      setIsHydrated(true);
+    };
+
+    // Use setTimeout to ensure this runs after server script
+    setTimeout(syncTheme, 0);
+  }, []);
 
   useEffect(() => {
+    if (typeof window === 'undefined' || !isHydrated) return;
+
     const handleActualThemeChange = (event: Event) => {
       const { actualTheme } = (event as CustomEvent).detail;
-      // console.log('[ThemeToggle] Received actual theme change event:', actualTheme);
       setCurrentActualTheme(actualTheme);
     };
     document.addEventListener(THEME_ACTUALLY_CHANGED_EVENT, handleActualThemeChange);
@@ -27,31 +37,36 @@ export function ThemeToggle() {
     const observerCallback = () => {
       const newActual = root.classList.contains('dark') ? 'dark' : 'light';
       if (newActual !== currentActualTheme) {
-        // console.log('[ThemeToggle] MutationObserver: class changed. New actual theme:', newActual);
         setCurrentActualTheme(newActual);
       }
     };
     const observer = new MutationObserver(observerCallback);
     observer.observe(root, { attributes: true, attributeFilter: ['class'] });
-    // console.log('[ThemeToggle] MutationObserver observing.');
     
-    observerCallback(); // Initial sync
+    // Force immediate sync after hydration
+    observerCallback();
 
     return () => {
       document.removeEventListener(THEME_ACTUALLY_CHANGED_EVENT, handleActualThemeChange);
       observer.disconnect();
-      // console.log('[ThemeToggle] Cleaned up event listener and MutationObserver.');
     };
-  }, []); // Empty dependency array
+  }, [isHydrated, currentActualTheme]);
 
   const isActuallyDark = currentActualTheme === 'dark';
   // console.log('[ThemeToggle] Render. isActuallyDark:', isActuallyDark, 'currentActualTheme:', currentActualTheme);
 
   const handleToggle = useCallback(() => {
+    if (!isHydrated) return; // Prevent toggle before proper hydration
     const newPreference = isActuallyDark ? 'light' : 'dark';
-    // console.log('[ThemeToggle] handleToggle called. Current actual:', currentActualTheme, 'Requesting preference:', newPreference);
     document.dispatchEvent(new CustomEvent(THEME_CHANGE_REQUEST_EVENT, { detail: { theme: newPreference } }));
-  }, [isActuallyDark]);
+  }, [isActuallyDark, isHydrated]);
+
+  // Don't render the interactive state until properly hydrated
+  if (!isHydrated) {
+    return (
+      <div className="w-[50px] h-[26px] rounded-full bg-slate-200 dark:bg-slate-700 opacity-50 transition-opacity duration-200" />
+    );
+  }
 
   return (
     <button
