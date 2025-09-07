@@ -1,9 +1,11 @@
-Force deployment: 2025-07-18 16:32:00
+Force deployment: 2025-09-07 05:58:00
 
 This file forces a new deployment to clear any cached serverless functions on Vercel.
-Footer changes should be visible after this deployment.
+Related Reports H3 heading changes should be visible after this deployment.
 
 Changes made:
-- Moved GenZen HQ division text below copyright
-- Added italic styling to the division text
-- Build artifacts contain the correct changes
+- Changed Related Reports heading from H2 to H3 in /src/pages/reports/[slug].astro
+- Adjusted typography scaling from text-4xl/5xl to text-3xl/4xl
+- Optimized spacing for better Swiss theme alignment
+- Build artifacts should contain the correct changes
+- Previous deployment triggers failed - forcing with core file change
