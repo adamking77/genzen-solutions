@@ -1,3 +1,0 @@
-DEPLOYMENT TEST - 2025-07-18 12:35
-This file was created to test if deployments are working.
-If you can see this file at /test-deployment.txt, then deployments are working.

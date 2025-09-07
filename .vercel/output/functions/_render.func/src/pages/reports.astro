@@ -3,12 +3,10 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import ReportCard from '../components/reports/ReportCard.astro';
 import ReportsFilter from '../components/interactive/ReportsFilter.tsx';
 import { getCollection } from 'astro:content';
-import ScrollAnimator from '../components/interactive/ScrollAnimator.tsx';
 
 const reports = await getCollection('reports');
 const reportsData = reports.map(entry => ({
-  id: entry.id,
-  ...(entry.data || {}),
+  ...entry.data,
   slug: entry.slug
 }));
 
@@ -27,161 +25,43 @@ const categories = Array.from(new Set(reportsData.map(report => report.category)
   <section class="py-24 lg:py-32">
     <div class="max-w-7xl mx-auto px-6 lg:px-8">
       <!-- Header -->
-      <ScrollAnimator client:load threshold={0.1} duration={1000}>
-        <div class="space-y-12 mb-20">
-          <div class="space-y-8">
-            <div class="text-sm font-medium tracking-widest text-foreground/60 uppercase">
-              REPORTS ARCHIVE
-            </div>
-            <h1 class="text-3xl md:text-4xl lg:text-5xl font-light leading-[1.1] tracking-tight max-w-4xl text-foreground">
-              Strategic Intelligence
-              <br />
-              & Market Analysis
-            </h1>
-            <p class="text-lg font-light text-foreground/70 leading-relaxed max-w-2xl">
-              Comprehensive collection of strategic reports, market analysis, and performance insights that drive informed decision-making across global markets.
-            </p>
+      <div class="space-y-12 mb-20">
+        <div class="space-y-8">
+          <div class="text-sm font-medium tracking-widest text-foreground/60 uppercase">
+            REPORTS ARCHIVE
           </div>
-
-          <!-- Interactive Filter -->
-          <div class="mt-16">
-            <ReportsFilter 
-              client:load
-              reports={reportsData}
-              categories={categories}
-            />
-          </div>
+          <h1 class="text-4xl md:text-5xl lg:text-6xl font-light leading-[1.1] tracking-tight max-w-4xl text-foreground">
+            Strategic Intelligence
+            <br />
+            & Market Analysis
+          </h1>
+          <p class="text-lg font-light text-foreground/70 leading-relaxed max-w-2xl">
+            Comprehensive collection of strategic reports, market analysis, and performance insights 
+            that drive informed decision-making across global markets.
+          </p>
         </div>
-      </ScrollAnimator>
 
-      <!-- Stats Section -->
-      <ScrollAnimator client:load threshold={0.1} duration={800} delay={200}>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-20 p-8 bg-accent/5 rounded-2xl">
-          <div class="text-center">
-            <div class="text-2xl md:text-3xl font-light text-foreground mb-2">
-              {reportsData.length}
-            </div>
-            <div class="text-sm font-medium tracking-wider text-foreground/60 uppercase">
-              Total Reports
-            </div>
-          </div>
-          <div class="text-center">
-            <div class="text-2xl md:text-3xl font-light text-foreground mb-2">
-              {categories.length}
-            </div>
-            <div class="text-sm font-medium tracking-wider text-foreground/60 uppercase">
-              Report Categories
-            </div>
-          </div>
-          <div class="text-center">
-            <div class="text-2xl md:text-3xl font-light text-foreground mb-2">
-              2025
-            </div>
-            <div class="text-sm font-medium tracking-wider text-foreground/60 uppercase">
-              Current Year
-            </div>
-          </div>
+      </div>
+
+      <!-- Interactive Reports with Search/Filter -->
+      <ReportsFilter client:load reports={reportsData} basePath="/reports" />
+    </div>
+
+      <!-- Stats -->
+      <div class="grid grid-cols-3 gap-8 pt-20 mt-20 border-t border-foreground/10">
+        <div class="text-center space-y-2">
+          <div class="text-3xl font-light text-foreground">{reportsData.length}</div>
+          <div class="text-sm font-light text-foreground/60 tracking-wider">TOTAL REPORTS</div>
         </div>
-      </ScrollAnimator>
-
-      <!-- Featured Reports -->
-      {featuredReports.length > 0 && (
-        <ScrollAnimator client:load threshold={0.1} duration={800} delay={400}>
-          <div class="mb-20">
-            <div class="flex items-center justify-between mb-12">
-              <h2 class="text-xl md:text-2xl font-light tracking-tight text-foreground">
-                Featured Reports
-              </h2>
-              <div class="h-px bg-gradient-to-r from-foreground/20 to-transparent flex-1 ml-8"></div>
-            </div>
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-              {featuredReports.map((report) => (
-                <ReportCard 
-                  id={report.id}
-                  title={report.title}
-                  description={report.description}
-                  category={report.category}
-                  publishDate={report.publishDate}
-                  readTime={report.readTime}
-                  slug={report.slug}
-                  featured={true}
-                  tags={report.tags}
-                />
-              ))}
-            </div>
-          </div>
-        </ScrollAnimator>
-      )}
-
-      <!-- All Reports -->
-      <ScrollAnimator client:load threshold={0.1} duration={800} delay={600}>
-        <div id="reports-grid">
-          <div class="flex items-center justify-between mb-12">
-            <h2 class="text-xl md:text-2xl font-light tracking-tight text-foreground">
-              All Reports
-            </h2>
-            <div class="h-px bg-gradient-to-r from-foreground/20 to-transparent flex-1 ml-8"></div>
-          </div>
-          <div class="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-8">
-            {reportsData.map((report) => (
-              <ReportCard 
-                id={report.id}
-                title={report.title}
-                description={report.description}
-                category={report.category}
-                publishDate={report.publishDate}
-                readTime={report.readTime}
-                slug={report.slug}
-                featured={report.featured || false}
-                tags={report.tags}
-              />
-            ))}
-          </div>
-          
-          {reportsData.length === 0 && (
-            <div class="text-center py-20">
-              <div class="text-foreground/60 mb-4">
-                <svg class="w-16 h-16 mx-auto mb-4 opacity-40" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                </svg>
-              </div>
-              <h3 class="text-lg font-light text-foreground mb-2">No Reports Available</h3>
-              <p class="text-sm text-foreground/60">
-                Reports will appear here once they are published.
-              </p>
-            </div>
-          )}
+        <div class="text-center space-y-2">
+          <div class="text-3xl font-light text-foreground">{categories.length}</div>
+          <div class="text-sm font-light text-foreground/60 tracking-wider">CATEGORIES</div>
         </div>
-      </ScrollAnimator>
+        <div class="text-center space-y-2">
+          <div class="text-3xl font-light text-foreground">{new Date().getFullYear()}</div>
+          <div class="text-sm font-light text-foreground/60 tracking-wider">CURRENT YEAR</div>
+        </div>
+      </div>
     </div>
   </section>
 </BaseLayout>
-
-<style>
-  /* Custom styles for report cards animations */
-  .report-card {
-    opacity: 0;
-    transform: translateY(20px);
-    transition: all 0.6s ease-out;
-  }
-  
-  .report-card.animate {
-    opacity: 1;
-    transform: translateY(0);
-  }
-  
-  .report-card:nth-child(1) { transition-delay: 0.1s; }
-  .report-card:nth-child(2) { transition-delay: 0.2s; }
-  .report-card:nth-child(3) { transition-delay: 0.3s; }
-  .report-card:nth-child(4) { transition-delay: 0.4s; }
-  .report-card:nth-child(5) { transition-delay: 0.5s; }
-  .report-card:nth-child(6) { transition-delay: 0.6s; }
-  
-  @media (prefers-reduced-motion: reduce) {
-    .report-card {
-      opacity: 1;
-      transform: none;
-      transition: none;
-    }
-  }
-</style>

@@ -1,5 +1,8 @@
 import React__default, { createElement } from 'react';
 import ReactDOM from 'react-dom/server';
+import { l as renderJSX, n as createVNode, o as AstroJSX, p as AstroUserError } from './chunks/astro/server_iUh9UfrQ.mjs';
+import 'kleur/colors';
+import 'clsx';
 
 const contexts = /* @__PURE__ */ new WeakMap();
 const ID_PREFIX = "r";
@@ -39,10 +42,10 @@ const StaticHtml = ({
 StaticHtml.shouldComponentUpdate = () => false;
 var static_html_default = StaticHtml;
 
-const slotName = (str) => str.trim().replace(/[-_]([a-z])/g, (_, w) => w.toUpperCase());
+const slotName$1 = (str) => str.trim().replace(/[-_]([a-z])/g, (_, w) => w.toUpperCase());
 const reactTypeof = Symbol.for("react.element");
 const reactTransitionalTypeof = Symbol.for("react.transitional.element");
-async function check(Component, props, children) {
+async function check$1(Component, props, children) {
   if (typeof Component === "object") {
     return Component["$$typeof"].toString().slice("Symbol(".length).startsWith("react");
   }
@@ -64,7 +67,7 @@ async function check(Component, props, children) {
     }
     return React__default.createElement("div");
   }
-  await renderToStaticMarkup.call(this, Tester, props, children);
+  await renderToStaticMarkup$1.call(this, Tester, props, children);
   return isReactComponent;
 }
 async function getNodeWritable() {
@@ -78,7 +81,7 @@ async function getNodeWritable() {
 function needsHydration(metadata) {
   return metadata?.astroStaticSlot ? !!metadata.hydrate : true;
 }
-async function renderToStaticMarkup(Component, props, { default: children, ...slotted }, metadata) {
+async function renderToStaticMarkup$1(Component, props, { default: children, ...slotted }, metadata) {
   let prefix;
   if (this && this.result) {
     prefix = incrementId(this.result);
@@ -87,7 +90,7 @@ async function renderToStaticMarkup(Component, props, { default: children, ...sl
   delete props["class"];
   const slots = {};
   for (const [key, value] of Object.entries(slotted)) {
-    const name = slotName(key);
+    const name = slotName$1(key);
     slots[name] = React__default.createElement(static_html_default, {
       hydrate: needsHydration(metadata),
       value,
@@ -189,14 +192,60 @@ function isFormRequest(contentType) {
   const type = contentType?.split(";")[0].toLowerCase();
   return formContentTypes.some((t) => type === t);
 }
-const renderer = {
+const renderer$1 = {
   name: "@astrojs/react",
-  check,
-  renderToStaticMarkup,
+  check: check$1,
+  renderToStaticMarkup: renderToStaticMarkup$1,
   supportsAstroStaticSlot: true
+};
+var server_default$1 = renderer$1;
+
+const slotName = (str) => str.trim().replace(/[-_]([a-z])/g, (_, w) => w.toUpperCase());
+async function check(Component, props, { default: children = null, ...slotted } = {}) {
+  if (typeof Component !== "function") return false;
+  const slots = {};
+  for (const [key, value] of Object.entries(slotted)) {
+    const name = slotName(key);
+    slots[name] = value;
+  }
+  try {
+    const result = await Component({ ...props, ...slots, children });
+    return result[AstroJSX];
+  } catch (e) {
+    throwEnhancedErrorIfMdxComponent(e, Component);
+  }
+  return false;
+}
+async function renderToStaticMarkup(Component, props = {}, { default: children = null, ...slotted } = {}) {
+  const slots = {};
+  for (const [key, value] of Object.entries(slotted)) {
+    const name = slotName(key);
+    slots[name] = value;
+  }
+  const { result } = this;
+  try {
+    const html = await renderJSX(result, createVNode(Component, { ...props, ...slots, children }));
+    return { html };
+  } catch (e) {
+    throwEnhancedErrorIfMdxComponent(e, Component);
+    throw e;
+  }
+}
+function throwEnhancedErrorIfMdxComponent(error, Component) {
+  if (Component[Symbol.for("mdx-component")]) {
+    if (AstroUserError.is(error)) return;
+    error.title = error.name;
+    error.hint = `This issue often occurs when your MDX component encounters runtime errors.`;
+    throw error;
+  }
+}
+const renderer = {
+  name: "astro:jsx",
+  check,
+  renderToStaticMarkup
 };
 var server_default = renderer;
 
-const renderers = [Object.assign({"name":"@astrojs/react","clientEntrypoint":"@astrojs/react/client.js","serverEntrypoint":"@astrojs/react/server.js"}, { ssr: server_default }),];
+const renderers = [Object.assign({"name":"@astrojs/react","clientEntrypoint":"@astrojs/react/client.js","serverEntrypoint":"@astrojs/react/server.js"}, { ssr: server_default$1 }),Object.assign({"name":"astro:jsx","serverEntrypoint":"file:///Users/adamking/claude-code-projects/genzen_solutions_site/genzen-solutions-main/node_modules/@astrojs/mdx/dist/server.js"}, { ssr: server_default }),];
 
 export { renderers };

@@ -1,78 +1,104 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import ReportTemplate from '../../components/templates/ReportTemplate.astro';
-import ReportCard from '../../components/reports/ReportCard.astro';
-import ScrollAnimator from '../../components/interactive/ScrollAnimator.tsx';
 import { getCollection } from 'astro:content';
-import type { GetStaticPaths } from 'astro';
 
-export const getStaticPaths: GetStaticPaths = async () => {
-  const reports = await getCollection('reports');
-  
-  return reports
-    .filter(report => report.data.published)
-    .map(report => ({
-      params: { slug: report.slug },
-      props: { entry: report }
-    }));
-};
+// Get the slug from the URL params
+const { slug } = Astro.params;
 
-interface Props {
-  entry: any;
+// Get all reports and find the one matching the slug
+const allReports = await getCollection('reports');
+const report = allReports.find(r => r.slug === slug);
+
+// Safety check - redirect to 404 if report not found
+if (!report || report.data.published === false) {
+  return Astro.redirect('/404');
 }
 
-const { entry } = Astro.props;
-const { Content } = await entry.render();
+// Render the content
+const { Content } = await report.render();
 
 // Get related reports (same category, excluding current)
-const allReports = await getCollection('reports');
 const relatedReports = allReports
   .filter(r => 
-    r.data.published && 
-    r.slug !== entry.slug && 
-    r.data.category === entry.data.category
+    r.data.published !== false && 
+    r.slug !== report.slug && 
+    r.data.category === report.data.category
   )
   .slice(0, 3);
-
-const pageTitle = `${entry.data.title} | GenZen Solutions`;
-const pageDescription = entry.data.description || entry.data.excerpt || '';
 ---
 
 <BaseLayout 
-  title={pageTitle}
-  description={pageDescription}
+  title={report.data.seoTitle || `${report.data.title} - Research Report`}
+  description={report.data.seoDescription || report.data.description}
+  image={report.data.featuredImage}
+  type="article"
 >
-  <!-- Main Report Content -->
-  <ReportTemplate entry={entry} Content={Content} />
+  <!-- Use Simplified Report Template -->
+  <ReportTemplate entry={report} Content={Content} />
 
-  <!-- Related Reports Section -->
+  <!-- Related Reports -->
   {relatedReports.length > 0 && (
-    <section class="py-16 lg:py-24 bg-accent/5">
+    <section class="py-16 lg:py-24 bg-background">
       <div class="max-w-6xl mx-auto px-6 lg:px-8">
-        <ScrollAnimator client:load threshold={0.1} duration={800}>
-          <div class="text-center mb-12">
-            <h2 class="text-2xl md:text-3xl font-light tracking-tight text-foreground mb-4">
+        <div class="section-animate mb-12">
+          <div class="space-y-8">
+            <div class="text-sm font-medium tracking-widest text-foreground/60 uppercase">
+              KEEP READING
+            </div>
+            <h2 class="text-4xl md:text-5xl font-light leading-tight tracking-tight text-foreground">
               Related Reports
             </h2>
-            <div class="w-12 h-px bg-foreground/20 mx-auto"></div>
+            <div class="w-12 h-px bg-foreground/20"></div>
           </div>
-
-          <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {relatedReports.map((report) => (
-              <ReportCard 
-                id={report.id}
-                title={report.data.title}
-                description={report.data.description}
-                category={report.data.category}
-                publishDate={report.data.publishDate}
-                readTime={report.data.readTime}
-                slug={report.slug}
-                featured={report.data.featured || false}
-                tags={report.data.tags}
-              />
-            ))}
-          </div>
-        </ScrollAnimator>
+        </div>
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {relatedReports.map((relatedReport, index) => (
+            <article class="section-animate group">
+              <a href={`/reports/${relatedReport.slug}`} class="block transition-[transform,border-color,box-shadow] duration-300 ease-in-out hover:scale-105">
+                <div class="bg-background border border-border rounded-xl overflow-hidden h-full hover:border-foreground/30 hover:neumorphic-hover-card hover:dark:neumorphic-hover-card-enhanced-dark transition-[border-color,box-shadow] duration-300 ease-in-out">
+                  {relatedReport.data.featuredImage && (
+                    <div class="aspect-video overflow-hidden bg-accent/10">
+                      <img 
+                        src={relatedReport.data.featuredImage}
+                        alt={relatedReport.data.title}
+                        class="w-full h-full object-cover"
+                        loading="lazy"
+                      />
+                    </div>
+                  )}
+                  
+                  <div class="p-6">
+                    <div class="flex items-center gap-2 mb-3">
+                      <span class="text-xs px-2 py-1 bg-primary/10 text-primary rounded-full">
+                        {relatedReport.data.category}
+                      </span>
+                    </div>
+                    
+                    <h3 class="text-lg font-light tracking-tight text-foreground group-hover:text-foreground/80 transition-colors duration-300 mb-3">
+                      {relatedReport.data.title}
+                    </h3>
+                    
+                    <p class="text-sm text-muted-foreground font-light leading-relaxed line-clamp-2">
+                      {relatedReport.data.excerpt || relatedReport.data.description}
+                    </p>
+                    
+                    {(relatedReport.data.publishDate || relatedReport.data.readTime) && (
+                      <div class="flex items-center gap-4 mt-4 text-xs text-muted-foreground">
+                        {relatedReport.data.publishDate && (
+                          <span>{relatedReport.data.publishDate}</span>
+                        )}
+                        {relatedReport.data.readTime && (
+                          <span>{relatedReport.data.readTime}</span>
+                        )}
+                      </div>
+                    )}
+                  </div>
+                </div>
+              </a>
+            </article>
+          ))}
+        </div>
       </div>
     </section>
   )}
@@ -80,53 +106,54 @@ const pageDescription = entry.data.description || entry.data.excerpt || '';
   <!-- CTA Section -->
   <section class="py-16 lg:py-24">
     <div class="max-w-4xl mx-auto px-6 lg:px-8 text-center">
-      <ScrollAnimator client:load threshold={0.1} duration={800} delay={200}>
-        <div class="space-y-8">
-          <div>
-            <h2 class="text-2xl md:text-3xl font-light tracking-tight text-foreground mb-4">
-              Stay Informed with Strategic Intelligence
-            </h2>
-            <p class="text-lg text-foreground/70 font-light max-w-2xl mx-auto">
-              Get exclusive access to our latest reports, market analysis, and strategic insights delivered directly to your inbox.
-            </p>
-          </div>
-          
-          <div class="flex flex-col sm:flex-row gap-4 justify-center">
-            <a 
-              href="/reports" 
-              class="inline-flex items-center justify-center px-8 py-3 bg-accent text-accent-foreground rounded-full font-light transition-all duration-300 hover:bg-accent/90 hover:scale-105 genzen-button-hover swiss-button-shimmer"
-            >
-              View All Reports
-            </a>
-            <a 
-              href="#contact" 
-              class="inline-flex items-center justify-center px-8 py-3 border border-border rounded-full font-light transition-all duration-300 hover-lift-subtle"
-            >
-              Subscribe to Updates
-            </a>
-          </div>
+      <div class="section-animate">
+        <h2 class="text-2xl md:text-3xl font-light tracking-tight text-foreground mb-4">
+          Want More Research Insights?
+        </h2>
+        <p class="text-muted-foreground font-light max-w-2xl mx-auto mb-8">
+          Stay updated with our latest research and industry analysis reports.
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+          <a 
+            href="/contact" 
+            class="inline-flex items-center justify-center px-6 py-3 bg-accent text-accent-foreground hover:bg-accent/90 rounded-full font-light transition-colors"
+          >
+            Subscribe to Updates
+          </a>
+          <a 
+            href="/reports" 
+            class="inline-flex items-center justify-center px-6 py-3 border border-border hover:bg-accent/5 rounded-full font-light transition-colors"
+          >
+            View More Reports
+          </a>
         </div>
-      </ScrollAnimator>
+      </div>
     </div>
   </section>
 </BaseLayout>
 
 <style>
-  /* Smooth scroll animations for sections */
-  section {
+  .line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  
+  .section-animate {
     opacity: 0;
-    transform: translateY(20px);
+    transform: translateY(2rem);
     animation: fadeInUp 0.8s ease-out forwards;
   }
   
-  section:nth-of-type(1) { animation-delay: 0s; }
-  section:nth-of-type(2) { animation-delay: 0.2s; }
-  section:nth-of-type(3) { animation-delay: 0.4s; }
+  .section-animate:nth-child(2) { animation-delay: 0.1s; }
+  .section-animate:nth-child(3) { animation-delay: 0.2s; }
+  .section-animate:nth-child(4) { animation-delay: 0.3s; }
   
   @keyframes fadeInUp {
     from {
       opacity: 0;
-      transform: translateY(20px);
+      transform: translateY(2rem);
     }
     to {
       opacity: 1;
@@ -135,10 +162,10 @@ const pageDescription = entry.data.description || entry.data.excerpt || '';
   }
   
   @media (prefers-reduced-motion: reduce) {
-    section {
+    .section-animate {
+      animation: none;
       opacity: 1;
       transform: none;
-      animation: none;
     }
   }
 </style>
