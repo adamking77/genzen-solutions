@@ -328,7 +328,7 @@ const GZSIntakeForm: React.FC<GZSIntakeFormProps> = ({ onComplete, isModal = fal
                     onClick={() => setCurrentQuestion(0)}
                     variant="outline"
                     size="lg"
-                    className="font-light text-base px-12 py-3 h-auto border-2 border-foreground/20 bg-transparent text-foreground hover:border-primary hover:bg-primary hover:text-primary-foreground hover:scale-105 hover:neumorphic-hover-light hover:dark:neumorphic-hover-dark transition-[border-color,background-color,color,transform,box-shadow] duration-300 ease-in-out rounded-full"
+                    className="font-light text-base px-12 py-3 h-auto border-2 border-foreground/20 bg-transparent text-foreground hover:border-foreground hover:bg-foreground hover:text-background hover:scale-105 hover:neumorphic-hover-light hover:dark:neumorphic-hover-dark transition-[border-color,background-color,color,transform,box-shadow] duration-300 ease-in-out rounded-full"
                   >
                     Begin Application
                   </Button>
