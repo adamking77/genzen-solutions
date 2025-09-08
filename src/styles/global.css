@@ -28,25 +28,25 @@
   }
 
   .dark {
-    /* Original Swiss Astro Theme Dark Mode Colors */
-    --background: 222.2 84% 4.9%;
+    /* Updated lighter dark mode palette */
+    --background: 213 25% 11%; /* #1a1d29 */
     --foreground: 210 40% 98%;
-    --card: 222.2 84% 4.9%;
+    --card: 216 24% 14%; /* #212530 */
     --card-foreground: 210 40% 98%;
-    --popover: 222.2 84% 4.9%;
+    --popover: 213 25% 11%; /* #1a1d29 */
     --popover-foreground: 210 40% 98%;
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
-    --secondary: 217.2 32.6% 17.5%;
+    --primary: 210 60% 55%; /* #4a8cc7 */
+    --primary-foreground: 213 25% 11%; /* #1a1d29 */
+    --secondary: 217 19% 27%; /* #3a4553 */
     --secondary-foreground: 210 40% 98%;
-    --muted: 217.2 32.6% 17.5%;
+    --muted: 216 24% 14%; /* #212530 */
     --muted-foreground: 215 20.2% 65.1%;
     --accent: 217 33% 16%; /* Our brand accent #1d2739 for consistency */
     --accent-foreground: 210 40% 98%;
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 210 40% 98%;
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
+    --border: 216 24% 14%; /* #212530 */
+    --input: 216 24% 14%; /* #212530 */
     --ring: 217 33% 16%; /* Our brand accent for focus rings */
   }
 }
@@ -84,6 +84,15 @@
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
+  }
+
+  /* New gradient utilities for updated dark mode */
+  .bg-gradient-main {
+    background-image: linear-gradient(to bottom right, hsl(var(--primary) / 0.1), hsl(var(--background)), hsl(var(--secondary) / 0.1));
+  }
+
+  .bg-gradient-subtle {
+    background-image: linear-gradient(to bottom, hsl(var(--background)), hsl(var(--background)), hsl(var(--card) / 0.3));
   }
 
   /* Neumorphic Hover Effects */
