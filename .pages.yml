@@ -12,7 +12,7 @@ content:
     path: src/content/reports
     extension: mdx
     fields:
-      # Core content fields
+      # Fields that actually exist in your reports
       - name: title
         label: Title
         type: string
@@ -27,122 +27,46 @@ content:
         type: text
         required: true
         
-      - name: excerpt
-        label: Excerpt
-        type: text
-        help: Brief summary (max 500 characters)
-        
-      - name: tldr
-        label: TL;DR
-        type: text
-        help: Quick summary (max 800 characters)
-        
-      # Publishing info
       - name: author
         label: Author
         type: string
         required: true
-        default: "Strategic Analytics Team"
         
       - name: publishDate
         label: Publish Date
         type: string
-        help: Format as 'Month YEAR' (e.g., 'December 2024')
         
-      # Content classification
       - name: category
         label: Category
-        type: select
-        required: true
-        options:
-          - Strategic
-          - Financial
-          - Market Analysis
-          - Technology
-          - Performance
-          - Regional
-          
+        type: string
+        
       - name: tags
         label: Tags
         type: list
         items:
           type: string
-        min: 1
-        max: 10
         
-      # Content metadata
       - name: readTime
         label: Read Time
         type: string
-        help: Format as 'X min read' (e.g., '12 min read')
-        
-      - name: difficulty
-        label: Difficulty Level
-        type: select
-        options:
-          - Beginner
-          - Intermediate
-          - Advanced
-          
-      - name: language
-        label: Language
-        type: string
-        default: en
-        
-      # Publishing controls
-      - name: published
-        label: Published
-        type: boolean
-        default: true
         
       - name: featured
         label: Featured
         type: boolean
         default: false
         
-      - name: draft
-        label: Draft
+      - name: published
+        label: Published
         type: boolean
-        default: false
+        default: true
         
-      # Media fields
       - name: featuredImage
         label: Featured Image
         type: string
-        help: URL to featured image
         
-      - name: featuredImageAlt
-        label: Featured Image Alt Text
-        type: string
-        
-      - name: socialImage
-        label: Social Media Image
-        type: string
-        help: URL for social sharing
-        
-      # Optional metadata
-      - name: technologies
-        label: Technologies
-        type: list
-        items:
-          type: string
-          
-      - name: services
-        label: Services
-        type: list
-        items:
-          type: string
-          
-      # Analytics
-      - name: viewCount
-        label: View Count
-        type: number
-        default: 0
-        
-      - name: downloadCount
-        label: Download Count
-        type: number
-        default: 0
+      - name: tldr
+        label: TL;DR
+        type: text
         
       # Content body
       - name: body
@@ -153,7 +77,3 @@ content:
     view:
       fields: [title, category, publishDate, featured]
       primary: title
-      sort: [publishDate]
-      default:
-        sort: publishDate
-        order: desc
