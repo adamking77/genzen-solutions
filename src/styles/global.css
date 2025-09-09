@@ -183,6 +183,15 @@
     box-shadow: 0 0 0 3px hsla(var(--primary), 0.1);
     transition: outline-color 200ms ease-in-out, box-shadow 200ms ease-in-out;
   }
+
+  /* Hero section specific gradient (dark mode only) */
+  .dark .hero-gradient {
+    background: linear-gradient(to bottom right,
+      hsl(var(--primary) / 0.1),     /* Primary with 10% opacity */
+      hsl(var(--background)),        /* Background color */
+      hsl(var(--secondary) / 0.1)    /* Secondary with 10% opacity */
+    );
+  }
 }
 
 /* Animation utilities with accessibility support */
