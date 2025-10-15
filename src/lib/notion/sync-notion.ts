@@ -334,9 +334,9 @@ async function mapPageToContent(page: PageObjectResponse, n2m: NotionToMarkdown)
   const description =
     stringOrUndefined(getRichText(page, PROPERTY_KEYS.description)) ?? ensureMinLength(FALLBACK_DESCRIPTION, 10);
 
-  const subtitle = stringOrUndefined(getRichText(page, PROPERTY_KEYS.subtitle));
+  const subtitle = stringOrUndefined(getTextProperty(page, PROPERTY_KEYS.subtitle));
   const excerpt = truncate(stringOrUndefined(getRichText(page, PROPERTY_KEYS.excerpt)), 500);
-  const tldr = truncate(stringOrUndefined(getRichText(page, PROPERTY_KEYS.tldr)), 800);
+  const tldr = truncate(stringOrUndefined(getTextProperty(page, PROPERTY_KEYS.tldr)), 800);
 
   const authorNames = getPeople(page, PROPERTY_KEYS.author);
   const authorRichText = stringOrUndefined(getRichText(page, PROPERTY_KEYS.author));
@@ -592,6 +592,22 @@ function getRichText(page: NotionPage, keys: string[]): string | undefined {
   if (property?.type === 'rich_text') {
     return getPlainText(property.rich_text);
   }
+  return undefined;
+}
+
+function getTextProperty(page: NotionPage, keys: string[]): string | undefined {
+  // Try rich_text first
+  const richTextProp = findProperty(page, keys, ['rich_text']);
+  if (richTextProp?.type === 'rich_text') {
+    return getPlainText(richTextProp.rich_text);
+  }
+
+  // Try title type
+  const titleProp = findProperty(page, keys, ['title']);
+  if (titleProp?.type === 'title') {
+    return getPlainText(titleProp.title);
+  }
+
   return undefined;
 }
 
