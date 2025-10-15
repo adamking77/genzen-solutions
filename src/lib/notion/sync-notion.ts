@@ -48,10 +48,10 @@ const VALID_DIFFICULTIES = new Set(['Beginner', 'Intermediate', 'Advanced']);
 
 const PROPERTY_KEYS = {
   slug: ['Slug'],
-  subtitle: ['Subtitle'],
+  subtitle: ['Subtitle', 'Sub-title', 'Sub title', 'subtitle', 'sub-title', 'sub title'],
   description: ['Description', 'Summary'],
   excerpt: ['Excerpt'],
-  tldr: ['TLDR', 'TL;DR'],
+  tldr: ['TLDR', 'TL;DR', 'Tldr', 'tldr', 'tl;dr', 'TL DR', 'TLDR:'],
   author: ['Author', 'Authors'],
   date: ['Date', 'Publish Date'],
   category: ['Category'],
