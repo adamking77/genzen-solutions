@@ -432,9 +432,11 @@ function validateFrontmatter(data: ReportsFrontmatterInput): ReportsFrontmatter 
 
   const { viewCount, downloadCount, engagement, ...rest } = parsed.data;
 
-  // Remove all undefined values to prevent YAML serialization errors
+  // Remove undefined values except subtitle/tldr (keep for debugging)
   const cleaned = Object.fromEntries(
-    Object.entries(rest).filter(([_, value]) => value !== undefined)
+    Object.entries(rest).filter(([key, value]) =>
+      value !== undefined || key === 'subtitle' || key === 'tldr'
+    )
   ) as ReportsFrontmatter;
 
   return cleaned;
