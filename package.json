@@ -30,11 +30,12 @@
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
-    "build": "astro build",
+    "build": "tsx src/lib/notion/sync-notion.ts && astro build",
     "preview": "astro preview",
     "astro": "astro",
     "check": "astro check",
-    "notion:sync": "tsx src/lib/notion/sync-notion.ts"
+    "notion:sync": "tsx src/lib/notion/sync-notion.ts",
+    "notion:debug": "tsx src/lib/notion/debug-notion.ts"
   },
   "dependencies": {
     "@astrojs/check": "^0.9.4",

@@ -331,12 +331,15 @@ async function mapPageToContent(page: PageObjectResponse, n2m: NotionToMarkdown)
       ? slugSafe
       : `entry-${page.id.replace(/[^a-z0-9]/gi, '').toLowerCase().slice(0, 8) || 'item'}`;
 
-  const description =
-    stringOrUndefined(getRichText(page, PROPERTY_KEYS.description)) ?? ensureMinLength(FALLBACK_DESCRIPTION, 10);
+  const rawDescription = getTextProperty(page, PROPERTY_KEYS.description) ?? getRichText(page, PROPERTY_KEYS.description);
+  const description = stringOrUndefined(rawDescription) ?? ensureMinLength(FALLBACK_DESCRIPTION, 10);
 
-  const subtitle = stringOrUndefined(getTextProperty(page, PROPERTY_KEYS.subtitle));
-  const excerpt = truncate(stringOrUndefined(getRichText(page, PROPERTY_KEYS.excerpt)), 500);
-  const tldr = truncate(stringOrUndefined(getTextProperty(page, PROPERTY_KEYS.tldr)), 800);
+  const rawSubtitle = getTextProperty(page, PROPERTY_KEYS.subtitle);
+  const subtitle = stringOrUndefined(rawSubtitle);
+  const rawExcerpt = getTextProperty(page, PROPERTY_KEYS.excerpt) ?? getRichText(page, PROPERTY_KEYS.excerpt);
+  const excerpt = truncate(stringOrUndefined(rawExcerpt), 500);
+  const rawTldr = getTextProperty(page, PROPERTY_KEYS.tldr);
+  const tldr = truncate(stringOrUndefined(rawTldr), 800);
 
   const authorNames = getPeople(page, PROPERTY_KEYS.author);
   const authorRichText = stringOrUndefined(getRichText(page, PROPERTY_KEYS.author));
@@ -357,7 +360,7 @@ async function mapPageToContent(page: PageObjectResponse, n2m: NotionToMarkdown)
   }
 
   const readTimeNumber = getNumber(page, PROPERTY_KEYS.readTime);
-  const readTimeValue = readTimeNumber ?? getRichText(page, PROPERTY_KEYS.readTime) ?? undefined;
+  const readTimeValue = readTimeNumber ?? getTextProperty(page, PROPERTY_KEYS.readTime) ?? undefined;
   const readTime = formatReadTime(readTimeValue);
 
   const difficultyValue = getSelect(page, PROPERTY_KEYS.difficulty);
@@ -384,6 +387,12 @@ async function mapPageToContent(page: PageObjectResponse, n2m: NotionToMarkdown)
   const markdownBlocks = await n2m.pageToMarkdown(page.id);
   const markdownRaw = n2m.toMarkdownString(markdownBlocks);
   const markdown = ensureContent(extractMarkdown(markdownRaw), title);
+
+  if (process.env.NOTION_DEBUG?.toLowerCase() === 'true' || process.env.NOTION_DEBUG === '1') {
+    console.log(`Notion debug for "${title}":`);
+    console.log('  Subtitle ->', rawSubtitle ?? null);
+    console.log('  TLDR ->', rawTldr ?? null);
+  }
 
   const frontmatter: ReportsFrontmatterInput = {
     id: page.id,
@@ -608,6 +617,60 @@ function getTextProperty(page: NotionPage, keys: string[]): string | undefined {
     return getPlainText(titleProp.title);
   }
 
+  const formulaProp = findProperty(page, keys, ['formula']);
+  if (formulaProp?.type === 'formula') {
+    const { formula } = formulaProp;
+    switch (formula.type) {
+      case 'string':
+        return formula.string ?? undefined;
+      case 'number':
+        return typeof formula.number === 'number' ? String(formula.number) : undefined;
+      case 'boolean':
+        return typeof formula.boolean === 'boolean' ? String(formula.boolean) : undefined;
+      case 'date':
+        return formula.date?.start ?? undefined;
+      case 'rich_text':
+        return getPlainText(formula.rich_text);
+      default:
+        return undefined;
+    }
+  }
+
+  const rollupProp = findProperty(page, keys, ['rollup']);
+  if (rollupProp?.type === 'rollup') {
+    const rollup = rollupProp.rollup;
+    if (!rollup) {
+      return undefined;
+    }
+
+    if (rollup.type === 'number' && typeof rollup.number === 'number') {
+      return String(rollup.number);
+    }
+
+    if (rollup.type === 'array') {
+      for (const item of rollup.array) {
+        if (item.type === 'rich_text') {
+          return getPlainText(item.rich_text);
+        }
+        if (item.type === 'title') {
+          return getPlainText(item.title);
+        }
+        if (item.type === 'number' && typeof item.number === 'number') {
+          return String(item.number);
+        }
+        if (item.type === 'formula') {
+          const formula = item.formula;
+          if (formula?.type === 'string' && formula.string) {
+            return formula.string;
+          }
+          if (formula?.type === 'number' && typeof formula.number === 'number') {
+            return String(formula.number);
+          }
+        }
+      }
+    }
+  }
+
   return undefined;
 }
 
@@ -685,10 +748,47 @@ function getFileUrl(page: NotionPage, keys: string[]): string | undefined {
 }
 
 function getNumber(page: NotionPage, keys: string[]): number | undefined {
-  const property = findProperty(page, keys, ['number']);
-  if (property?.type === 'number' && typeof property.number === 'number') {
+  const property = findProperty(page, keys, ['number', 'formula', 'rollup']);
+
+  if (!property) {
+    return undefined;
+  }
+
+  if (property.type === 'number' && typeof property.number === 'number') {
     return property.number;
   }
+
+  if (property.type === 'formula') {
+    const result = property.formula;
+    if (result?.type === 'number' && typeof result.number === 'number') {
+      return result.number;
+    }
+    return undefined;
+  }
+
+  if (property.type === 'rollup') {
+    const rollup = property.rollup;
+    if (!rollup) {
+      return undefined;
+    }
+
+    if (rollup.type === 'number' && typeof rollup.number === 'number') {
+      return rollup.number;
+    }
+
+    if (rollup.type === 'array') {
+      // Find the first numeric entry in the rollup array
+      for (const item of rollup.array) {
+        if (item.type === 'number' && typeof item.number === 'number') {
+          return item.number;
+        }
+        if (item.type === 'formula' && item.formula?.type === 'number' && typeof item.formula.number === 'number') {
+          return item.formula.number;
+        }
+      }
+    }
+  }
+
   return undefined;
 }
 
