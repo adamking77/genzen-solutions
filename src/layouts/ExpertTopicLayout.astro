@@ -1,0 +1,157 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import ContentHero from '../components/templates/ContentHero.astro';
+
+export interface Props {
+  title: string;
+  heroClaim?: string;
+  heroAttribution?: string;
+  summary?: string;
+  subtitle?: string;
+  authorName?: string;
+  authorRole?: string;
+  authorCredentials?: string;
+  heroImage?: string;
+  heroImageAlt?: string;
+  publishedDate?: string;
+  updatedDate?: string;
+  readTime?: string;
+  keywords?: string[];
+  canonicalUrl?: string;
+  ogImage?: string;
+}
+
+const frontmatter = (Astro.props.frontmatter || {}) as Props;
+
+const {
+  title = 'Expert Insight',
+  heroClaim,
+  heroAttribution = 'Adam King, Founder & Chief Strategist, GenZen Solutions',
+  summary,
+  subtitle,
+  authorName = 'Adam King',
+  authorRole = 'Founder & Chief Strategist, GenZen Solutions',
+  authorCredentials = 'Adam King founded GenZen in 2016 with two decades specializing in extraction from high control situations and legacy protection. GenZen restores human agency amidst systematic exploitation.',
+  heroImage,
+  heroImageAlt = title,
+  publishedDate,
+  updatedDate,
+  readTime,
+  keywords = [],
+  canonicalUrl,
+  ogImage,
+} = frontmatter;
+
+const pageDescription = summary || heroClaim || subtitle || 'GenZen expert insight';
+
+const heroChips = [
+  { label: 'Expert Topic', variant: 'primary' },
+  readTime ? { label: readTime, variant: 'muted' } : undefined,
+].filter((chip): chip is { label: string; variant?: 'primary' | 'muted' | 'accent' } => Boolean(chip));
+
+const heroMeta = [
+  authorName
+    ? { label: 'Author', value: authorRole ? `${authorName}, ${authorRole}` : authorName }
+    : undefined,
+  publishedDate ? { label: 'Published', value: publishedDate } : undefined,
+  updatedDate ? { label: 'Updated', value: updatedDate } : undefined,
+].filter((item): item is { label: string; value: string } => Boolean(item?.value));
+
+const structuredData = JSON.stringify({
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: title,
+  description: pageDescription,
+  datePublished: publishedDate,
+  dateModified: updatedDate || publishedDate,
+  author: {
+    '@type': 'Person',
+    name: authorName,
+    jobTitle: authorRole,
+    affiliation: {
+      '@type': 'Organization',
+      name: 'GenZen Solutions',
+      url: 'https://genzen.solutions',
+    },
+  },
+  publisher: {
+    '@type': 'Organization',
+    name: 'GenZen Solutions',
+    url: 'https://genzen.solutions',
+  },
+  keywords,
+  mainEntityOfPage: canonicalUrl,
+  image: ogImage || heroImage,
+}, null, 2);
+---
+
+<BaseLayout title={`${title} | GenZen Solutions`} description={pageDescription}>
+  <ContentHero
+    title={title}
+    subtitle={subtitle}
+    description={summary}
+    tagline={heroClaim}
+    attribution={heroAttribution ? `— ${heroAttribution}` : undefined}
+    chips={heroChips}
+    meta={heroMeta}
+    imageSrc={heroImage}
+    imageAlt={heroImageAlt}
+  />
+
+  <section class="py-8">
+    <div class="max-w-4xl mx-auto px-6 lg:px-8">
+      <div class="section-animate">
+        <div class="bg-card border border-border rounded-xl p-8 lg:p-12 space-y-4">
+          <div class="space-y-2">
+            <p class="text-sm font-medium tracking-[0.2em] uppercase text-muted-foreground">Author Credentials</p>
+            <div class="w-16 h-px bg-foreground/20"></div>
+          </div>
+          <p class="text-lg font-light text-foreground/90 leading-relaxed">
+            {authorCredentials}
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <article class="py-16 lg:py-24 bg-background">
+    <div class="max-w-4xl mx-auto px-6 lg:px-8">
+      <div class="section-animate prose prose-lg max-w-none prose-headings:font-light prose-headings:tracking-tight prose-p:font-light prose-p:leading-relaxed prose-a:text-accent prose-a:no-underline hover:prose-a:underline prose-headings:text-foreground prose-p:text-foreground/90">
+        <slot />
+      </div>
+    </div>
+  </article>
+
+  <script type="application/ld+json" set:html={structuredData}></script>
+</BaseLayout>
+
+<style>
+  .section-animate {
+    opacity: 0;
+    transform: translateY(2rem);
+    animation: fadeInUp 0.8s ease-out forwards;
+  }
+  
+  .section-animate:nth-child(2) { animation-delay: 0.1s; }
+  .section-animate:nth-child(3) { animation-delay: 0.2s; }
+  .section-animate:nth-child(4) { animation-delay: 0.3s; }
+  
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(2rem);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  @media (prefers-reduced-motion: reduce) {
+    .section-animate {
+      animation: none;
+      opacity: 1;
+      transform: none;
+    }
+  }
+</style>

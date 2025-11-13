@@ -4,6 +4,8 @@ export interface Props {
   Content: any;
 }
 
+import ContentHero from './ContentHero.astro';
+
 const { entry, Content } = Astro.props;
 const { data } = entry;
 
@@ -12,90 +14,30 @@ const formatPublishDate = (dateString: string) => {
   if (!dateString) return '';
   return dateString;
 };
+
+const heroChips = [
+  data.category ? { label: data.category, variant: 'primary' } : undefined,
+  data.readTime ? { label: data.readTime, variant: 'muted' } : undefined,
+  data.featured ? { label: 'Featured', variant: 'accent' } : undefined,
+].filter((chip): chip is { label: string; variant?: 'primary' | 'muted' | 'accent' } => Boolean(chip));
+
+const heroMeta = [
+  data.author ? { label: 'Author', value: data.author } : undefined,
+  data.category ? { label: 'Category', value: data.category } : undefined,
+  data.publishDate ? { label: 'Published', value: formatPublishDate(data.publishDate) } : undefined,
+  data.readTime ? { label: 'Reading Time', value: data.readTime } : undefined,
+].filter((item): item is { label: string; value: string } => Boolean(item?.value));
 ---
 
-<!-- Report Header -->
-<section class="pt-32 pb-16 lg:pt-40 lg:pb-24">
-  <div class="max-w-6xl mx-auto px-6 lg:px-8">
-    <div class="grid lg:grid-cols-2 gap-12 items-start">
-      <!-- Report Info -->
-      <div class="section-animate">
-        <div class="flex flex-wrap items-center gap-2 text-sm mb-6">
-          {data.category && (
-            <span class="px-3 py-1 bg-primary/10 text-primary rounded-full">
-              {data.category}
-            </span>
-          )}
-          {data.readTime && (
-            <span class="px-3 py-1 bg-muted text-muted-foreground rounded-full">
-              {data.readTime}
-            </span>
-          )}
-          {data.featured && (
-            <span class="px-3 py-1 bg-primary/20 text-primary rounded-full">
-              Featured
-            </span>
-          )}
-        </div>
-        
-        <h1 class="text-3xl md:text-4xl lg:text-5xl font-light leading-[1.3] tracking-tight text-foreground mb-4">
-          {data.title}
-        </h1>
-        
-        {data.subtitle && (
-          <p class="text-xl text-foreground/80 font-light mb-6">
-            {data.subtitle}
-          </p>
-        )}
-        
-        <p class="text-lg text-muted-foreground font-light leading-relaxed mb-8">
-          {data.description}
-        </p>
-        
-        <!-- Report Metadata -->
-        <div class="grid grid-cols-2 gap-6 pt-6 border-t border-border">
-          {data.author && (
-            <div>
-              <dt class="text-sm font-medium text-muted-foreground mb-1">Author</dt>
-              <dd class="text-foreground font-light">{data.author}</dd>
-            </div>
-          )}
-          {data.category && (
-            <div>
-              <dt class="text-sm font-medium text-muted-foreground mb-1">Category</dt>
-              <dd class="text-foreground font-light">{data.category}</dd>
-            </div>
-          )}
-          {data.publishDate && (
-            <div>
-              <dt class="text-sm font-medium text-muted-foreground mb-1">Published</dt>
-              <dd class="text-foreground font-light">{formatPublishDate(data.publishDate)}</dd>
-            </div>
-          )}
-          {data.readTime && (
-            <div>
-              <dt class="text-sm font-medium text-muted-foreground mb-1">Reading Time</dt>
-              <dd class="text-foreground font-light">{data.readTime}</dd>
-            </div>
-          )}
-        </div>
-      </div>
-      
-      <!-- Featured Image -->
-      <div class="section-animate">
-        {data.featuredImage && (
-          <div class="aspect-video overflow-hidden rounded-xl bg-accent/10">
-            <img 
-              src={data.featuredImage}
-              alt={data.title}
-              class="w-full h-full object-cover"
-            />
-          </div>
-        )}
-      </div>
-    </div>
-  </div>
-</section>
+<ContentHero
+  title={data.title}
+  subtitle={data.subtitle}
+  description={data.description}
+  chips={heroChips}
+  meta={heroMeta}
+  imageSrc={data.featuredImage}
+  imageAlt={data.featuredImageAlt || data.title}
+/>
 
 <!-- TL;DR Section -->
 {data.tldr && (

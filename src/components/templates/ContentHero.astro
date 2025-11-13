@@ -1,0 +1,147 @@
+---
+export interface HeroChip {
+  label: string;
+  variant?: 'primary' | 'muted' | 'accent';
+}
+
+export interface HeroMetaItem {
+  label: string;
+  value?: string;
+}
+
+export interface Props {
+  title: string;
+  subtitle?: string;
+  description?: string;
+  tagline?: string;
+  attribution?: string;
+  chips?: HeroChip[];
+  meta?: HeroMetaItem[];
+  imageSrc?: string;
+  imageAlt?: string;
+}
+
+const {
+  title,
+  subtitle,
+  description,
+  tagline,
+  attribution,
+  chips = [],
+  meta = [],
+  imageSrc,
+  imageAlt = title,
+} = Astro.props;
+
+const filteredChips = chips.filter((chip) => chip?.label);
+const filteredMeta = meta.filter((item) => item?.label && item?.value);
+
+const chipClasses = (variant: HeroChip['variant'] = 'primary') => {
+  switch (variant) {
+    case 'accent':
+      return 'bg-accent/10 text-accent rounded-full';
+    case 'muted':
+      return 'bg-muted text-muted-foreground rounded-full';
+    default:
+      return 'bg-primary/10 text-primary rounded-full';
+  }
+};
+---
+
+<section class="pt-32 pb-16 lg:pt-40 lg:pb-24">
+  <div class="max-w-6xl mx-auto px-6 lg:px-8">
+    <div class="grid lg:grid-cols-2 gap-12 items-start">
+      <div class="section-animate">
+        {filteredChips.length > 0 && (
+          <div class="flex flex-wrap items-center gap-2 text-sm mb-6">
+            {filteredChips.map((chip) => (
+              <span class={`px-3 py-1 font-medium ${chipClasses(chip.variant)}`}>
+                {chip.label}
+              </span>
+            ))}
+          </div>
+        )}
+
+        <h1 class="text-3xl md:text-4xl lg:text-5xl font-light leading-[1.3] tracking-tight text-foreground mb-4">
+          {title}
+        </h1>
+
+        {tagline && (
+          <div class="mb-6">
+            <p class="text-xl italic text-foreground/90 mb-2">“{tagline}”</p>
+            {attribution && (
+              <p class="text-sm uppercase tracking-wide text-foreground/60">{attribution}</p>
+            )}
+          </div>
+        )}
+
+        {subtitle && (
+          <p class="text-xl text-foreground/80 font-light mb-6">
+            {subtitle}
+          </p>
+        )}
+
+        {description && (
+          <p class="text-lg text-muted-foreground font-light leading-relaxed mb-8">
+            {description}
+          </p>
+        )}
+
+        {filteredMeta.length > 0 && (
+          <div class="grid grid-cols-2 gap-6 pt-6 border-t border-border">
+            {filteredMeta.map((item) => (
+              <div>
+                <dt class="text-sm font-medium text-muted-foreground mb-1">{item.label}</dt>
+                <dd class="text-foreground font-light">{item.value}</dd>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+
+      <div class="section-animate">
+        {imageSrc && (
+          <div class="aspect-video overflow-hidden rounded-xl bg-accent/10">
+            <img 
+              src={imageSrc}
+              alt={imageAlt}
+              class="w-full h-full object-cover"
+              loading="lazy"
+            />
+          </div>
+        )}
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .section-animate {
+    opacity: 0;
+    transform: translateY(2rem);
+    animation: fadeInUp 0.8s ease-out forwards;
+  }
+  
+  .section-animate:nth-child(2) { animation-delay: 0.1s; }
+  .section-animate:nth-child(3) { animation-delay: 0.2s; }
+  .section-animate:nth-child(4) { animation-delay: 0.3s; }
+  
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(2rem);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  @media (prefers-reduced-motion: reduce) {
+    .section-animate {
+      animation: none;
+      opacity: 1;
+      transform: none;
+    }
+  }
+</style>
